@@ -3,13 +3,11 @@ package com.highfive.refurmoa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
+@Entity
 @Table(name = "prod_partner")
-
 public class ProdPartner {
 
     @Id
@@ -29,5 +27,13 @@ public class ProdPartner {
     @Column(name = "com_email", nullable = false, length = 30)
     private String comEmail;
 
+    @Column(name = "com_addr", nullable = false, length = 50)
+    private String comAddr;
+
+    @Column(name = "com_detail_addr", nullable = false, length = 50)
+    private String comDetailAddr;
+
+    @Column(name = "com_status", nullable = false)
+    private int comStatus;
 
 }
