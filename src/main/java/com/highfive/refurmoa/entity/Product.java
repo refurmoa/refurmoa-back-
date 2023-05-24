@@ -15,9 +15,9 @@ public class Product {
     @Column(name = "product_code", nullable = false)
     private int productCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "com_num")
-    private Member comNum;
+    private ProdPartner comNum;
 
     @Column(name = "category_code", nullable = false, length = 10)
     private String categoryCode;
