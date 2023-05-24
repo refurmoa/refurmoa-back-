@@ -1,11 +1,10 @@
 package com.highfive.refurmoa.user.service;
 
 import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
-import com.highfive.refurmoa.user.entity.Member;
+import com.highfive.refurmoa.user.entity.MemberEntity;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
 import java.util.Date;
 
 @Service
@@ -30,8 +29,8 @@ public class MemberServiceImpl implements MemberService {
         int MILE = 0;
         boolean ACCEPT_LOCATION = signupRequestDto.isAccept_location();
         boolean ACCEPT_ALARM = signupRequestDto.isAccept_alarm();
-        Member member = new Member(MEMBER_ID, PASSWORD, NAME, PHONE, EMAIL, ADDRESS, DETAIL_ADDRESS, BIRTH, GRADE, MILE, ACCEPT_LOCATION, ACCEPT_ALARM);
-        repository.save(member);
+        MemberEntity memberEntity = new MemberEntity(MEMBER_ID, PASSWORD, NAME, PHONE, EMAIL, ADDRESS, DETAIL_ADDRESS, BIRTH, GRADE, MILE, ACCEPT_LOCATION, ACCEPT_ALARM);
+        repository.save(memberEntity);
         return 1;
     }
 }

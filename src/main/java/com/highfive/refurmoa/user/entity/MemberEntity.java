@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Member {
+public class MemberEntity {
 
     @Id
     @Column(name = "member_id", nullable = false, length = 15)
