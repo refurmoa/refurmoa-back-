@@ -1,7 +1,6 @@
 package com.highfive.refurmoa.entity;
 
 import java.util.Date;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import jakarta.persistence.*;
