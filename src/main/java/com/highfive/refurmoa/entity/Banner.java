@@ -6,8 +6,10 @@ import lombok.Setter;
 
 import java.util.Date;
 
+
 @Getter
 @Setter
+@Entity
 public class Banner {
 
     @Id

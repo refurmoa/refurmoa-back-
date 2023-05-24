@@ -6,9 +6,11 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 
+
 @Getter
 @Setter
 @Table(name = "as_store")
+@Entity
 public class AsStore {
 
     @Id
