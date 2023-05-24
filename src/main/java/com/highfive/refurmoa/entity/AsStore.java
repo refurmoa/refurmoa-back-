@@ -3,14 +3,12 @@ package com.highfive.refurmoa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.math.BigDecimal;
-
 
 @Getter
 @Setter
-@Table(name = "as_store")
 @Entity
+@Table(name = "as_store")
 public class AsStore {
 
     @Id
@@ -30,10 +28,10 @@ public class AsStore {
     @Column(name = "store_detail", nullable = false, length = 100)
     private String storeDetail;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 18, scale = 10)
     private BigDecimal latitude;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 18, scale = 10)
     private BigDecimal longitude;
 
 }

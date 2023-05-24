@@ -1,26 +1,18 @@
 package com.highfive.refurmoa.entity;
 
-import java.util.Date;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-@Entity
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import java.util.Date;
+
 @Getter
 @Setter
+@Entity
+@Table(name = "prod_inquiry")
 public class ProdInquiry {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "prod_inquiry_num", nullable = false)
@@ -28,17 +20,17 @@ public class ProdInquiry {
 		
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
-	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Member memberId;
 		
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "board_num")
+	@JoinColumn(name = "board_num", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Board boardNum;
 		
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "product_code")
+	@JoinColumn(name = "product_code", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	private Board productCode;
+	private Product productCode;
 
 	@Column(name = "secret", nullable = false)
 	private boolean secret;

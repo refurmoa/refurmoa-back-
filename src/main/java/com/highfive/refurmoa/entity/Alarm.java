@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import java.util.Date;
 
 @Getter
@@ -19,12 +18,12 @@ public class Alarm {
     private int alarm;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Member memberId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_num")
+    @JoinColumn(name = "board_num", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Board boardNum;
 
@@ -34,4 +33,5 @@ public class Alarm {
     @Column(name = "alarm_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date alarmDate;
+
 }
