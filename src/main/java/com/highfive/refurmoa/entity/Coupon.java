@@ -36,7 +36,7 @@ public class Coupon {
     @Temporal(TemporalType.TIMESTAMP)
     private Date validDate;
 
-    @Column(name = "use_check")
+    @Column(name = "use_check", nullable = false)
     private boolean useCheck;
 
     @Column(name = "use_date")

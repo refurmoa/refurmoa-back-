@@ -3,14 +3,12 @@ package com.highfive.refurmoa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.Date;
-
 
 @Getter
 @Setter
-@Table(name = "faq_board")
 @Entity
+@Table(name = "faq_board")
 public class FaqBoard {
 
     @Id
@@ -30,4 +28,5 @@ public class FaqBoard {
     @Column(name = "faq_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date faqDate;
+
 }

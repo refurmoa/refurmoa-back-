@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import java.util.Date;
 
 @Getter
@@ -13,15 +12,20 @@ import java.util.Date;
 @Entity
 public class Delivery {
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "pay_num", nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false)
+    private int num;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "pay_num", nullable = false, referencedColumnName = "pay_num")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private int payNum;
+    private Payment payNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_code", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private int productCode;
+    private Product productCode;
 
     @Column(name = "deli_num", length = 20)
     private String deliNum;
@@ -44,4 +48,5 @@ public class Delivery {
     @Column(name = "deli_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliDate;
+
 }

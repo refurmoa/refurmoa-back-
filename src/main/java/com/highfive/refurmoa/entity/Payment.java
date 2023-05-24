@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
 import java.util.Date;
 
 @Getter
@@ -14,12 +13,11 @@ import java.util.Date;
 public class Payment {
 
     @Id
-    @Column(nullable = false)
+    @Column(name = "pay_num", nullable = false)
     private int payNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    @Column(length = 15)
     private Member memberId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -58,4 +56,5 @@ public class Payment {
 
     @Column(name = "pay_cancel", nullable = false)
     private boolean payCancel;
+
 }

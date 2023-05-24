@@ -1,15 +1,15 @@
 package com.highfive.refurmoa.entity;
 
-import java.util.Date;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import java.util.Date;
 
-@Entity
 @Getter
 @Setter
+@Entity
 public class Inquiry {
 
     @Id
@@ -37,5 +37,9 @@ public class Inquiry {
 
     @Column(name = "answer_con", length = 500)
     private String answerCon;
+
+    @Column(name = "answer_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date answerDate;
 
 }

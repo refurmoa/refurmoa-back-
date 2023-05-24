@@ -26,4 +26,5 @@ public class Mile {
 
     @Column(nullable = false)
     private int point;
+
 }

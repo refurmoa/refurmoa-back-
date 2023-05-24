@@ -1,13 +1,13 @@
 package com.highfive.refurmoa.entity;
 
-import java.util.Date;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.Date;
 
-@Entity
 @Getter
 @Setter
+@Entity
 public class Member {
 
     @Id
