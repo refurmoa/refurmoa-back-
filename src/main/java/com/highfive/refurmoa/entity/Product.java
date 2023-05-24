@@ -15,7 +15,7 @@ public class Product {
     @Column(name = "product_code", nullable = false)
     private int productCode;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "com_num")
     private ProdPartner comNum;
 
