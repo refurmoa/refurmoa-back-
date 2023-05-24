@@ -18,20 +18,20 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Userlike {
-	
-	  	@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @Column(name = "like_num", nullable = false)
-	  	private int likeNum;
-	  	
-	  	@ManyToOne(fetch = FetchType.LAZY)
-	    @JoinColumn(name = "member_id")
-	    @OnDelete(action = OnDeleteAction.CASCADE)
-	    private Member memberId;
-	  	
-	  	@ManyToOne(fetch = FetchType.LAZY)
-	    @JoinColumn(name = "board_num")
-	    @OnDelete(action = OnDeleteAction.CASCADE)
-	    private Board boardNum;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "like_num", nullable = false)
+	private int likeNum;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "member_id")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Member memberId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "board_num")
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Board boardNum;
 	  	
 }
