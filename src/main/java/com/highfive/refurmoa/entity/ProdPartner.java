@@ -29,10 +29,5 @@ public class ProdPartner {
     @Column(name = "com_email", nullable = false, length = 30)
     private String comEmail;
 
-    @Column(name = "com_addr", nullable = false, length = 50)
-    private String comAddr;
-
-    @Column(nullable = false)
-    private int point;
 
 }
