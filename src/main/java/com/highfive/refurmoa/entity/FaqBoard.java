@@ -6,9 +6,11 @@ import lombok.Setter;
 
 import java.util.Date;
 
+
 @Getter
 @Setter
 @Table(name = "faq_board")
+@Entity
 public class FaqBoard {
 
     @Id

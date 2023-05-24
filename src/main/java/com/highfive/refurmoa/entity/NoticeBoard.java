@@ -9,6 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name = "notice_board")
+@Entity
 public class NoticeBoard {
 
     @Id
