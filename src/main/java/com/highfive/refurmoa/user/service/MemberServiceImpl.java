@@ -35,21 +35,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override // 회원가입
-    public int insertMember(SignupRequestDto signupRequestDto) {
-        String MEMBER_ID = signupRequestDto.getMember_id();
-        String PASSWORD = signupRequestDto.getPassword();
-        String NAME = signupRequestDto.getName();
-        String PHONE = signupRequestDto.getPhone();
-        String EMAIL = signupRequestDto.getEmail();
-        String ADDRESS = signupRequestDto.getAddress();
-        String DETAIL_ADDRESS = signupRequestDto.getDetail_address();
-        Date BIRTH = signupRequestDto.getBirth();
-        int GRADE = 0;
-        int MILE = 0;
-        boolean ACCEPT_LOCATION = signupRequestDto.isAccept_location();
-        boolean ACCEPT_ALARM = signupRequestDto.isAccept_alarm();
-        Member memberEntity = new Member(MEMBER_ID, PASSWORD, NAME, PHONE, EMAIL, ADDRESS, DETAIL_ADDRESS, BIRTH, GRADE, MILE, ACCEPT_LOCATION, ACCEPT_ALARM);
-        repository.save(memberEntity);
+    public int insertMember(Member member) {
+        repository.save(member);
         return 1;
     }
 

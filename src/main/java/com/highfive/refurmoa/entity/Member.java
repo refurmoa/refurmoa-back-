@@ -40,10 +40,10 @@ public class Member {
     @Temporal(TemporalType.DATE)
     private Date birth;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "int default 0", nullable = false)
     private int grade;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "int default 0", nullable = false)
     private int mile;
 
     @Column(name = "accept_location", nullable = false)

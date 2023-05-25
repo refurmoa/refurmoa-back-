@@ -34,8 +34,8 @@ public class MemberController {
 
     // 회원가입
     @PostMapping("/signup")
-    public int insertMember(@RequestBody SignupRequestDto signupRequestDto) {
-        return memberServiceImpl.insertMember(signupRequestDto);
+    public int insertMember(@RequestBody Member member) {
+        return memberServiceImpl.insertMember(member);
     }
 
     // ID 중복 검사
