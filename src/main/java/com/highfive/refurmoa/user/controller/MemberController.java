@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.highfive.refurmoa.user.dto.request.LoginDTO;
 import com.highfive.refurmoa.entity.Member;
-import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
+import com.highfive.refurmoa.user.dto.request.SignupRequestDTO;
 import com.highfive.refurmoa.user.service.MemberServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,8 @@ public class MemberController {
 
     private final MemberServiceImpl memberServiceImpl;
 
-    @PostMapping("signup")
-    public int insertMember(@RequestBody SignupRequestDto signupRequestDto) {
+    @PostMapping("signup") // 회원가입
+    public int insertMember(@RequestBody SignupRequestDTO signupRequestDto) {
         return memberServiceImpl.insertMember(signupRequestDto);
     }
   
