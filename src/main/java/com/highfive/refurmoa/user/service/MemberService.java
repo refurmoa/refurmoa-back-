@@ -1,10 +1,14 @@
 package com.highfive.refurmoa.user.service;
-import com.highfive.refurmoa.user.dto.request.LoginDTO;
-import com.highfive.refurmoa.user.dto.request.SignupRequestDTO;
+
+import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
 
 public interface MemberService {
-    public int insertMember(SignupRequestDTO signupRequestDto);
-    public int login(LoginDTO login);
-//	public int countMember(String memberId);
-	  public long countMemberId(String memberId);
+
+    public int login(String member_id, String password); // 로그인
+    public String findID(String name, String phone); // ID 찾기
+    public String findPW(String member_id, String name, String phone); // PW 찾기
+    public int insertMember(Member member); // 회원가입
+    public long countMemberId(String memberId); // ID 중복 검사
+
 }
