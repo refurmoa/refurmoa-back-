@@ -24,6 +24,7 @@ public class MemberController {
     @PostMapping("/login")
 	  public int loginUser(@RequestBody LoginDTO login) {
 		return memberServiceImpl.login(login);
+    }
       
 //  일반 쿼리문
 //	@RequestMapping("/signup/distinct")
