@@ -3,7 +3,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.highfive.refurmoa.entity.Member;
-import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
+import com.highfive.refurmoa.user.dto.request.SignupRequestDTO;
 import com.highfive.refurmoa.user.service.MemberServiceImpl;
 
 import lombok.RequiredArgsConstructor;

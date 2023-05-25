@@ -1,7 +1,6 @@
 package com.highfive.refurmoa.user.service;
 import org.springframework.stereotype.Service;
 import com.highfive.refurmoa.entity.Member;
-import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 import java.util.Date;
 
