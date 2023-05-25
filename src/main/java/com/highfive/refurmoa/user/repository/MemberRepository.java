@@ -1,7 +1,14 @@
 package com.highfive.refurmoa.user.repository;
 
-import com.highfive.refurmoa.user.entity.MemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository extends JpaRepository<MemberEntity, String> {
+import com.highfive.refurmoa.entity.Member;
+
+
+public interface MemberRepository extends JpaRepository<Member, String> {
+	
+//	@Query(value="select count(*) from member where member_id = :memberId", nativeQuery=true)
+//	int countMember(@Param("memberId") String memberId);
+	
+	long countByMemberId(String memberId);
 }

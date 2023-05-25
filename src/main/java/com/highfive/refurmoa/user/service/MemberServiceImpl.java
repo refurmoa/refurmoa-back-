@@ -1,11 +1,12 @@
 package com.highfive.refurmoa.user.service;
 
-import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
-import com.highfive.refurmoa.user.entity.MemberEntity;
-import com.highfive.refurmoa.user.repository.MemberRepository;
+import java.util.Date;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
+import com.highfive.refurmoa.user.repository.MemberRepository;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -29,8 +30,18 @@ public class MemberServiceImpl implements MemberService {
         int MILE = 0;
         boolean ACCEPT_LOCATION = signupRequestDto.isAccept_location();
         boolean ACCEPT_ALARM = signupRequestDto.isAccept_alarm();
-        MemberEntity memberEntity = new MemberEntity(MEMBER_ID, PASSWORD, NAME, PHONE, EMAIL, ADDRESS, DETAIL_ADDRESS, BIRTH, GRADE, MILE, ACCEPT_LOCATION, ACCEPT_ALARM);
+        Member memberEntity = new Member(MEMBER_ID, PASSWORD, NAME, PHONE, EMAIL, ADDRESS, DETAIL_ADDRESS, BIRTH, GRADE, MILE, ACCEPT_LOCATION, ACCEPT_ALARM);
         repository.save(memberEntity);
         return 1;
     }
+    
+//	@Override
+//	public int countMember(String memberId) {
+//		return repository.countMember(memberId);
+//	}
+	
+	@Override
+	public long countMemberId(String memberId) {
+		return repository.countByMemberId(memberId);
+	}
 }
