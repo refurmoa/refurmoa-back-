@@ -28,7 +28,7 @@ public class Inquiry {
     @Column(name = "inq_con", nullable = false, length = 500)
     private String inqCon;
 
-    @Column(name = "inq_img", length = 50)
+    @Column(name = "inq_img", length = 100)
     private String inqImg;
 
     @Column(name = "inq_date", nullable = false)

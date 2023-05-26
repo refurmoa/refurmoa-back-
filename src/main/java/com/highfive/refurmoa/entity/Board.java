@@ -43,7 +43,7 @@ public class Board {
     @Column(name = "delivery_price", nullable = false)
     private int deliveryPrice;
 
-    @Column(name = "detail_image", nullable = false, length = 70)
+    @Column(name = "detail_image", nullable = false, length = 100)
     private String detailImage;
 
     @Column(name = "start_date", nullable = false)

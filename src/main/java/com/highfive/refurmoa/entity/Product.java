@@ -25,7 +25,7 @@ public class Product {
     @Column(nullable = false, length = 20)
     private String category;
 
-    @Column(name = "main_image", nullable = false, length = 50)
+    @Column(name = "main_image", nullable = false, length = 100)
     private String mainImage;
 
     @Column(name = "prod_com", nullable = false, length = 15)
@@ -46,13 +46,13 @@ public class Product {
     @Column(name = "defect_text", nullable = false, length = 200)
     private String defectText;
 
-    @Column(name = "defect_image1", length = 50)
+    @Column(name = "defect_image1", length = 100)
     private String defectImage1;
 
-    @Column(name = "defect_image2", length = 50)
+    @Column(name = "defect_image2", length = 100)
     private String defectImage2;
 
-    @Column(name = "defect_image3", length = 50)
+    @Column(name = "defect_image3", length = 100)
     private String defectImage3;
 
     @Column(name = "reg_date", nullable = false)
