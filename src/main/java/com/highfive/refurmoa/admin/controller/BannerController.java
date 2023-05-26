@@ -1,6 +1,7 @@
 package com.highfive.refurmoa.admin.controller;
 
 import com.highfive.refurmoa.admin.dto.request.WriteBannerRequestDTO;
+import com.highfive.refurmoa.admin.dto.response.GetBannerResponseDTO;
 import com.highfive.refurmoa.admin.service.BannerServiceImpl;
 import com.highfive.refurmoa.entity.Banner;
 import lombok.RequiredArgsConstructor;
@@ -18,14 +19,18 @@ public class BannerController {
 
     // 배너 목록 조회
     @GetMapping("/admin/banner")
-    public Page<Banner> getListBanner(Pageable pageable) {
-        return bannerServiceImpl.getListBanner(pageable);
+    public Page<GetBannerResponseDTO> getListBanner(Pageable pageable) {
+        Page<Banner> banner = bannerServiceImpl.getListBanner(pageable);
+        Page<GetBannerResponseDTO> getBannerResponseDTOS = banner.map(GetBannerResponseDTO::new);
+        return getBannerResponseDTOS;
     }
 
     // 배너 목록 검색
     @GetMapping("/admin/banner/search")
-    public Page<Banner> searchBanner(@RequestParam String search, Pageable pageable) {
-        return bannerServiceImpl.searchBanner(search, pageable);
+    public Page<GetBannerResponseDTO> searchBanner(@RequestParam String search, Pageable pageable) {
+        Page<Banner> banner = bannerServiceImpl.searchBanner(search, pageable);
+        Page<GetBannerResponseDTO> getBannerResponseDTOS = banner.map(GetBannerResponseDTO::new);
+        return getBannerResponseDTOS;
     }
 
     // 배너 등록
