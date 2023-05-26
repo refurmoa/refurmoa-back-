@@ -22,7 +22,7 @@ public class NoticeBoard {
     @Column(name = "noti_inf", nullable = false, length = 50)
     private String notiInf;
 
-    @Column(name = "noti_image", length = 50)
+    @Column(name = "noti_image", length = 100)
     private String notiImage;
 
     @Column(name = "read_count", nullable = false)
