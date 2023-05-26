@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.highfive.refurmoa.entity.Product;
 import com.highfive.refurmoa.prod.DTO.ProdFileDTO;
+import com.highfive.refurmoa.prod.DTO.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.ProductWriteDTO;
 import com.highfive.refurmoa.prod.service.ProductServiceImpl;
 
@@ -26,32 +26,24 @@ public class ProductContorller {
 	private int prodNum;
 	
 	private final ProductServiceImpl ProductServiceImpl;
+//	@PostMapping("/product/write")
+//    public int ProductWrite(@RequestBody  ProductWriteDTO prodDto)   {
+//		prodNum=ProductServiceImpl.ProductWrite(prodDto);
+//        return prodNum;
+//    }
 	@PostMapping("/product/write")
-    public int ProductWrite(@RequestBody  ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
-		prodNum=ProductServiceImpl.ProductWrite(prodDto);
+    public int ProductUpdate(@RequestParam(value="main_image") MultipartFile main_image,
+    		@RequestParam(value="uploadfiles") MultipartFile[] uploadfiles, ProductWriteDTO prodDto) throws IOException   {
+//		prodNum=ProductServiceImpl.ProductWrite(main_image,uploadfiles,prodDto);
+		System.out.println(main_image);
+		System.out.println(uploadfiles);
+		System.out.println(prodDto.getDeffect_text());
         return prodNum;
     }
 
-	@PostMapping("/uploadfile")
-	public int upload(@RequestBody MultipartFile[] uploadfiles) throws IOException {
-       
-		int prod_num = prodNum;
-		System.out.println("prod_num : " + prod_num);
-		File main = new File(UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-		uploadfiles[0].transferTo(main);
-		File defect1 = new File(UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-		uploadfiles[1].transferTo(defect1);
-		File defect2 = new File(UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-		uploadfiles[2].transferTo(defect2);
-		File defect3 = new File(UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-		uploadfiles[3].transferTo(defect3);
-		ProdFileDTO dto= new ProdFileDTO(prod_num,uploadfiles[0].getOriginalFilename(),main.toString(),uploadfiles[1].getOriginalFilename(),defect1.toString()
-				,uploadfiles[2].getOriginalFilename(),defect2.toString(),uploadfiles[3].getOriginalFilename(),defect3.toString() );
-		ProductServiceImpl.insertFile(dto);
-		return 1;
-    }
-	@GetMapping("/product/update")
-	 public Product ProductWrite(@RequestParam int productCode) {
+	
+	@GetMapping("/product/updateInfo")
+	 public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
         return ProductServiceImpl.productInfo(productCode);
     }
 
