@@ -1,12 +1,17 @@
 package com.highfive.refurmoa.entity;
 
+import com.highfive.refurmoa.admin.dto.request.WriteBannerRequestDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Banner {
 
@@ -15,7 +20,7 @@ public class Banner {
     @Column(name = "bann_num", nullable = false)
     private int bannNum;
 
-    @Column(name = "bann_image", nullable = false, length = 50)
+    @Column(name = "bann_image", nullable = false, length = 100)
     private String bannImage;
 
     @Column(name = "seller_name", nullable = false, length = 15)
@@ -37,5 +42,14 @@ public class Banner {
     @Column(name = "bann_end", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date bannEnd;
-    
+
+    public Banner(String bannerImage, WriteBannerRequestDTO writeBannerRequestDTO) {
+        this.bannImage = bannerImage;
+        this.sellerName = writeBannerRequestDTO.getSeller_name();
+        this.sellerPhone = writeBannerRequestDTO.getSeller_phone();
+        this.bannLink = writeBannerRequestDTO.getBann_link();
+        this.bannRef = writeBannerRequestDTO.getBann_ref();
+        this.bannStart = writeBannerRequestDTO.getBann_start();
+        this.bannEnd = writeBannerRequestDTO.getBann_end();
+    }
 }
