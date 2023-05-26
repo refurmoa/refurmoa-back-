@@ -4,10 +4,11 @@ import com.highfive.refurmoa.admin.dto.request.WriteBannerRequestDTO;
 import com.highfive.refurmoa.admin.service.BannerServiceImpl;
 import com.highfive.refurmoa.entity.Banner;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,15 +16,30 @@ public class BannerController {
 
     private final BannerServiceImpl bannerServiceImpl;
 
+    // 배너 목록 조회
     @GetMapping("/admin/banner")
-    public List<Banner> getListBanner() {
-        return bannerServiceImpl.getListBanner();
+    public Page<Banner> getListBanner(Pageable pageable) {
+        return bannerServiceImpl.getListBanner(pageable);
     }
 
+    // 배너 목록 검색
+    @GetMapping("/admin/banner/search")
+    public Page<Banner> searchBanner(@RequestParam String search, Pageable pageable) {
+        return bannerServiceImpl.searchBanner(search, pageable);
+    }
+
+    // 배너 등록
     @PostMapping("/admin/banner/write")
     public int writeBanner(@RequestParam(value="banner_img") MultipartFile banner_img,
                            WriteBannerRequestDTO writeBannerRequestDTO) throws Exception {
         bannerServiceImpl.writeBanner(writeBannerRequestDTO,banner_img);
+        return 1;
+    }
+
+    // 배너 삭제
+    @GetMapping("/admin/banner/delete")
+    public int deleteBanner(@RequestParam("bannerNum") int bann_num) {
+        bannerServiceImpl.deleteBanner(bann_num);
         return 1;
     }
 
