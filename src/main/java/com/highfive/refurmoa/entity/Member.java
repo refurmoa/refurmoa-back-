@@ -1,21 +1,16 @@
 package com.highfive.refurmoa.entity;
 
-import java.util.Date;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import java.util.Date;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Member {
 
@@ -45,10 +40,10 @@ public class Member {
     @Temporal(TemporalType.DATE)
     private Date birth;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "int default 0", nullable = false)
     private int grade;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "int default 0", nullable = false)
     private int mile;
 
     @Column(name = "accept_location", nullable = false)
