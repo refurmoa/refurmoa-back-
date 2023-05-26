@@ -19,4 +19,11 @@ public interface ProductRepository  extends JpaRepository<Product, String>{
 	@Modifying
 	@Query(value="update product set main_image=:main,defect_image1=:defect1,defect_image2=:defect2,defect_image3=:defect3  where product_code=:num",nativeQuery=true)
 	int insert(@Param("num")int num,@Param("main")String main,@Param("defect1")String defect1,@Param("defect2")String defect2,@Param("defect3")String defect3 );
+	
+	
+	
+	@Query(value="select * from product where prodcut_code=:num",nativeQuery=true)
+	Product productInfo(@Param("num")int num );
 }
+
+

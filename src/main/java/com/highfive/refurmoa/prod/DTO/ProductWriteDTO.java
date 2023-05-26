@@ -1,5 +1,6 @@
 package com.highfive.refurmoa.prod.DTO;
 
+import java.io.File;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
