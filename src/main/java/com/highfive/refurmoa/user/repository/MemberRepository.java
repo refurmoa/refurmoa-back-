@@ -1,8 +1,11 @@
 package com.highfive.refurmoa.user.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+
 import com.highfive.refurmoa.entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
@@ -15,4 +18,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
   
 	long countByMemberId(String memberId);
   
+	List<Member> findByMemberId(String memberId);
+	
+
 }

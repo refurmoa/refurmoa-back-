@@ -1,13 +1,13 @@
 package com.highfive.refurmoa.user.service;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.user.dto.request.LoginDTO;
 import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
-import com.highfive.refurmoa.user.dto.request.SignupRequestDto;
 import com.highfive.refurmoa.user.repository.MemberRepository;
-
-import java.util.Date;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -47,14 +47,30 @@ public class MemberServiceImpl implements MemberService {
 			return 0;
 		}
     }
-    
-//	@Override
-//	public int countMember(String memberId) {
-//		return repository.countMember(memberId);
-//	}
 	
 	@Override
 	public long countMemberId(String memberId) {
 		return repository.countByMemberId(memberId);
+	}
+	
+	@Override
+	public List<Member> listMember(String memberId) {
+		return (List<Member>)repository.findByMemberId(memberId);
+	}
+	
+	@Override
+	public void deleteMember(String memberId) {
+		repository.deleteById(memberId);
+	}
+	
+	@Override
+	public Member updateMember(String memberId, Member member) {
+		Member existingMember = repository.findById(memberId).get();
+		existingMember.setPassword(member.getPassword());
+		existingMember.setPhone(member.getPhone());
+		existingMember.setEmail(member.getEmail());
+		existingMember.setAddress(member.getAddress());
+		existingMember.setDetailAddress(member.getDetailAddress());
+		return repository.save(existingMember);
 	}
 }
