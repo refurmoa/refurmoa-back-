@@ -46,8 +46,8 @@ public class FaqBoardServiceImpl implements FaqBoardService {
     @Override
     public int writeFaqBoard(FaqBoardWriteDTO faqBoardWriteDTO) {
         FaqBoard faqBoard = new FaqBoard(faqBoardWriteDTO);
-        repository.save(faqBoard);
-        return 1;
+        if (repository.save(faqBoard) != null) return 1;
+        else return 0;
     }
 
     // Faq 수정
@@ -57,8 +57,8 @@ public class FaqBoardServiceImpl implements FaqBoardService {
         faqBoard.setFaqCate(faqBoardUpdateDTO.getFaq_cate());
         faqBoard.setFaqTitle(faqBoardUpdateDTO.getFaq_title());
         faqBoard.setFaqContent(faqBoardUpdateDTO.getFaq_content());
-        repository.save(faqBoard);
-        return 1;
+        if (repository.save(faqBoard) != null) return 1;
+        else return 0;
     }
 
 
