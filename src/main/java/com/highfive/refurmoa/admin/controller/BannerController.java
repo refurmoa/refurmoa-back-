@@ -43,7 +43,7 @@ public class BannerController {
 
     // 배너 삭제
     @GetMapping("/admin/banner/delete")
-    public int deleteBanner(@RequestParam("bannerNum") int bann_num) {
+    public int deleteBanner(@RequestParam("banner_num") int bann_num) {
         bannerServiceImpl.deleteBanner(bann_num);
         return 1;
     }
