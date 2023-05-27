@@ -11,10 +11,9 @@ import com.highfive.refurmoa.prod.DTO.ProductWriteDTO;
 
 
 public interface ProductService {
-	
-	public int ProductWrite(MultipartFile mainImg,MultipartFile[] uploadfiles,ProductWriteDTO prodDto ) throws IOException;
-//	public int ProductUpdate(ProductWriteDTO prodDto);
-
+	public int ProductWrite(MultipartFile mainImg,ProductWriteDTO prodDto) throws IOException;
+	public int ProductUpdate(MultipartFile mainImg,ProductWriteDTO prodDto)throws IOException;
+	public void insertFile(ProdFileDTO dto);
 	public ProdResponseDTO productInfo(int productCode);
 	public void insertProd(int comNum,Product prod);
 }

@@ -26,21 +26,31 @@ public class ProductContorller {
 	private int prodNum;
 	
 	private final ProductServiceImpl ProductServiceImpl;
-//	@PostMapping("/product/write")
-//    public int ProductWrite(@RequestBody  ProductWriteDTO prodDto)   {
-//		prodNum=ProductServiceImpl.ProductWrite(prodDto);
-//        return prodNum;
-//    }
 	@PostMapping("/product/write")
-    public int ProductUpdate(@RequestParam(value="main_image") MultipartFile main_image,
-    		@RequestParam(value="uploadfiles") MultipartFile[] uploadfiles, ProductWriteDTO prodDto) throws IOException   {
-//		prodNum=ProductServiceImpl.ProductWrite(main_image,uploadfiles,prodDto);
-		System.out.println(main_image);
-		System.out.println(uploadfiles);
-		System.out.println(prodDto.getDeffect_text());
+    public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
+		prodNum=ProductServiceImpl.ProductWrite(mainImg,prodDto);
+
         return prodNum;
     }
-
+	@PostMapping("/product/update")
+    public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
+		
+        return ProductServiceImpl.ProductUpdate(mainImg,prodDto);
+    }
+	@PostMapping("/uploadfile")
+	public int upload(@RequestBody MultipartFile[] uploadfiles) throws IOException {
+       
+		int prod_num = prodNum;
+		String[] tmp=new String[]{"","",""};
+		for (int i=0;i<uploadfiles.length;i++) {
+			File defect = new File("\\prod"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+			uploadfiles[i].transferTo(defect);
+			tmp[i]=defect.toString();
+		}
+		ProdFileDTO dto= new ProdFileDTO(prod_num,tmp[0],tmp[1],tmp[2]);
+		ProductServiceImpl.insertFile(dto);
+		return 1;
+    }
 	
 	@GetMapping("/product/updateInfo")
 	 public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
