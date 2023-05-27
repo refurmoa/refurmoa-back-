@@ -37,15 +37,13 @@ public class BannerController {
     @PostMapping("/admin/banner/write")
     public int writeBanner(@RequestParam(value="banner_img") MultipartFile banner_img,
                            WriteBannerRequestDTO writeBannerRequestDTO) throws Exception {
-        bannerServiceImpl.writeBanner(writeBannerRequestDTO,banner_img);
-        return 1;
+        return bannerServiceImpl.writeBanner(writeBannerRequestDTO,banner_img);
     }
 
     // 배너 삭제
     @GetMapping("/admin/banner/delete")
     public int deleteBanner(@RequestParam("banner_num") int bann_num) {
-        bannerServiceImpl.deleteBanner(bann_num);
-        return 1;
+        return bannerServiceImpl.deleteBanner(bann_num);
     }
 
 }
