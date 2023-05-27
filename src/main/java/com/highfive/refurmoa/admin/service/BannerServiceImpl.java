@@ -43,8 +43,12 @@ public class BannerServiceImpl implements BannerService {
     public int writeBanner(WriteBannerRequestDTO writeBannerRequestDTO, MultipartFile banner_img) throws IOException {
         String banner_image = saveImage(banner_img); // 이미지파일 이름
         Banner banner = new Banner(banner_image, writeBannerRequestDTO);
-        if (repository.save(banner) != null) return 1;
-        else return 0;
+        try {
+            repository.save(banner);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
     }
     // 이미지 파일 이름 만들기
     private String saveImage(MultipartFile imageFile) throws IOException {
