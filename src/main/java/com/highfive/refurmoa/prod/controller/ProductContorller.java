@@ -26,24 +26,24 @@ public class ProductContorller {
 	private int prodNum;
 	
 	private final ProductServiceImpl ProductServiceImpl;
-	@PostMapping("/product/write")
+	@PostMapping("/prod/write")
     public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 		prodNum=ProductServiceImpl.ProductWrite(mainImg,prodDto);
 
         return prodNum;
     }
-	@PostMapping("/product/update")
+	@PostMapping("/prod/update")
     public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 		
         return ProductServiceImpl.ProductUpdate(mainImg,prodDto);
     }
-	@PostMapping("/uploadfile")
+	@PostMapping("/prod/file")
 	public int upload(@RequestBody MultipartFile[] uploadfiles) throws IOException {
        
 		int prod_num = prodNum;
 		String[] tmp=new String[]{"","",""};
 		for (int i=0;i<uploadfiles.length;i++) {
-			File defect = new File("\\prod"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+			File defect = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
 			uploadfiles[i].transferTo(defect);
 			tmp[i]=defect.toString();
 		}
@@ -52,7 +52,7 @@ public class ProductContorller {
 		return 1;
     }
 	
-	@GetMapping("/product/updateInfo")
+	@GetMapping("/prod/update/info")
 	 public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
         return ProductServiceImpl.productInfo(productCode);
     }

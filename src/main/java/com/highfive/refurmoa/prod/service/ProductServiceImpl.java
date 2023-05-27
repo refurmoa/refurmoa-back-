@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
 	public int ProductUpdate(MultipartFile mainImg,ProductWriteDTO prodDto) throws IOException {
 		String mainName = null;
 		if(mainImg.getSize()!=0) {
-			File main = new File("\\prod"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+			File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
 			mainImg.transferTo(main);
 			mainName=main.toString();
 		}else {
@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int ProductWrite(MultipartFile mainImg,ProductWriteDTO prodDto) throws IOException {
 		
-		File main = new File("\\prod"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+		File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
 		mainImg.transferTo(main);
 
 		ProdPartner tmp =new ProdPartner();
