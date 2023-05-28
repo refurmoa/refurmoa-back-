@@ -21,22 +21,22 @@ public class ProdInquiryReply {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "prod_inquiry_num", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private ProdInquiry prodInquiryNum;
+	private ProdInquiry prodInquiry;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_num", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Board boardNum;
+	private Board board;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_code", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	private Product productCode;
+	private Product product;
 
 	@Column(name = "re_con", nullable = false, length=500)
-	private String reContent;
+	private String reCon;
 
-	@Column(name = "re-date", nullable = false)
+	@Column(name = "re_date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date Date;
 		

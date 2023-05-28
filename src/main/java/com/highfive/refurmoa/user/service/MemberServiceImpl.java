@@ -35,8 +35,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override // 회원가입
     public int insertMember(Member member) {
-        repository.save(member);
-        return 1;
+        try { repository.save(member); return 1; }
+        catch (Exception e) { return 0; }
     }
 
     @Override // ID 중복 검사
