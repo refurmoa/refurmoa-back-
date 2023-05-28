@@ -1,6 +1,7 @@
 package com.highfive.refurmoa.prod.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -31,11 +32,22 @@ public interface ProductRepository  extends JpaRepository<Product, Integer>{
 	
 	@Query(value="select com_num from product where product_code=:num",nativeQuery=true)
 	int comNumInfo(@Param("num")int num );
-	
+
 	@Query(value="select com_name from prod_partner where com_num=:num",nativeQuery=true)
 	String comName(@Param("num")int num );
 	
+	@Query(value="select count(*) from product where com_num=:num",nativeQuery=true)
+	int countCom(@Param("num")int num );
 	
+	
+	@Query(value="select start_date,end_date from board where product_code=:num",nativeQuery=true)
+	Date[] getDate(@Param("num")int num );
+	
+	@Query(value="select * from product where category_code like CONCAT('%',:search,'%')",nativeQuery=true)
+	 List<Product> findProduct(@Param("search")String search);
+	
+	@Transactional
+	void deleteById(int code);
 }
 
 

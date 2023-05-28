@@ -2,20 +2,23 @@ package com.highfive.refurmoa.prod.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.entity.Product;
 import com.highfive.refurmoa.prod.DTO.ProdFileDTO;
+import com.highfive.refurmoa.prod.DTO.ProdListDTO;
 import com.highfive.refurmoa.prod.DTO.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.ProductWriteDTO;
-import com.highfive.refurmoa.prod.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
+import com.highfive.refurmoa.prodpartner.repository.ProdPartnerRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -27,6 +30,47 @@ public class ProductServiceImpl implements ProductService {
 	        this.repository = repository;
 	        this.partnerRepository=partnerRepository;
 	 }
+	 
+	 @Override
+	 public List<ProdListDTO> productList(String category,String status) {
+		  
+		 String cate="";
+		 switch(category) {
+			 case "all": cate="";
+			 break;
+			 case "funiture": cate= "fun" ;
+			 break;
+			 case  "appliance": cate= "app";
+			 break;
+			 default: cate=category;	 
+		 }
+
+		 Date now=new Date();
+		 List<Product> prodlist=repository.findProduct(cate);
+		 List<ProdListDTO> temp =new ArrayList<ProdListDTO>();
+		 
+		 for(int i=0;i<prodlist.size();i++) {
+			 int sell_status=0;
+			 Date[] date=repository.getDate(prodlist.get(i).getProductCode());
+			 if(prodlist.get(i).getProdState()==1) {
+				if(now.compareTo(date[0])==1)sell_status=1;
+				else sell_status=2;
+			 }
+			 else if(prodlist.get(i).getProdState()==2)sell_status=3;
+			 else if(prodlist.get(i).getProdState()==5)sell_status=4;
+		
+			 ProdListDTO tmp=new ProdListDTO(prodlist.get(i),sell_status);
+			 temp.add(tmp);
+		 }
+		 
+		 return temp;
+	 }
+	 
+	@Override
+	public int productDelete(int code) {
+		repository.deleteById(code);
+		return 1;
+	}
 	@Override
 	public void insertProd(int comNum,Product prod) {
 			ProdPartner partner=partnerRepository.findById(comNum).orElse(null);

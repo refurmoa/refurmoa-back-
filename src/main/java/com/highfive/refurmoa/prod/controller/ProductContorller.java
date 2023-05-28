@@ -2,6 +2,7 @@ package com.highfive.refurmoa.prod.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.highfive.refurmoa.prod.DTO.ProdFileDTO;
+import com.highfive.refurmoa.prod.DTO.ProdListDTO;
 import com.highfive.refurmoa.prod.DTO.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.ProductWriteDTO;
 import com.highfive.refurmoa.prod.service.ProductServiceImpl;
@@ -26,6 +28,18 @@ public class ProductContorller {
 	private int prodNum;
 	
 	private final ProductServiceImpl ProductServiceImpl;
+	
+	
+	 @GetMapping("/prod")
+	 public List<ProdListDTO> productList(@RequestParam(value="category") String category,@RequestParam(value="sell_status") String status) {
+		
+       return ProductServiceImpl.productList(category,status);
+   }
+	 @GetMapping("/prod/delete")
+	 public int productList(@RequestParam(value="product_code") int code) {
+		
+       return ProductServiceImpl.productDelete(code);
+   }
 	@PostMapping("/prod/write")
     public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 		prodNum=ProductServiceImpl.ProductWrite(mainImg,prodDto);
@@ -56,5 +70,5 @@ public class ProductContorller {
 	 public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
         return ProductServiceImpl.productInfo(productCode);
     }
-
+	
 }
