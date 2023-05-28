@@ -20,7 +20,7 @@ public class Board {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_code", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private Product productCode;
+    private Product product;
 
     @Column(name = "sell_type", nullable = false)
     private int sellType;

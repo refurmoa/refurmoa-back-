@@ -1,14 +1,22 @@
 package com.highfive.refurmoa.entity;
 
+import com.highfive.refurmoa.post.dto.ProdInqRequestDTO;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "prod_inquiry")
 public class ProdInquiry {
@@ -20,17 +28,17 @@ public class ProdInquiry {
 		
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id")
-	private Member memberId;
+	private Member member;
 		
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_num", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Board boardNum;
+	private Board board;
 		
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_code", nullable = false)
 	@OnDelete(action = OnDeleteAction.NO_ACTION)
-	private Product productCode;
+	private Product product;
 
 	@Column(name = "secret", nullable = false)
 	private boolean secret;
@@ -43,6 +51,22 @@ public class ProdInquiry {
 
 	@Column(name = "date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date Date;
-	  	
+	private Date date;
+
+	@OneToOne(mappedBy = "prodInquiry")
+	private ProdInquiryReply prodInquiryReply = new ProdInquiryReply();
+
+	public ProdInquiry(ProdInqRequestDTO prodInquiryDTO) {
+		this.member = new Member();
+		this.member.setMemberId(prodInquiryDTO.getMemberId());
+		this.board = new Board();
+		this.board.setBoardNum(prodInquiryDTO.getBoardNum());
+		this.product = new Product();
+		this.product.setProductCode(prodInquiryDTO.getProductCode());
+		this.secret = prodInquiryDTO.isSecret();
+		this.title = prodInquiryDTO.getTitle();
+		this.content = prodInquiryDTO.getContent();
+		this.date = new Date();
+	}
+
 }

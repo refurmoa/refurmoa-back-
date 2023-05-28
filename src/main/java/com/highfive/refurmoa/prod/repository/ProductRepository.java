@@ -32,7 +32,6 @@ public interface ProductRepository  extends JpaRepository<Product, Integer>{
 	@Query(value="select com_name from prod_partner where com_num=:num",nativeQuery=true)
 	String comName(@Param("num")int num );
 	
-	
 }
 
 

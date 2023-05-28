@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.Date;
 
 @Getter
@@ -40,10 +42,12 @@ public class Member {
     @Temporal(TemporalType.DATE)
     private Date birth;
 
-    @Column(columnDefinition = "int default 0", nullable = false)
+    @Column(nullable = false)
+    @ColumnDefault(value = "0")
     private int grade;
 
-    @Column(columnDefinition = "int default 0", nullable = false)
+    @Column(nullable = false)
+    @ColumnDefault(value = "0")
     private int mile;
 
     @Column(name = "accept_location", nullable = false)
