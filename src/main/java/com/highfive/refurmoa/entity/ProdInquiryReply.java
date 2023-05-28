@@ -1,14 +1,17 @@
 package com.highfive.refurmoa.entity;
 
+import com.highfive.refurmoa.post.dto.ProdInqReplyRequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "prod_inquiry_reply")
 public class ProdInquiryReply {
@@ -38,10 +41,22 @@ public class ProdInquiryReply {
 
 	@Column(name = "re_date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date Date;
+	private Date reDate;
 		
 	@Column(name = "re_update")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date ReDate;
+	private Date reUpdate;
+
+	public ProdInquiryReply(ProdInqReplyRequestDTO prodInqReplyRequestDTO, ProdInquiry prodInquiry) {
+		this.prodInquiry = new ProdInquiry();
+		this.prodInquiry.setProdInquiryNum(prodInqReplyRequestDTO.getProdInquiryNum());
+		this.board = new Board();
+		this.board.setBoardNum(prodInquiry.getBoard().getBoardNum());
+		this.product = new Product();
+		this.product.setProductCode(prodInquiry.getProduct().getProductCode());
+		this.reCon = prodInqReplyRequestDTO.getReCon();
+		this.reDate = new Date();
+		this.reUpdate = null;
+	}
 
 }

@@ -13,4 +13,5 @@ public interface ProdInqRepository extends JpaRepository<ProdInquiry, Integer> {
 
     Page<ProdInquiry> findByBoardBoardNumOrderByProdInquiryNumDesc(int boardNum, Pageable pageable);
 
+    ProdInquiry findByProdInquiryNum(int prodInquiryNum);
 }
