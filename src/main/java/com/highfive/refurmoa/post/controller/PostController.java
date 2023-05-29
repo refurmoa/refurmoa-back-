@@ -1,6 +1,6 @@
 package com.highfive.refurmoa.post.controller;
 
-import com.highfive.refurmoa.post.dto.UserlikeRequestDTO;
+import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 import com.highfive.refurmoa.post.service.PostServiceImpl;
 
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.highfive.refurmoa.post.service;
 
-import com.highfive.refurmoa.post.dto.*;
-
+import com.highfive.refurmoa.post.dto.reponse.*;
+import com.highfive.refurmoa.post.dto.request.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

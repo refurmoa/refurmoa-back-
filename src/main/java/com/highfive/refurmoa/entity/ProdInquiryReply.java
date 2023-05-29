@@ -1,6 +1,6 @@
 package com.highfive.refurmoa.entity;
 
-import com.highfive.refurmoa.post.dto.ProdInqReplyRequestDTO;
+import com.highfive.refurmoa.post.dto.request.ProdInqReplyRequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

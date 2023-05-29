@@ -1,4 +1,4 @@
-package com.highfive.refurmoa.post.dto;
+package com.highfive.refurmoa.post.dto.reponse;
 
 import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.Userlike;

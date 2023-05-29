@@ -1,7 +1,8 @@
 package com.highfive.refurmoa.post.controller;
 
 import com.highfive.refurmoa.entity.Userlike;
-import com.highfive.refurmoa.post.dto.*;
+import com.highfive.refurmoa.post.dto.reponse.*;
+import com.highfive.refurmoa.post.dto.request.*;
 import com.highfive.refurmoa.post.service.PostDetailServiceImpl;
 
 import org.springframework.data.domain.Page;

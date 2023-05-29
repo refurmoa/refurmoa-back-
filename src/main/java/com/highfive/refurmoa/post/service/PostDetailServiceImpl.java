@@ -1,7 +1,8 @@
 package com.highfive.refurmoa.post.service;
 
 import com.highfive.refurmoa.entity.*;
-import com.highfive.refurmoa.post.dto.*;
+import com.highfive.refurmoa.post.dto.reponse.*;
+import com.highfive.refurmoa.post.dto.request.*;
 import com.highfive.refurmoa.post.repository.*;
 
 import org.springframework.stereotype.Service;

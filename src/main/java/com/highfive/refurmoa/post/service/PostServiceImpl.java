@@ -1,7 +1,7 @@
 package com.highfive.refurmoa.post.service;
 
 import com.highfive.refurmoa.entity.Userlike;
-import com.highfive.refurmoa.post.dto.UserlikeRequestDTO;
+import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 import com.highfive.refurmoa.post.repository.UserlikeRepository;
 
 import org.springframework.stereotype.Service;
