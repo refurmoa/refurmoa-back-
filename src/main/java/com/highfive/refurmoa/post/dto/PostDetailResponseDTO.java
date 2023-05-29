@@ -17,9 +17,9 @@ public class PostDetailResponseDTO {
     private String prod_name;
     private String prod_grade;
     private int org_price;
-    private int direct_price;
-    private int auction_price;
-    private int unit_price;
+    private Integer direct_price;
+    private Integer auction_price;
+    private Integer unit_price;
     private boolean guarantee;
     private int as_date;
     private int delivery_price;
