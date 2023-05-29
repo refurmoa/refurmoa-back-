@@ -48,6 +48,9 @@ public interface ProductRepository  extends JpaRepository<Product, Integer>{
 	
 	@Transactional
 	void deleteById(int code);
+	
+	@Query(value="select * from product where prod_name like CONCAT('%',:name,'%') and category_code like CONCAT('%',:search,'%')",nativeQuery=true)
+	 List<Product> findProdList(@Param("name")String name,@Param("search")String search);
 }
 
 
