@@ -1,5 +1,6 @@
 package com.highfive.refurmoa.post.controller;
 
+import com.highfive.refurmoa.entity.Userlike;
 import com.highfive.refurmoa.post.dto.*;
 import com.highfive.refurmoa.post.service.PostDetailServiceImpl;
 
@@ -17,9 +18,9 @@ public class PostDetailController {
 
 
     // 판매 상세 정보 조회
-    @PostMapping("/{boardNum}")
-    public PostDetailResponseDTO getPostDetail(@PathVariable int boardNum, @RequestParam(required = false) String memberId) {
-        return postDetailService.getPostDetail(boardNum, memberId);
+    @PostMapping("")
+    public PostDetailResponseDTO getPostDetail(@RequestBody Userlike userlike) {
+        return postDetailService.getPostDetail(userlike.getBoard().getBoardNum(), userlike.getMember().getMemberId());
     }
 
     // 판매 글 삭제

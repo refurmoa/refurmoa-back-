@@ -1,6 +1,7 @@
 package com.highfive.refurmoa.post.dto;
 
 import com.highfive.refurmoa.entity.Bid;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;

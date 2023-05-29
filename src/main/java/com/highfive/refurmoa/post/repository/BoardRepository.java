@@ -1,8 +1,9 @@
 package com.highfive.refurmoa.post.repository;
 
 import com.highfive.refurmoa.entity.Board;
-import jakarta.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
