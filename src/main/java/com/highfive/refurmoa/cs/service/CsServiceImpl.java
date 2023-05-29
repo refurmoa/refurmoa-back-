@@ -36,12 +36,12 @@ private final CsRepository repository;
 	}
 	
 	@Override
-	public List<AsStore> searchAsStore(String storeAddr) {
+	public List<AsStore> searchAsStoreCity(String storeAddr) {
 		return (List<AsStore>)repository.findByStoreAddrContaining(storeAddr);
 	}
 
 	@Override
-	public List<AsStore> searchAsStore2(String storeName) {
+	public List<AsStore> searchAsStoreText(String storeName) {
 		return (List<AsStore>)repository.findByStoreNameContaining(storeName);
 	}
 }

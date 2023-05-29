@@ -41,13 +41,13 @@ private CsServiceImpl csServiceImpl;
 	}
 	
 	@RequestMapping("/cs/as/search/city")
-	public List<AsStore> searchAsStore(@RequestBody AsStore vo) {
-		return (List<AsStore>)csServiceImpl.searchAsStore(vo.getStoreAddr());
+	public List<AsStore> searchAsStoreCity(@RequestBody AsStore vo) {
+		return (List<AsStore>)csServiceImpl.searchAsStoreCity(vo.getStoreAddr());
 	}
 	
 	@RequestMapping("/cs/as/search/text")
-	public List<AsStore> searchAsStore2(@RequestBody AsStore vo) {
-		return (List<AsStore>)csServiceImpl.searchAsStore2(vo.getStoreName());
+	public List<AsStore> searchAsStoreText(@RequestBody AsStore vo) {
+		return (List<AsStore>)csServiceImpl.searchAsStoreText(vo.getStoreName());
 	}
 
 }

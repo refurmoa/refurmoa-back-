@@ -10,6 +10,6 @@ public interface CsService {
 	public AsStore insertAsStore(AsStore asStore);
 	public AsStore updateAsStore(AsStore asStore);
 	public void deleteAsStore(int storeNum);
-	public List<AsStore> searchAsStore(String storeAddr);
-	public List<AsStore> searchAsStore2(String storeName);
+	public List<AsStore> searchAsStoreCity(String storeAddr);
+	public List<AsStore> searchAsStoreText(String storeName);
 }
