@@ -3,12 +3,10 @@ package com.highfive.refurmoa.post.service;
 import com.highfive.refurmoa.entity.*;
 import com.highfive.refurmoa.post.dto.*;
 import com.highfive.refurmoa.post.repository.*;
-import org.apache.catalina.User;
+
+import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class PostDetailServiceImpl implements PostDetailService {
@@ -33,8 +31,8 @@ public class PostDetailServiceImpl implements PostDetailService {
     public PostDetailResponseDTO getPostDetail(int boardNum, String memberId) {
         Board board = boardRepository.findByBoardNum(boardNum);
         if (memberId != null) {
-            Userlike userlike = userlikeRepository.findByBoardBoardNumAndMemberMemberId(board.getBoardNum(), memberId);
-            return new PostDetailResponseDTO(board, userlike);
+            Userlike like = userlikeRepository.findByBoardBoardNumAndMemberMemberId(board.getBoardNum(), memberId);
+            return new PostDetailResponseDTO(board, like);
         } else {
             return new PostDetailResponseDTO(board, null);
         }
@@ -54,16 +52,19 @@ public class PostDetailServiceImpl implements PostDetailService {
 
     @Override // 상품 문의 글 목록 조회
     public Page<ProdInqListResponseDTO> getListInq(int boardNum, Pageable pageable) {
-        Page<ProdInquiry> prodInqList= prodInqRepository.findByBoardBoardNumOrderByProdInquiryNumDesc(boardNum, pageable);
-        return prodInqList.map(ProdInqListResponseDTO::new);
+        Page<ProdInquiry> prodInqList = prodInqRepository.findByBoardBoardNumOrderByProdInquiryNumDesc(boardNum, pageable);
+        return prodInqList.map(prodInq -> {
+            ProdInquiryReply re = prodInqReplyRepository.findByProdInquiryProdInquiryNum(prodInq.getProdInquiryNum());
+            ProdInqListResponseDTO responseDTO = new ProdInqListResponseDTO(prodInq, re);
+            return responseDTO;
+        });
     }
 
     @Override // 상품 문의 글 등록
     public int insertProdInquiry(ProdInqRequestDTO prodInquiryDTO) {
         prodInquiryDTO.setProductCode(boardRepository.findByBoardNum(prodInquiryDTO.getBoardNum()).getProduct().getProductCode());
         ProdInquiry prodInquiry = new ProdInquiry(prodInquiryDTO);
-        try { prodInqRepository.save(prodInquiry); return 1; }
-        catch (Exception e) { return 0; }
+        prodInqRepository.save(prodInquiry); return 1;
     }
 
     @Override // 상품 문의 글 삭제

@@ -50,9 +50,6 @@ public class ProdInquiry {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 
-	@OneToOne(mappedBy = "prodInquiry")
-	private ProdInquiryReply prodInquiryReply = new ProdInquiryReply();
-
 	public ProdInquiry(ProdInqRequestDTO prodInquiryDTO) {
 		this.member = new Member();
 		this.member.setMemberId(prodInquiryDTO.getMemberId());

@@ -2,9 +2,9 @@ package com.highfive.refurmoa.post.dto;
 
 import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.Userlike;
+
 import lombok.Getter;
 import lombok.AllArgsConstructor;
-
 import java.util.Date;
 
 @Getter
