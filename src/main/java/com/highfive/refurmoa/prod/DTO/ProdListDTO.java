@@ -7,14 +7,12 @@ import com.highfive.refurmoa.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProdResponseDTO {
-
+public class ProdListDTO {
+	
 	private int productCode;
 	private String category;
 	private String categoryCode;
@@ -32,7 +30,8 @@ public class ProdResponseDTO {
     private Date regDate;
 	private String com_name;
 	private int com_num;
-	public ProdResponseDTO(Product dto) {
+	private int sell_status;
+	public ProdListDTO(Product dto,int num) {
 		this.productCode = dto.getProductCode() ;
 		this.category = dto.getCategory() ;
 		this.categoryCode = dto.getCategoryCode();
@@ -50,5 +49,6 @@ public class ProdResponseDTO {
 		this.regDate = dto.getRegDate() ;
 		this.com_name = dto.getComNum().getComName() ;
 		this.com_num = dto.getComNum().getComNum();
+		this.sell_status=num;
 	}
 }
