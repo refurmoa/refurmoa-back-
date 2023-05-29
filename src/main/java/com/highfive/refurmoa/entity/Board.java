@@ -30,13 +30,13 @@ public class Board {
     private int sellType;
 
     @Column(name = "direct_price")
-    private int directPrice;
+    private Integer directPrice;
 
     @Column(name = "auction_price")
-    private int auctionPrice;
+    private Integer auctionPrice;
 
     @Column(name = "unit_price")
-    private int unitPrice;
+    private Integer unitPrice;
 
     @Column(name = "cur_price", nullable = false)
     private int curPrice;
