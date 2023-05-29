@@ -1,4 +1,4 @@
-package com.highfive.refurmoa.prodpartner.controller;
+package com.highfive.refurmoa.admin.controller;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.highfive.refurmoa.prodpartner.DTO.PartnerDTO;
-import com.highfive.refurmoa.prodpartner.service.ProdPartnerServiceImpl;
+import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
+import com.highfive.refurmoa.admin.service.ProdPartnerServiceImpl;
 
 import lombok.RequiredArgsConstructor;
 

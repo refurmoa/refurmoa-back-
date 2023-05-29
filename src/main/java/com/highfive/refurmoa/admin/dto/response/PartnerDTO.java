@@ -1,4 +1,4 @@
-package com.highfive.refurmoa.prodpartner.DTO;
+package com.highfive.refurmoa.admin.dto.response;
 
 import com.highfive.refurmoa.entity.ProdPartner;
 

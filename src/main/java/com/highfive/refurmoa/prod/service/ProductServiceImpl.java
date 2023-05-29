@@ -18,7 +18,7 @@ import com.highfive.refurmoa.prod.DTO.ProdListDTO;
 import com.highfive.refurmoa.prod.DTO.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.ProductWriteDTO;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
-import com.highfive.refurmoa.prodpartner.repository.ProdPartnerRepository;
+import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -58,9 +58,46 @@ public class ProductServiceImpl implements ProductService {
 			 }
 			 else if(prodlist.get(i).getProdState()==2)sell_status=3;
 			 else if(prodlist.get(i).getProdState()==5)sell_status=4;
-		
-			 ProdListDTO tmp=new ProdListDTO(prodlist.get(i),sell_status);
-			 temp.add(tmp);
+			 System.out.println(sell_status);
+			 switch(status) {
+			 case "all":
+				 ProdListDTO tmp=new ProdListDTO(prodlist.get(i),sell_status);
+				 temp.add(tmp);
+				 break;
+			 case "ingnend": if(sell_status>0) {
+				 ProdListDTO tmp1=new ProdListDTO(prodlist.get(i),sell_status);
+				 temp.add(tmp1);
+			 }
+			 break;
+			 case  "yetnend": if(sell_status==4||sell_status==0) {
+				 ProdListDTO tmp1=new ProdListDTO(prodlist.get(i),sell_status);
+				 temp.add(tmp1);
+			 }
+			 break;
+			 case "yetning": if(sell_status<4) {
+				 ProdListDTO tmp1=new ProdListDTO(prodlist.get(i),sell_status);
+				 temp.add(tmp1);
+			 }
+			 break;
+			 case "yet":if(sell_status==0) {
+				 ProdListDTO tmp1=new ProdListDTO(prodlist.get(i),sell_status);
+				 temp.add(tmp1);
+			 }
+			 break;
+			 case  "ing": if(sell_status>0&&sell_status<4) {
+				 ProdListDTO tmp1=new ProdListDTO(prodlist.get(i),sell_status);
+				 temp.add(tmp1);
+			 }
+			 break;
+			 case  "end": if(sell_status==4) {
+				 ProdListDTO tmp1=new ProdListDTO(prodlist.get(i),sell_status);
+				 temp.add(tmp1);
+			 }
+			 break;
+			 default: break;	 
+		 }
+			 
+			 
 		 }
 		 
 		 return temp;
@@ -116,11 +153,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public ProdResponseDTO productInfo(int productCode){
 		Product tmp=repository.findById(productCode).orElse(null);
-		int tmpNum=repository.comNumInfo(productCode);
-		ProdResponseDTO dto =new ProdResponseDTO();
-		dto.setProd(tmp);
-		dto.setCom_name(repository.comName(tmpNum));
-		dto.setCom_num(tmpNum);
+		ProdResponseDTO dto =new ProdResponseDTO(tmp);
 		return dto;
 	}
 }

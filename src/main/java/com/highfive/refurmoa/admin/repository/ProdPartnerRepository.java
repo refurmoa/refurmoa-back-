@@ -1,4 +1,4 @@
-package com.highfive.refurmoa.prodpartner.repository;
+package com.highfive.refurmoa.admin.repository;
 
 import java.util.List;
 

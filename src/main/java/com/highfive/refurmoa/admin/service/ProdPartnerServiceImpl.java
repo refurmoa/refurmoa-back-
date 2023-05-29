@@ -1,14 +1,15 @@
-package com.highfive.refurmoa.prodpartner.service;
+package com.highfive.refurmoa.admin.service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
+import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
-import com.highfive.refurmoa.prodpartner.DTO.PartnerDTO;
-import com.highfive.refurmoa.prodpartner.repository.ProdPartnerRepository;
+
 @Service
 public class ProdPartnerServiceImpl implements ProdPartnerService {
 	

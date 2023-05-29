@@ -76,7 +76,6 @@ public class Product {
     @Temporal(TemporalType.TIMESTAMP)
     private Date regDate;
     
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "com_num")
     private ProdPartner comNum;
