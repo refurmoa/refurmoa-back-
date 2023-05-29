@@ -1,4 +1,4 @@
-package com.highfive.refurmoa.post.dto;
+package com.highfive.refurmoa.post.dto.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

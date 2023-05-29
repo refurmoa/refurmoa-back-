@@ -1,6 +1,6 @@
 package com.highfive.refurmoa.post.service;
 
-import com.highfive.refurmoa.post.dto.UserlikeRequestDTO;
+import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 
 public interface PostService {
 
