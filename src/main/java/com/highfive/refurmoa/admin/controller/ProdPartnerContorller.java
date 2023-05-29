@@ -17,8 +17,9 @@ public class ProdPartnerContorller {
 	
 	private final ProdPartnerServiceImpl ProdPartnerServiceImpl;
 	
+	//제휴회사 검색
 	@GetMapping("/partner/search")
 	 public List<PartnerDTO> partnerSearch(@RequestParam(value="search") String search) {
        return ProdPartnerServiceImpl.partnerSearch(search);
-   }
+   	}	
 }

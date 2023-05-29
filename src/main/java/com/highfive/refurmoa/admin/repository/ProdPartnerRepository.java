@@ -11,6 +11,7 @@ import com.highfive.refurmoa.entity.ProdPartner;
 
 public interface ProdPartnerRepository extends JpaRepository<ProdPartner, Integer>{
 	 
+     // 제휴회사 검색
      @Query(value="select * from prod_partner where com_name like CONCAT('%',:search,'%') and com_status=1 ",nativeQuery=true)
 	 List<ProdPartner> findByComNameContaining(@Param("search")String search);
 	
