@@ -13,6 +13,7 @@ import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
+
 @Service
 public class ProdPartnerServiceImpl implements ProdPartnerService {
 	
@@ -22,6 +23,21 @@ public class ProdPartnerServiceImpl implements ProdPartnerService {
 	 public ProdPartnerServiceImpl(ProductRepository repository,ProdPartnerRepository partnerRepository ) {
 	        this.repository = repository;
 	        this.partnerRepository=partnerRepository;
+	 }
+	 
+	 @Override
+	 public PartnerDTO findPartner(int search) {
+		 int cnt=repository.countCom(search);
+		 PartnerDTO tmp= new PartnerDTO(partnerRepository.findByComNum(search),cnt);
+		 return tmp;
+	 }
+	 @Override
+	 public PartnerDTO changState(int com_num) {
+		 
+		 partnerRepository.changState(com_num);
+		 int cnt=repository.countCom(com_num);
+		 PartnerDTO tmp= new PartnerDTO(partnerRepository.findByComNum(com_num),cnt);
+		 return tmp;
 	 }
 	 
 	@Override
@@ -53,5 +69,10 @@ public class ProdPartnerServiceImpl implements ProdPartnerService {
 		int end = Math.min((start + pageRequest.getPageSize()), list.size());
 		Page<PartnerDTO> Page = new PageImpl<>(list.subList(start, end), pageRequest, list.size());
 		return Page;
+	}
+	@Override
+	public int updatePartner(ProdPartner partner) {
+		partnerRepository.save(partner);
+		return 1;
 	}
 }
