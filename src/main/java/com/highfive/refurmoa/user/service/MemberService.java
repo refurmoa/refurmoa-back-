@@ -11,6 +11,6 @@ public interface MemberService {
     public long countMemberId(String memberId);
     public List<Member> listMember(String memberId);
     public void deleteMember(String memberId);
-    public Member updateMember(String memberId, Member member);
+    public Member updateMember(Member member);
 }
 	

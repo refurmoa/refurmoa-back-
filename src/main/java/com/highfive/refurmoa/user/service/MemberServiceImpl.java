@@ -64,8 +64,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public Member updateMember(String memberId, Member member) {
-		Member existingMember = repository.findById(memberId).get();
+	public Member updateMember(Member member) {
+		Member existingMember = repository.findById(member.getMemberId()).get();
 		existingMember.setPassword(member.getPassword());
 		existingMember.setPhone(member.getPhone());
 		existingMember.setEmail(member.getEmail());

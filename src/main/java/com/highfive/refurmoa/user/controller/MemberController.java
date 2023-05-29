@@ -2,7 +2,6 @@ package com.highfive.refurmoa.user.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,8 +45,8 @@ public class MemberController {
 		memberServiceImpl.deleteMember(vo.getMemberId());
 	}
 	
-	@RequestMapping("/user/update/{memberId}")
-	public void updateMember(@PathVariable String memberId ,@RequestBody Member member){
-		memberServiceImpl.updateMember(memberId, member);
+	@RequestMapping("/user/update")
+	public void updateMember(@RequestBody Member member){
+		memberServiceImpl.updateMember(member);
 	}
 }
