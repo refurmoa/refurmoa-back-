@@ -3,12 +3,16 @@ package com.highfive.refurmoa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Board {
 
@@ -20,7 +24,7 @@ public class Board {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_code", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private Product productCode;
+    private Product product;
 
     @Column(name = "sell_type", nullable = false)
     private int sellType;

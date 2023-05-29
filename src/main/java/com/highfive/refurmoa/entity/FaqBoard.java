@@ -1,13 +1,16 @@
 package com.highfive.refurmoa.entity;
 
+import com.highfive.refurmoa.cs.dto.request.FaqBoardWriteDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Date;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "faq_board")
 public class FaqBoard {
 
@@ -28,5 +31,12 @@ public class FaqBoard {
     @Column(name = "faq_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date faqDate;
+
+    public FaqBoard(FaqBoardWriteDTO faqBoardWriteDTO) {
+        this.faqCate = faqBoardWriteDTO.getFaq_cate();
+        this.faqTitle = faqBoardWriteDTO.getFaq_title();
+        this.faqContent = faqBoardWriteDTO.getFaq_content();
+        this.faqDate = faqBoardWriteDTO.getFaq_date();
+    }
 
 }

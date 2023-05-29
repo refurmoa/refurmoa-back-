@@ -3,12 +3,16 @@ package com.highfive.refurmoa.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Bid {
 
@@ -20,11 +24,11 @@ public class Bid {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "board_num", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Board boardNum;
+    private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member memberId;
+    private Member member;
 
     @Column(name = "bid_price", nullable = false)
     private int bidPrice;
