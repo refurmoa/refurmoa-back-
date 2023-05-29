@@ -30,9 +30,9 @@ private CsServiceImpl csServiceImpl;
 		return csServiceImpl.insertAsStore(asStore);
 	}
 	
-	@RequestMapping("/cs/as/admin/update/{storeNum}")
-	public AsStore updateAsStore(@PathVariable int storeNum, @RequestBody AsStore asStore) {
-		return csServiceImpl.updateAsStore(storeNum, asStore);
+	@RequestMapping("/cs/as/admin/update")
+	public AsStore updateAsStore(@RequestBody AsStore asStore) {
+		return csServiceImpl.updateAsStore(asStore);
 	}
 	
 	@RequestMapping("/cs/as/admin/delete")
@@ -40,12 +40,12 @@ private CsServiceImpl csServiceImpl;
 		csServiceImpl.deleteAsStore(vo.getStoreNum());
 	}
 	
-	@RequestMapping("/cs/as/search")
+	@RequestMapping("/cs/as/search/city")
 	public List<AsStore> searchAsStore(@RequestBody AsStore vo) {
 		return (List<AsStore>)csServiceImpl.searchAsStore(vo.getStoreAddr());
 	}
 	
-	@RequestMapping("/cs/as/search2")
+	@RequestMapping("/cs/as/search/text")
 	public List<AsStore> searchAsStore2(@RequestBody AsStore vo) {
 		return (List<AsStore>)csServiceImpl.searchAsStore2(vo.getStoreName());
 	}

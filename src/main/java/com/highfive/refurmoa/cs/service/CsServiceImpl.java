@@ -26,15 +26,8 @@ private final CsRepository repository;
 	}
 	
 	@Override
-	public AsStore updateAsStore(int storeNum, AsStore asStore) {
-		AsStore existingAsStore = repository.findById(storeNum).get();
-		existingAsStore.setStoreName(asStore.getStoreName());
-		existingAsStore.setStorePhone(asStore.getStorePhone());
-		existingAsStore.setStoreAddr(asStore.getStoreAddr());
-		existingAsStore.setStoreDetail(asStore.getStoreDetail());
-		existingAsStore.setLatitude(asStore.getLatitude());
-		existingAsStore.setLongitude(asStore.getLongitude());
-		return repository.save(existingAsStore);
+	public AsStore updateAsStore(AsStore asStore) {
+		return repository.save(asStore);
 	}
 
 	@Override
