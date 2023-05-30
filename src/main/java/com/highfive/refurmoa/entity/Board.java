@@ -26,13 +26,13 @@ public class Board {
     private int sellType;
 
     @Column(name = "direct_price")
-    private int directPrice;
+    private Integer directPrice;
 
     @Column(name = "auction_price")
-    private int auctionPrice;
+    private Integer auctionPrice;
 
     @Column(name = "unit_price")
-    private int unitPrice;
+    private Integer unitPrice;
 
     @Column(name = "cur_price", nullable = false)
     private int curPrice;
@@ -46,7 +46,7 @@ public class Board {
     @Column(name = "detail_image", nullable = false, length = 100)
     private String detailImage;
 
-    @Column(name = "start_date", nullable = false)
+    @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
