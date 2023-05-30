@@ -39,6 +39,10 @@ public class ProdPartnerContorller {
 	 public Page<PartnerDTO> Adminpartner(@RequestParam(value="search") String search, Pageable pageable) {
       return ProdPartnerServiceImpl.Adminpartner(search,pageable);
   	}
+	@PostMapping("/partnership")
+	  public int insertPartner(@RequestBody ProdPartner partner) {
+		return ProdPartnerServiceImpl.insertPartner(partner);
+	}
 	@PostMapping("/admin/partner/update")
 	public int updatePartner(@RequestBody ProdPartner partner) {
 		return ProdPartnerServiceImpl.updatePartner(partner);

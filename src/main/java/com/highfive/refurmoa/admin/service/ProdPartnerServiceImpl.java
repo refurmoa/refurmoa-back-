@@ -75,6 +75,11 @@ public class ProdPartnerServiceImpl implements ProdPartnerService {
 		Page<PartnerDTO> Page = new PageImpl<>(list.subList(start, end), pageRequest, list.size());
 		return Page;
 	}
+	@Override
+	public int insertPartner(ProdPartner partner) {
+		partnerRepository.save(partner);
+		return 1;
+	}
 	
 	@Override
 	public int updatePartner(ProdPartner partner) {

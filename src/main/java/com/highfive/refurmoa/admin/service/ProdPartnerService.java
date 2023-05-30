@@ -10,6 +10,7 @@ public interface ProdPartnerService {
 	public Page<PartnerDTO> partnerSearch(String search, Pageable pageable);
 	public PartnerDTO changState(int com_num);
 	public Page<PartnerDTO> Adminpartner(String search, Pageable pageable);
+	public int insertPartner(ProdPartner partner);
 	public int updatePartner(ProdPartner partner);
 	public PartnerDTO findPartner(int search);
 	public Page<ProdListDTO>partnerProduct(int num, String search,Pageable pageable);
