@@ -1,6 +1,9 @@
 package com.highfive.refurmoa.user.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+
 import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 
@@ -42,5 +45,37 @@ public class MemberServiceImpl implements MemberService {
     public long countMemberId(String memberId) {
         return repository.countByMemberId(memberId);
     }
+    
+ // 회원정보 불러오기
+ 	@Override
+ 	public List<Member> listMember(String memberId) {
+ 		return (List<Member>)repository.findAllByMemberId(memberId);
+ 	}
+ 	
+ 	// 회원탈퇴
+ 	@Override
+ 	public void deleteMember(String memberId) {
+ 		repository.deleteById(memberId);
+ 	}
+ 	
+ 	// 회원정보 수정
+ 	@Override
+ 	public Member updateMember(Member member) {
+ 		return repository.save(member);
+ 	}
+ 	
+ 	//	회원주소검색
+ 	@Override
+ 	public String userLocationInfo(String memberId, boolean acceptLocation) {
+ 		Member member = repository.findAllByMemberIdAndAcceptLocation(memberId, acceptLocation);
+ 		if (member != null) return member.getAddress();
+         else return "0";
+ 	}
+ 	
+ 	// 회원정보 불러오기
+ 	@Override
+ 	public List<Member> listAdminMember() {
+ 		return (List<Member>)repository.findAll();
+ 	}
 
 }
