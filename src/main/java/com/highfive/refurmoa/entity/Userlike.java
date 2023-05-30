@@ -19,11 +19,11 @@ public class Userlike {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "member_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Member memberId;
+	private Member member;
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_num", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Board boardNum;
+	private Board board;
 
 }
