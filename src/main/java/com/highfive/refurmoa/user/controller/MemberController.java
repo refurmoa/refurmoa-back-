@@ -42,5 +42,7 @@ public class MemberController {
     public long countMemberId(@RequestBody Member vo) {
         return memberServiceImpl.countMemberId(vo.getMemberId());
     }
+    
+//    안녕하세요
 
 }
