@@ -16,14 +16,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override // 찜 등록/취소
-    public int userlikeupdate(UserlikeRequestDTO userlikeDTO) {
-        try {
-            if (userlikeDTO.isLike() == true) {
-                Userlike userlike = userlikeRepository.findByBoardBoardNumAndMemberMemberId(userlikeDTO.getBoardNum(), userlikeDTO.getMemberId());
-                userlikeRepository.delete(userlike);
-            } else { userlikeRepository.save(new Userlike(userlikeDTO.getMemberId(), userlikeDTO.getBoardNum())); }
-            return 1;
-        } catch (Exception e) { return 0; }
+    public void userlikeupdate(UserlikeRequestDTO userlikeDTO) {
+        if (userlikeDTO.isLike() == true) {
+            Userlike userlike = userlikeRepository.findByBoardBoardNumAndMemberMemberId(userlikeDTO.getBoardNum(), userlikeDTO.getMemberId());
+            userlikeRepository.delete(userlike);
+        } else { userlikeRepository.save(new Userlike(userlikeDTO.getMemberId(), userlikeDTO.getBoardNum())); }
     }
 
 }

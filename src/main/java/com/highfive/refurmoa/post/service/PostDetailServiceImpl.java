@@ -15,14 +15,17 @@ public class PostDetailServiceImpl implements PostDetailService {
     private final BoardRepository boardRepository;
     private final UserlikeRepository userlikeRepository;
     private final BidRepository bidRepository;
+    private final AutoBidRepository autoBidRepository;
     private final ProdInqRepository prodInqRepository;
     private final ProdInqReplyRepository prodInqReplyRepository;
 
     public PostDetailServiceImpl(BoardRepository boardRepository, UserlikeRepository userlikeRepository,
-                                 BidRepository bidRepository, ProdInqRepository prodInqRepository, ProdInqReplyRepository prodInqReplyRepository) {
+                                 BidRepository bidRepository, AutoBidRepository autoBidRepository,
+                                 ProdInqRepository prodInqRepository, ProdInqReplyRepository prodInqReplyRepository) {
         this.boardRepository = boardRepository;
         this.userlikeRepository = userlikeRepository;
         this.bidRepository = bidRepository;
+        this.autoBidRepository = autoBidRepository;
         this.prodInqRepository = prodInqRepository;
         this.prodInqReplyRepository = prodInqReplyRepository;
     }
@@ -40,9 +43,26 @@ public class PostDetailServiceImpl implements PostDetailService {
     }
 
     @Override // 판매 글 삭제
-    public int deletePost(int boardNum) {
-        try { boardRepository.updateDeleteCheckByBoardNum(boardNum); return 1; }
-        catch (Exception e) { return 0; }
+    public void deletePost(int boardNum) {
+        boardRepository.updateDeleteCheckByBoardNum(boardNum);
+    }
+
+    @Override // 입찰(+자동입찰)
+    public void insertBid(BidRequestDTO bidRequestDTO) {
+        bidRepository.save(new Bid(bidRequestDTO));
+        boardRepository.updateCurPriceByBoardNum(bidRequestDTO.getBidPrice(), bidRequestDTO.getBoardNum());
+        AutoBid autoBid = autoBidRepository
+                .findFirstByBoardBoardNumAndAutobidPriceGreaterThanOrderByAutobidDateAsc
+                        (bidRequestDTO.getBoardNum(), bidRequestDTO.getBidPrice());
+        if (autoBid != null) {
+            bidRepository.save(new Bid(autoBid, bidRequestDTO.getBidPrice() + bidRequestDTO.getUnitPrice()));
+        }
+    }
+
+    @Override // 자동입찰
+    public void insertAutoBid(BidRequestDTO bidRequestDTO) {
+        autoBidRepository.save(new AutoBid(bidRequestDTO));
+        insertBid(bidRequestDTO);
     }
 
     @Override // 입찰 목록 조회
@@ -62,24 +82,22 @@ public class PostDetailServiceImpl implements PostDetailService {
     }
 
     @Override // 상품 문의 글 등록
-    public int insertProdInquiry(ProdInqRequestDTO prodInquiryDTO) {
+    public void insertProdInquiry(ProdInqRequestDTO prodInquiryDTO) {
         prodInquiryDTO.setProductCode(boardRepository.findByBoardNum(prodInquiryDTO.getBoardNum()).getProduct().getProductCode());
         ProdInquiry prodInquiry = new ProdInquiry(prodInquiryDTO);
-        prodInqRepository.save(prodInquiry); return 1;
+        prodInqRepository.save(prodInquiry);
     }
 
     @Override // 상품 문의 글 삭제
-    public int deleteProdInquiry(int prodInquiryNum) {
-        try { prodInqRepository.deleteById(prodInquiryNum); return 1; }
-        catch (Exception e) { return 0; }
+    public void deleteProdInquiry(int prodInquiryNum) {
+        prodInqRepository.deleteById(prodInquiryNum);
     }
 
     @Override // 상품 문의 댓글 등록
-    public int insertProdInqReply(ProdInqReplyRequestDTO prodInqReplyRequestDTO) {
+    public void insertProdInqReply(ProdInqReplyRequestDTO prodInqReplyRequestDTO) {
         ProdInquiry prodInquiry = prodInqRepository.findByProdInquiryNum(prodInqReplyRequestDTO.getProdInquiryNum());
         ProdInquiryReply prodInquiryReply = new ProdInquiryReply(prodInqReplyRequestDTO, prodInquiry);
-        try { prodInqReplyRepository.save(prodInquiryReply); return 1; }
-        catch (Exception e) { return 0; }
+        prodInqReplyRepository.save(prodInquiryReply);
     }
 
 }
