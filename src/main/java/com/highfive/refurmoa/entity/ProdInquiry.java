@@ -1,6 +1,6 @@
 package com.highfive.refurmoa.entity;
 
-import com.highfive.refurmoa.post.dto.ProdInqRequestDTO;
+import com.highfive.refurmoa.post.dto.request.ProdInqRequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,9 +49,6 @@ public class ProdInquiry {
 	@Column(name = "date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-
-	@OneToOne(mappedBy = "prodInquiry")
-	private ProdInquiryReply prodInquiryReply = new ProdInquiryReply();
 
 	public ProdInquiry(ProdInqRequestDTO prodInquiryDTO) {
 		this.member = new Member();

@@ -1,6 +1,8 @@
-package com.highfive.refurmoa.post.dto;
+package com.highfive.refurmoa.post.dto.reponse;
 
 import com.highfive.refurmoa.entity.ProdInquiry;
+import com.highfive.refurmoa.entity.ProdInquiryReply;
+
 import lombok.Getter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -18,15 +20,14 @@ public class ProdInqListResponseDTO {
     private Date date;
     private String re_con;
 
-    public ProdInqListResponseDTO(ProdInquiry prodInquiry) {
+    public ProdInqListResponseDTO(ProdInquiry prodInquiry, ProdInquiryReply prodInquiryReply) {
         this.prod_inquiry_num = prodInquiry.getProdInquiryNum();
         this.member_id = prodInquiry.getMember().getMemberId();
         this.secret = prodInquiry.isSecret();
         this.title = prodInquiry.getTitle();
         this.content = prodInquiry.getContent();
         this.date = prodInquiry.getDate();
-        if (prodInquiry.getProdInquiryReply() != null) {
-            this.re_con = prodInquiry.getProdInquiryReply().getReCon();
-        } else { this.re_con = ""; }
+        if (prodInquiryReply != null) { this.re_con = prodInquiryReply.getReCon(); }
+        else { this.re_con = ""; }
     }
 }

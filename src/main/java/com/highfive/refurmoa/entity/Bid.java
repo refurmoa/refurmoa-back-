@@ -1,10 +1,12 @@
 package com.highfive.refurmoa.entity;
 
+import com.highfive.refurmoa.post.dto.request.BidRequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import java.util.Date;
@@ -41,6 +43,27 @@ public class Bid {
     private boolean bidAuto;
 
     @Column(name = "bid_cancel", nullable = false)
+    @ColumnDefault(value = "false")
     private boolean bidCancel;
+
+    public Bid(BidRequestDTO bidRequestDTO) { // 입찰
+        this.board = new Board();
+        this.board.setBoardNum(bidRequestDTO.getBoardNum());
+        this.member = new Member();
+        this.member.setMemberId(bidRequestDTO.getMemberId());
+        this.bidPrice = bidRequestDTO.getBidPrice();
+        this.bidDate = new Date();
+        this.bidAuto = false;
+    }
+
+    public Bid(AutoBid autoBid, int price) { // 자동입찰
+        this.board = new Board();
+        this.board.setBoardNum(autoBid.getBoard().getBoardNum());
+        this.member = new Member();
+        this.member.setMemberId(autoBid.getMember().getMemberId());
+        this.bidPrice = price;
+        this.bidDate = new Date();
+        this.bidAuto = true;
+    }
 
 }

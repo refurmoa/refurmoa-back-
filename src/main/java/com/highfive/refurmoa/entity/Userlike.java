@@ -24,12 +24,12 @@ public class Userlike {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Member member;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_num", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Board board;
 
-	public Userlike(int boardNum, String memberId) {
+	public Userlike(String memberId, int boardNum) {
 		this.member = new Member();
 		this.member.setMemberId(memberId);
 		this.board = new Board();
