@@ -14,11 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.entity.Product;
-import com.highfive.refurmoa.prod.DTO.ProdFileDTO;
-import com.highfive.refurmoa.prod.DTO.ProdListDTO;
-import com.highfive.refurmoa.prod.DTO.ProdResponseDTO;
-import com.highfive.refurmoa.prod.DTO.ProdSearchDTO;
-import com.highfive.refurmoa.prod.DTO.ProductWriteDTO;
+import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
+import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
+import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
 
 @Service

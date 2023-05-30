@@ -52,7 +52,7 @@ public interface ProductRepository  extends JpaRepository<Product, Integer>{
 	@Query(value="select * from product where prod_name like CONCAT('%',:name,'%') and category_code like CONCAT('%',:search,'%')",nativeQuery=true)
 	 List<Product> findProdList(@Param("name")String name,@Param("search")String search);
 	
-	 @Query(value="select * from product where com_num =:num and prod_name like CONCAT('%',:name,'%')  ",nativeQuery=true)
+	 @Query(value="select * from product where com_num =:num and prod_name like CONCAT('%',:name,'%') order by prod_state ",nativeQuery=true)
      List<Product> findPartnerProd(@Param("num")int num,@Param("name")String name);
 }
 

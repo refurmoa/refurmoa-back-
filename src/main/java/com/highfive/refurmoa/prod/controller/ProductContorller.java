@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.highfive.refurmoa.prod.DTO.ProdFileDTO;
-import com.highfive.refurmoa.prod.DTO.ProdListDTO;
-import com.highfive.refurmoa.prod.DTO.ProdResponseDTO;
-import com.highfive.refurmoa.prod.DTO.ProductWriteDTO;
+import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
+import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
+import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 import com.highfive.refurmoa.prod.service.ProductServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -29,32 +30,33 @@ public class ProductContorller {
 	
 	private final ProductServiceImpl ProductServiceImpl;
 	
-	//상품목록 조회
+	
 	 @GetMapping("/prod")
 	 public List<ProdListDTO> productList(@RequestParam(value="category") String category,@RequestParam(value="sell_status") String status) {
 		
        return ProductServiceImpl.productList(category,status);
-   	}
-	//상품 삭제
+	 }
+	 @PostMapping("/prod/search")
+	 public List<ProdListDTO> productSearch(@RequestBody ProdSearchDTO body) {
+		
+       return ProductServiceImpl.productSearch(body);
+	 }
 	 @GetMapping("/prod/delete")
 	 public int productList(@RequestParam(value="product_code") int code) {
 		
        return ProductServiceImpl.productDelete(code);
-   	}
-	//상품 작성
+   }
 	@PostMapping("/prod/write")
     public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 		prodNum=ProductServiceImpl.ProductWrite(mainImg,prodDto);
 
         return prodNum;
     }
-	//상품 수정
 	@PostMapping("/prod/update")
     public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 		
         return ProductServiceImpl.ProductUpdate(mainImg,prodDto);
     }
-	//상품 등록시, 이미지 파일
 	@PostMapping("/prod/file")
 	public int upload(@RequestBody MultipartFile[] uploadfiles) throws IOException {
        
@@ -69,10 +71,11 @@ public class ProductContorller {
 		ProductServiceImpl.insertFile(dto);
 		return 1;
     }
-	//상품 수정 조회
+	
 	@GetMapping("/prod/update/info")
 	 public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
         return ProductServiceImpl.productInfo(productCode);
     }
 	
+
 }

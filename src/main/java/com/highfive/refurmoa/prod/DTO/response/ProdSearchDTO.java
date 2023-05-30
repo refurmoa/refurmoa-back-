@@ -1,4 +1,4 @@
-package com.highfive.refurmoa.prod.DTO;
+package com.highfive.refurmoa.prod.DTO.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

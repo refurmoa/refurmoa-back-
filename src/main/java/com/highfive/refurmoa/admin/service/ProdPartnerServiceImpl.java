@@ -14,8 +14,8 @@ import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.entity.Product;
-import com.highfive.refurmoa.prod.DTO.ProdListDTO;
-import com.highfive.refurmoa.prod.DTO.ProdResponseDTO;
+import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
 
 @Service
