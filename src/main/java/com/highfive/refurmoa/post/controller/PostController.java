@@ -15,8 +15,8 @@ public class PostController {
 
     // 찜 등록/취소
     @PostMapping("/like")
-    public int userlikeupdate(@RequestBody UserlikeRequestDTO userlikeDTO) {
-        return postService.userlikeupdate(userlikeDTO);
+    public void userlikeupdate(@RequestBody UserlikeRequestDTO userlikeDTO) {
+        postService.userlikeupdate(userlikeDTO);
     }
 
 }
