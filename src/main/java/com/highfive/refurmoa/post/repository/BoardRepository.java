@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
@@ -13,11 +14,11 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE Board SET delete_check = 1 WHERE board_num = :boardNum", nativeQuery = true)
-    void updateDeleteCheckByBoardNum(int boardNum); // 판매 글 삭제
+    @Query("UPDATE Board b SET b.deleteCheck = true WHERE b.boardNum = :boardNum")
+    void updateDeleteCheckByBoardNum(@Param("boardNum") int boardNum); // 판매 글 삭제
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE Board SET cur_price = :curPrice WHERE board_num = :boardNum", nativeQuery = true)
+    @Query(value = "UPDATE Board b SET b.curPrice = :curPrice WHERE b.boardNum = :boardNum")
     void updateCurPriceByBoardNum(int curPrice, int boardNum); // 현재가 변경
 }
