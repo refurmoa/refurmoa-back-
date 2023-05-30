@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
 import com.highfive.refurmoa.admin.service.ProdPartnerServiceImpl;
 import com.highfive.refurmoa.entity.ProdPartner;
+import com.highfive.refurmoa.prod.DTO.ProdListDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,13 +34,21 @@ public class ProdPartnerContorller {
 	@GetMapping("/partner/search")
 	 public Page<PartnerDTO> partnerSearch(@RequestParam(value="search") String search, Pageable pageable) {
        return ProdPartnerServiceImpl.partnerSearch(search,pageable);
-   }
+   	}
 	@GetMapping("/admin/partner")
 	 public Page<PartnerDTO> Adminpartner(@RequestParam(value="search") String search, Pageable pageable) {
       return ProdPartnerServiceImpl.Adminpartner(search,pageable);
-  }
+  	}
 	@PostMapping("/admin/partner/update")
 	public int updatePartner(@RequestBody ProdPartner partner) {
 		return ProdPartnerServiceImpl.updatePartner(partner);
 	}
+	@GetMapping("/admin/partner/prod")
+    public  Page<ProdListDTO>partnerProdcut (@RequestParam(value="com_num" )int num,@RequestParam(value="search") String search,Pageable pageable) {	
+		return ProdPartnerServiceImpl.partnerProduct(num,search,pageable);	
+    }
+	@GetMapping("/admin/partner/prod/search")
+    public  Page<ProdListDTO>partnerProdcutSearch (@RequestParam(value="com_num" )int num,@RequestParam(value="search") String search,Pageable pageable) {	
+		return ProdPartnerServiceImpl.partnerProduct(num,search,pageable);	
+    }
 }
