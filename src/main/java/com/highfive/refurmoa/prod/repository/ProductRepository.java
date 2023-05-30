@@ -2,7 +2,8 @@ package com.highfive.refurmoa.prod.repository;
 
 import java.util.Date;
 import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -48,6 +49,13 @@ public interface ProductRepository  extends JpaRepository<Product, Integer>{
 	
 	@Transactional
 	void deleteById(int code);
+	
+	@Query(value="select * from product where prod_name like CONCAT('%',:name,'%') and category_code like CONCAT('%',:search,'%')",nativeQuery=true)
+	 List<Product> findProdList(@Param("name")String name,@Param("search")String search);
+	
+	
+	 @Query("select p from Product p where p.comNum =:num and p.prodName like %:name% order by p.prodState")
+     Page<Product> findPartnerProd(@Param("num")ProdPartner num,@Param("name")String name,Pageable pageable);
 }
 
 
