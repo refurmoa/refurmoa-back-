@@ -2,6 +2,8 @@ package com.highfive.refurmoa.post.service;
 
 import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.Userlike;
+import com.highfive.refurmoa.post.Post;
+import com.highfive.refurmoa.post.dto.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.PostRequestDTO;
 import com.highfive.refurmoa.post.dto.PostResponseDTO;
 import com.highfive.refurmoa.post.repository.BidRepository;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,9 +35,10 @@ public class PostServiceImpl implements PostService {
         this.userlikeRepository = userlikeRepository;
     }
 
+    // 판매글 리스트 가져오기
     @Override
     public Page<PostResponseDTO> getPostList(PostRequestDTO postRequestDTO) {
-        Date now = new Date();// 현재시간
+        Date date_now = new Date();// 현재시간
 
         Pageable pageable = PageRequest.of(postRequestDTO.getPage(), postRequestDTO.getSize());
         Sort sort = Sort.by(Sort.Direction.DESC, "boardNum");
@@ -60,57 +64,32 @@ public class PostServiceImpl implements PostService {
         }
 
         if (postRequestDTO.getSell_status().equals("all")) { // 진행상태:all
-//            if (postRequestDTO.getOrderby().equals("close")) { // 정렬순:close
-//                return getPostResponseDTO(boardRepository.findSellStatusAllAndClose(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
-//            }
             // 정렬순: new, view
-            return getPostResponseDTO(boardRepository.findSellStatusAllAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), now, pageable), postRequestDTO);
+            return getPostResponseDTO(boardRepository.findSellStatusAllAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
         } else if (postRequestDTO.getSell_status().equals("ingnend")) { // 진행상태:ingnend
-//            if (postRequestDTO.getOrderby().equals("close")) { // 정렬순:close
-//                return getPostResponseDTO(boardRepository.findSellStatusIngNEndAndClose(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
-//            }
             // 정렬순: new, view
-            return getPostResponseDTO(boardRepository.findSellStatusIngNEndAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), now, pageable), postRequestDTO);
+            return getPostResponseDTO(boardRepository.findSellStatusIngNEndAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
         } else if (postRequestDTO.getSell_status().equals("yetnend")) { // 진행상태:yetnend
-//            if (postRequestDTO.getOrderby().equals("close")) { // 정렬순:close
-//                return getPostResponseDTO(boardRepository.findSellStatusYetNEndAndClose(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
-//            }
             // 정렬순: new, view
-            return getPostResponseDTO(boardRepository.findSellStatusYetNEndAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), now, pageable), postRequestDTO);
+            return getPostResponseDTO(boardRepository.findSellStatusYetNEndAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
         } else if (postRequestDTO.getSell_status().equals("yetning")) { // 진행상태:yetning
-//            if (postRequestDTO.getOrderby().equals("close")) { // 정렬순:close
-//                return getPostResponseDTO(boardRepository.findSellStatusYetNIngAndClose(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
-//            }
             // 정렬순: new, view
-            return getPostResponseDTO(boardRepository.findSellStatusYetNIngAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), now, pageable), postRequestDTO);
+            return getPostResponseDTO(boardRepository.findSellStatusYetNIngAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
         } else if (postRequestDTO.getSell_status().equals("yet")) { // 진행상태:yet
-//            if (postRequestDTO.getOrderby().equals("close")) { // 정렬순:close
-//                return getPostResponseDTO(boardRepository.findSellStatusYetAndClose(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
-//            }
             // 정렬순:new, view
-            return getPostResponseDTO(boardRepository.findSellStatusYetAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), now, pageable), postRequestDTO);
+            return getPostResponseDTO(boardRepository.findSellStatusYetAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
         } else if (postRequestDTO.getSell_status().equals("ing")) { // 진행상태:ing
-//            if (postRequestDTO.getOrderby().equals("close")) {
-//                // 정렬순:close
-//                return getPostResponseDTO(boardRepository.findSellStatusIngAndClose(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
-//            }
             // 정렬순:new, view
-            return getPostResponseDTO(boardRepository.findSellStatusIngAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), now, pageable), postRequestDTO);
+            return getPostResponseDTO(boardRepository.findSellStatusIngAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
         } else { // 진행상태:end
-//            if (postRequestDTO.getOrderby().equals("close")) {
-//                // 정렬순:close
-//                return getPostResponseDTO(boardRepository.findSellStatusEndAndClose(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
-//            }
             // 정렬순:new, view
-            return getPostResponseDTO(boardRepository.findSellStatusEndAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), now, pageable), postRequestDTO);
+            return getPostResponseDTO(boardRepository.findSellStatusEndAndNewOrView(sellType, postRequestDTO.getSearch(), postRequestDTO.getCategory(), date_now, pageable), postRequestDTO);
         }
     }
-
     private Page<PostResponseDTO> getPostResponseDTO (Page<Board> board, PostRequestDTO postRequestDTO) {
 
         return board.map(board_item -> {
             if(postRequestDTO.getMember_id() != null) {
-
                 Long bid_count = bidRepository.countByBoardBoardNumAndBidCancelFalse(board_item.getBoardNum()); // 게시글 입찰 수 조회
                 Userlike user_like = userlikeRepository.findByBoardBoardNumAndMemberMemberId(board_item.getBoardNum(), postRequestDTO.getMember_id());
                 return new PostResponseDTO(board_item, bid_count, user_like);
@@ -119,6 +98,10 @@ public class PostServiceImpl implements PostService {
                 Long bid_count = bidRepository.countByBoardBoardNumAndBidCancelFalse(board_item.getBoardNum()); // 게시글 입찰 수 조회
                 return new PostResponseDTO(board_item, bid_count, null);
             }});
+    }
+
+    public void readCount(PostReadCountResquestDTO postReadCountResquestDTO) {
+        boardRepository.findByBoardNumAndUpdatePlusReadCount(postReadCountResquestDTO.getBoard_num());
     }
 
 

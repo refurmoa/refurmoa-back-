@@ -2,6 +2,7 @@ package com.highfive.refurmoa.post.controller;
 
 
 import com.highfive.refurmoa.entity.Board;
+import com.highfive.refurmoa.post.dto.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.PostRequestDTO;
 import com.highfive.refurmoa.post.dto.PostResponseDTO;
 import com.highfive.refurmoa.post.service.PostServiceImpl;
@@ -24,6 +25,11 @@ public class PostController {
     @PostMapping("")
     public Page<PostResponseDTO> getPostList(@RequestBody PostRequestDTO postRequestDTO) {
         return postServiceImpl.getPostList(postRequestDTO);
+    }
+
+    @PostMapping("/readcount")
+    public void readCount(@RequestBody PostReadCountResquestDTO postReadCountResquestDTO) {
+        postServiceImpl.readCount(postReadCountResquestDTO);
     }
 
 }
