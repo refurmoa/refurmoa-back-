@@ -2,9 +2,12 @@ package com.highfive.refurmoa.user.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 
 @Service
@@ -72,10 +75,22 @@ public class MemberServiceImpl implements MemberService {
          else return "0";
  	}
  	
- 	// 회원정보 불러오기
+// 	// 회원정보 불러오기
+// 	@Override
+// 	public List<AdminUserListResponseDTO> listAdminMember() {
+// 		return (List<AdminUserListResponseDTO>)repository.listAdminMember();
+// 	}
+ 	
+ // 회원정보 불러오기
+  	@Override
+  	public Slice<AdminUserListResponseDTO> listAdminMember(Pageable pageable) {
+  		return (Slice<AdminUserListResponseDTO>)repository.listAdminMember(pageable);
+  	}
+ 	
+ 	// admin 회원 검색
  	@Override
- 	public List<Member> listAdminMember() {
- 		return (List<Member>)repository.findAll();
+ 	public List<AdminUserListResponseDTO> searchAdminMember(String memberId){
+ 		return (List<AdminUserListResponseDTO>)repository.findByMemberIdOrName(memberId);
  	}
 
 }
