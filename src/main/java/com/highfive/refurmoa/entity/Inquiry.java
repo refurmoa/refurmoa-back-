@@ -30,6 +30,9 @@ public class Inquiry {
 
     @Column(name = "inq_img", length = 100)
     private String inqImg;
+    
+    @Column(name = "inq_org_img", length = 100)
+    private String inqOrgImg;
 
     @Column(name = "inq_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
