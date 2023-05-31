@@ -41,19 +41,19 @@ public class ProductContorller {
 		
        return ProductServiceImpl.productDelete(code);
    	}
-	//상품 작성
-	@PostMapping("/prod/write")
-    public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
-		prodNum=ProductServiceImpl.ProductWrite(mainImg,prodDto);
-
-        return prodNum;
-    }
-	//상품 수정
-	@PostMapping("/prod/update")
-    public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
-		
-        return ProductServiceImpl.ProductUpdate(mainImg,prodDto);
-    }
+//	//상품 작성
+//	@PostMapping("/prod/write")
+//    public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
+//		prodNum=ProductServiceImpl.ProductWrite(mainImg,prodDto);
+//
+//        return prodNum;
+//    }
+//	//상품 수정
+//	@PostMapping("/prod/update")
+//    public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
+//		
+//        return ProductServiceImpl.ProductUpdate(mainImg,prodDto);
+//    }
 	//상품 등록시, 이미지 파일
 	@PostMapping("/prod/file")
 	public int upload(@RequestBody MultipartFile[] uploadfiles) throws IOException {
