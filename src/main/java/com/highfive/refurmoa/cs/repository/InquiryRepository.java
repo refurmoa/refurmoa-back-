@@ -14,4 +14,6 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Integer>{
 	Page<Inquiry> findAll(Pageable pageable);
 	//목록 상세
 	Inquiry findByNum(int num);
+	//목록 삭제
+	void deleteById(int num);
 }

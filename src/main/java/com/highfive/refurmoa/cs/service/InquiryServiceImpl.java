@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
+import com.highfive.refurmoa.cs.dto.request.InquiryReplyDTO;
 import com.highfive.refurmoa.cs.dto.response.InquiryDetailDTO;
 import com.highfive.refurmoa.cs.dto.response.InquiryListDTO;
 import com.highfive.refurmoa.cs.repository.InquiryRepository;
@@ -44,5 +45,22 @@ public class InquiryServiceImpl implements InquiryService {
     	Inquiry tmp =repository.findByNum(num);
     	return new InquiryDetailDTO(tmp);
     }
-    
+    //목록 삭제
+    @Override
+    public int inquiryDelete(int num) {
+    	repository.deleteById(num);
+    	return 1;
+    }
+    //이름 조회
+    @Override
+    public String findName(String id) {
+    	String name=memberRepository.findByMemberId(id).getName();
+    	return name;
+    }
+    //답변 등록
+    public int writeReply(InquiryReplyDTO answer) {
+    	Inquiry tmp =repository.findByNum(answer.getNum());
+    	repository.save(new Inquiry(tmp,answer));
+    	return 1;
+    }
 }
