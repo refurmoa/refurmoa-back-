@@ -12,4 +12,6 @@ public interface InquiryRepository extends JpaRepository<Inquiry, Integer>{
 	Page<Inquiry> findByMemberId(Member id, Pageable pageable);
 	//목록 조회
 	Page<Inquiry> findAll(Pageable pageable);
+	//목록 상세
+	Inquiry findByNum(int num);
 }

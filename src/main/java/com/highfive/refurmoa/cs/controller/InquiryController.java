@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.highfive.refurmoa.cs.dto.response.InquiryDetailDTO;
 import com.highfive.refurmoa.cs.dto.response.InquiryListDTO;
 import com.highfive.refurmoa.cs.service.InquiryServiceImpl;
 
@@ -22,5 +23,9 @@ public class InquiryController {
 	
        return inquiryServiceImpl.inquiryList(id,pageable);
 	 }
-	 
+	//목록 상세
+	 @GetMapping("/cs/inquiry/detail")
+	 public InquiryDetailDTO inquiryList(@RequestParam(value="num") int num) {
+       return inquiryServiceImpl.inquiryDetail(num);
+	 }
 }
