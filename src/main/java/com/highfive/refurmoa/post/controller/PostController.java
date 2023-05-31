@@ -22,11 +22,13 @@ public class PostController {
         this.postServiceImpl = postServiceImpl;
     }
 
+    // 판매글 목록 가져오기
     @PostMapping("")
     public Page<PostResponseDTO> getPostList(@RequestBody PostRequestDTO postRequestDTO) {
         return postServiceImpl.getPostList(postRequestDTO);
     }
 
+    // 조회수 증가
     @PostMapping("/readcount")
     public void readCount(@RequestBody PostReadCountResquestDTO postReadCountResquestDTO) {
         postServiceImpl.readCount(postReadCountResquestDTO);

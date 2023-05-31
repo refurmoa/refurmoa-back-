@@ -35,7 +35,7 @@ public class PostServiceImpl implements PostService {
         this.userlikeRepository = userlikeRepository;
     }
 
-    // 판매글 리스트 가져오기
+    // 판매글 목록 가져오기
     @Override
     public Page<PostResponseDTO> getPostList(PostRequestDTO postRequestDTO) {
         Date date_now = new Date();// 현재시간
@@ -100,6 +100,7 @@ public class PostServiceImpl implements PostService {
             }});
     }
 
+    // 조회수 증가
     public void readCount(PostReadCountResquestDTO postReadCountResquestDTO) {
         boardRepository.findByBoardNumAndUpdatePlusReadCount(postReadCountResquestDTO.getBoard_num());
     }
