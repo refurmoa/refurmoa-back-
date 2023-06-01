@@ -1,10 +1,13 @@
 package com.highfive.refurmoa.cs.service;
 
+import java.io.IOException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.highfive.refurmoa.cs.dto.request.InquiryReplyDTO;
+import com.highfive.refurmoa.cs.dto.request.InquiryWriteDTO;
 import com.highfive.refurmoa.cs.dto.response.InquiryDetailDTO;
 import com.highfive.refurmoa.cs.dto.response.InquiryListDTO;
 
@@ -20,5 +23,7 @@ public interface InquiryService {
 	public String findName(String id);
 	//답변 등록
 	public int writeReply(InquiryReplyDTO answer);
+	//문의 등록
+	public int writeInquiry( MultipartFile inqImg, InquiryWriteDTO write) throws IOException;
 	
 }
