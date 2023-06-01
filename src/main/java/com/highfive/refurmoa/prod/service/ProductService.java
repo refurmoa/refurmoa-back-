@@ -17,6 +17,8 @@ import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 
 
 public interface ProductService {
+
+	Page<ProdListResponseDTO> productList(String search, String category, String status, Pageable pageable); // 상품 목록 조회
 	
 	public List<ProdListDTO> productList(String category,String status);
 	public List<ProdListDTO> productSearch(ProdSearchDTO body);

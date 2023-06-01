@@ -31,6 +31,7 @@ public class ProdListDTO {
 	private String com_name;
 	private int com_num;
 	private int sell_status;
+
 	public ProdListDTO(Product dto,int num) {
 		this.productCode = dto.getProductCode() ;
 		this.category = dto.getCategory() ;

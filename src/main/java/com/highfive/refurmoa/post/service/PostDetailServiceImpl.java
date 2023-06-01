@@ -35,8 +35,8 @@ public class PostDetailServiceImpl implements PostDetailService {
     public PostDetailResponseDTO getPostDetail(int boardNum, String memberId) {
         Board board = boardRepository.findByBoardNum(boardNum);
         if (memberId != null) {
-            Userlike like = userlikeRepository.findByBoardBoardNumAndMemberMemberId(board.getBoardNum(), memberId);
-            return new PostDetailResponseDTO(board, like);
+            Userlike userlike = userlikeRepository.findByBoardBoardNumAndMemberMemberId(board.getBoardNum(), memberId);
+            return new PostDetailResponseDTO(board, userlike);
         } else {
             return new PostDetailResponseDTO(board, null);
         }

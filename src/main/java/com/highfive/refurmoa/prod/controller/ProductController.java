@@ -22,23 +22,38 @@ import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 import com.highfive.refurmoa.prod.service.ProductServiceImpl;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 
-public class ProductContorller {
-	
-	private int prodNum;
+public class ProductController {
+
 	
 	private final ProductServiceImpl ProductServiceImpl;
+
+
+	@GetMapping("/prod")
+	public Page<ProdListResponseDTO> productList(@RequestParam String search, @RequestParam String category, @RequestParam String status, Pageable pageable) {
+		return ProductServiceImpl.productList(search, category, status, pageable);
+	}
+
+
 	
 	
-	 @GetMapping("/prod")
-	 public List<ProdListDTO> productList(@RequestParam(value="category") String category,@RequestParam(value="sell_status") String status) {
-		
-       return ProductServiceImpl.productList(category,status);
-	 }
+//	 @GetMapping("/prod")
+//	 public List<ProdListDTO> productList(@RequestParam(value="category") String category,@RequestParam(value="sell_status") String status) {
+//
+//       return ProductServiceImpl.productList(category,status);
+//	 }
 	 @PostMapping("/prod/search")
 	 public List<ProdListDTO> productSearch(@RequestBody ProdSearchDTO body) {
        return ProductServiceImpl.productSearch(body);
@@ -48,6 +63,7 @@ public class ProductContorller {
 		
        return ProductServiceImpl.productDelete(code);
    }
+   private int prodNum;
 	@PostMapping("/prod/write")
     public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 		prodNum=ProductServiceImpl.ProductWrite(mainImg,prodDto);
@@ -56,7 +72,7 @@ public class ProductContorller {
     }
 	@PostMapping("/prod/update")
     public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
-		
+
         return ProductServiceImpl.ProductUpdate(mainImg,prodDto);
     }
 	@PostMapping("/prod/file")

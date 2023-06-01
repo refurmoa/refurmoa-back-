@@ -2,7 +2,11 @@ package com.highfive.refurmoa.user.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
+
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
 
 public interface MemberService {
 
@@ -15,6 +19,9 @@ public interface MemberService {
     public void deleteMember(String memberId);	// 회원탈퇴
     public Member updateMember(Member member);	// 회원정보 수정
     public String userLocationInfo(String memberId, boolean acceptLocation);	//	회원주소검색
-    public List<Member> listAdminMember();	// 관리자 페이지 회원 목록 조회
-
+//    public List<AdminUserListResponseDTO> listAdminMember();	// 관리자 페이지 회원 목록 조회
+    public Slice<AdminUserListResponseDTO> listAdminMember(Pageable pageable);	// 관리자 페이지 회원 목록 조회
+    public List<AdminUserListResponseDTO> searchAdminMember(String memberId);	// admin 회원 검색
+   
+    
 }

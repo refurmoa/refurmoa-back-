@@ -2,12 +2,11 @@ package com.highfive.refurmoa.prod.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
+import com.highfive.refurmoa.entity.Board;
+import com.highfive.refurmoa.post.repository.BoardRepository;
+import com.highfive.refurmoa.prod.DTO.response.ProdListResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -29,21 +28,55 @@ import com.highfive.refurmoa.prod.repository.ProductRepository;
 public class ProductServiceImpl implements ProductService {
 	
 	 private ProductRepository repository;
+	 private BoardRepository boardRepository;
 	 private ProdPartnerRepository partnerRepository;
-	 private HashMap<String ,String> map= new HashMap<String ,String>(){{//초기값 지정
-		    put("all","01234");
-		    put("ingnend","1234");
-		    put("yetnend","04");
-		    put("yetning","0123");
-		    put("yet","0");
-		    put("ing","123");
-		    put("end","4");
-	 }}; 
-	 public ProductServiceImpl(ProductRepository repository,ProdPartnerRepository partnerRepository ) {
+
+	 public ProductServiceImpl(ProductRepository repository, BoardRepository boardRepository, ProdPartnerRepository partnerRepository) {
 	        this.repository = repository;
-	        this.partnerRepository=partnerRepository;
+			this.boardRepository = boardRepository;
+	        this.partnerRepository = partnerRepository;
 	 }
-	 @Override
+
+
+
+	@Override // 상품 목록 조회
+	public Page<ProdListResponseDTO> productList(String search, String category, String status, Pageable pageable) {
+		List<Integer> statusList = switch (status) {
+			case "ingnend" -> Arrays.asList(1, 2, 3, 4, 5);
+			case "yetnend" -> Arrays.asList(0, 5);
+			case "yetning" -> Arrays.asList(0, 1, 2, 3, 4);
+			case "yet" -> List.of(0);
+			case "ing" -> Arrays.asList(1, 2, 3, 4);
+			case "end" -> List.of(5);
+			default -> Arrays.asList(0, 1, 2, 3, 4, 5);
+		};
+		if (category == "all") category = "";
+		Page<Product> productList = repository.getListProduct(search, category, statusList, pageable);
+		return productList.map(product -> {
+			Date startDate = null;
+			String comName = partnerRepository.findByComNum(product.getComNum().getComNum()).getComName();
+			if (product.getProdState() == 1) {
+				List<Board> board = boardRepository.findByProductProductCodeAndDeleteCheckFalseOrderByBoardNumDesc(product.getProductCode());
+				if (board != null && !board.isEmpty()) startDate = board.get(0).getStartDate();
+				return new ProdListResponseDTO(product, startDate, comName);
+			}
+			return new ProdListResponseDTO(product, null, comName);
+		});
+	}
+
+
+
+
+	private HashMap<String ,String> map= new HashMap<String ,String>(){{//초기값 지정
+		put("all","01234");
+		put("ingnend","1234");
+		put("yetnend","04");
+		put("yetning","0123");
+		put("yet","0");
+		put("ing","123");
+		put("end","4");
+	}};
+	@Override
 	 public List<ProdListDTO> productSearch(ProdSearchDTO body){
 		 String cate="";
 		 switch(body.getCategory()) {

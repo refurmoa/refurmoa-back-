@@ -50,7 +50,7 @@ public class Board {
     @Column(name = "detail_image", nullable = false, length = 100)
     private String detailImage;
 
-    @Column(name = "start_date", nullable = false)
+    @Column(name = "start_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
