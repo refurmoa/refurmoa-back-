@@ -2,7 +2,6 @@ package com.highfive.refurmoa.post.service;
 
 import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.Userlike;
-import com.highfive.refurmoa.post.Post;
 import com.highfive.refurmoa.post.dto.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 import com.highfive.refurmoa.post.dto.PostRequestDTO;

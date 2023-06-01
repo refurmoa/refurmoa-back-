@@ -13,6 +13,4 @@ public interface UserlikeRepository extends JpaRepository<Userlike, Integer> {
   
     List<Userlike> findByMemberMemberId(String memberId);
 
-    Userlike findByBoardBoardNumAndMemberMemberId(int board, String member);
-
 }
