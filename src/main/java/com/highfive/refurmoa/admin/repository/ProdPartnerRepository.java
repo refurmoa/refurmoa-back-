@@ -22,6 +22,10 @@ public interface ProdPartnerRepository extends JpaRepository<ProdPartner, Intege
      @Query("select p from ProdPartner p where p.comName like %:search% order by comStatus")
 	 Page<ProdPartner> findComAdmin(@Param("search")String search,Pageable pageable);
      
+     @Query("select p from ProdPartner p where p.comName like %:search% and p.comStatus=1")
+	 Page<ProdPartner> findComAdminState(@Param("search")String search,Pageable pageable);
+     
+     
      @Query(value="select * from prod_partner where com_num =:search",nativeQuery=true)
      ProdPartner findByComNum(@Param("search")int search);
      

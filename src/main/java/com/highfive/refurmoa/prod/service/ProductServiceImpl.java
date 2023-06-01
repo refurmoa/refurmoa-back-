@@ -12,12 +12,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.entity.Product;
 import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
+import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
@@ -80,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
 		 switch(body.getCategory()) {
 			 case "all": cate="";
 			 break;
-			 case "funiture": cate= "fun" ;
+			 case "furniture": cate= "fur" ;
 			 break;
 			 case  "appliance": cate= "app";
 			 break;
@@ -95,8 +97,8 @@ public class ProductServiceImpl implements ProductService {
 			 int sell_status=0;
 			 Date[] date=repository.getDate(prodlist.get(i).getProductCode());
 			 if(prodlist.get(i).getProdState()==1) {
-				if(now.compareTo(date[0])==1)sell_status=1;
-				else sell_status=2;
+				sell_status=1;
+				
 			 }
 			 else if(prodlist.get(i).getProdState()==2)sell_status=3;
 			 else if(prodlist.get(i).getProdState()==5)sell_status=4;
@@ -110,7 +112,7 @@ public class ProductServiceImpl implements ProductService {
 		 switch(category) {
 			 case "all": cate="";
 			 break;
-			 case "funiture": cate= "fun" ;
+			 case "furniture": cate= "fur" ;
 			 break;
 			 case  "appliance": cate= "app";
 			 break;
@@ -123,8 +125,7 @@ public class ProductServiceImpl implements ProductService {
 			 int sell_status=0;
 			 Date[] date=repository.getDate(prodlist.get(i).getProductCode());
 			 if(prodlist.get(i).getProdState()==1) {
-				if(now.compareTo(date[0])==1)sell_status=1;
-				else sell_status=2;
+				sell_status=1;	
 			 }
 			 else if(prodlist.get(i).getProdState()==2)sell_status=3;
 			 else if(prodlist.get(i).getProdState()==5)sell_status=4;			 
@@ -186,5 +187,13 @@ public class ProductServiceImpl implements ProductService {
 		Product tmp=repository.findById(productCode).orElse(null);
 		ProdResponseDTO dto =new ProdResponseDTO(tmp);
 		return dto;
+	}
+	@Override
+	public Page<FindProductDTO> findProduct(String search,Pageable pageable){
+		Page<Product> tmp=repository.findProduct(search,pageable);
+		   Page<FindProductDTO> Page =tmp.map(partner->{
+			   return new FindProductDTO(partner);	
+		   });
+		   return Page;		
 	}
 }

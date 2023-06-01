@@ -5,10 +5,19 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import com.highfive.refurmoa.prod.DTO.response.ProdListResponseDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
+import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 import com.highfive.refurmoa.prod.service.ProductServiceImpl;
@@ -47,7 +56,6 @@ public class ProductController {
 //	 }
 	 @PostMapping("/prod/search")
 	 public List<ProdListDTO> productSearch(@RequestBody ProdSearchDTO body) {
-		
        return ProductServiceImpl.productSearch(body);
 	 }
 	 @GetMapping("/prod/delete")
@@ -86,5 +94,11 @@ public class ProductController {
 	 public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
         return ProductServiceImpl.productInfo(productCode);
     }
+	@GetMapping("/post/prod_search")
+	 public Page<FindProductDTO> findProduct(@RequestParam(value="search") String search, Pageable pageable) {
+		return ProductServiceImpl.findProduct(search,pageable);
+	}
+		
+	
 
 }
