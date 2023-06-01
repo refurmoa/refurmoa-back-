@@ -1,4 +1,4 @@
-package com.highfive.refurmoa.prod.DTO;
+package com.highfive.refurmoa.prod.DTO.request;
 
 import java.util.Date;
 
