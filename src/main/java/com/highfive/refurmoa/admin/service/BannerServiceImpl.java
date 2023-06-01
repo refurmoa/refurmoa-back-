@@ -29,7 +29,7 @@ public class BannerServiceImpl implements BannerService {
     // 배너 목록 조회
     @Override
     public Page<Banner> getListBanner(Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findAllByOrderByBannNumDesc(pageable);
     }
 
     // 배너 목록 검색

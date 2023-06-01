@@ -2,7 +2,8 @@ package com.highfive.refurmoa.prod.repository;
 
 import java.util.Date;
 import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,8 +14,16 @@ import com.highfive.refurmoa.entity.Product;
 
 import jakarta.transaction.Transactional;
 
-public interface ProductRepository  extends JpaRepository<Product, Integer>{
-	
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+	@Query("SELECT p FROM Product p " +
+			"WHERE p.prodName LIKE %:search% AND p.category LIKE %:category% AND p.prodState IN :status " +
+			"ORDER BY CASE WHEN p.prodState = 0 THEN true ELSE false END DESC")
+	Page<Product> getListProduct(@Param("search") String search, @Param("category") String category, @Param("status") List<Integer> status, Pageable pageable);
+
+
+
+
 	@Query(value="select * from prod_partner where com_num=:num",nativeQuery=true)
 	ProdPartner getPartner(@Param("num")int num );
 	
@@ -48,6 +57,13 @@ public interface ProductRepository  extends JpaRepository<Product, Integer>{
 	
 	@Transactional
 	void deleteById(int code);
+	
+	@Query(value="select * from product where prod_name like CONCAT('%',:name,'%') and category_code like CONCAT('%',:search,'%')",nativeQuery=true)
+	 List<Product> findProdList(@Param("name")String name,@Param("search")String search);
+	
+	
+	 @Query("select p from Product p where p.comNum =:num and p.prodName like %:name% order by p.prodState")
+     Page<Product> findPartnerProd(@Param("num")ProdPartner num,@Param("name")String name,Pageable pageable);
 }
 
 
