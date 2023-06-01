@@ -1,17 +1,14 @@
 package com.highfive.refurmoa.entity;
 
-import com.highfive.refurmoa.post.dto.ProdInqRequestDTO;
+import com.highfive.refurmoa.post.dto.request.ProdInqRequestDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
@@ -52,9 +49,6 @@ public class ProdInquiry {
 	@Column(name = "date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-
-	@OneToOne(mappedBy = "prodInquiry")
-	private ProdInquiryReply prodInquiryReply = new ProdInquiryReply();
 
 	public ProdInquiry(ProdInqRequestDTO prodInquiryDTO) {
 		this.member = new Member();

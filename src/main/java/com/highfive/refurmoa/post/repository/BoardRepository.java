@@ -2,6 +2,7 @@ package com.highfive.refurmoa.post.repository;
 
 import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.post.dto.PostReadCountResquestDTO;
+
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +14,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+
+import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
@@ -85,4 +92,17 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     void findByBoardNumAndUpdatePlusReadCount(@Param("boardNum") int boardNum);
 
     Board findByBoardNum(int boardNum);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Board b SET b.deleteCheck = true WHERE b.boardNum = :boardNum")
+    void updateDeleteCheckByBoardNum(@Param("boardNum") int boardNum); // 판매 글 삭제
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Board b SET b.curPrice = :curPrice WHERE b.boardNum = :boardNum")
+    void updateCurPriceByBoardNum(int curPrice, int boardNum); // 현재가 변경
+
+    List<Board> findByProductProductCodeAndDeleteCheckFalseOrderByBoardNumDesc(@Param("productCode") int productCode);
+
 }

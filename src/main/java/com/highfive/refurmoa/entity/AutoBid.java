@@ -1,14 +1,19 @@
 package com.highfive.refurmoa.entity;
 
+import com.highfive.refurmoa.post.dto.request.BidRequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class AutoBid {
 
@@ -20,12 +25,12 @@ public class AutoBid {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_num", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Board boardNum;
+    private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Member memberId;
+    private Member member;
 
     @Column(name = "autobid_price", nullable = false)
     private int autobidPrice;
@@ -33,5 +38,14 @@ public class AutoBid {
     @Column(name = "autobid_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date autobidDate;
+
+    public AutoBid(BidRequestDTO bidRequestDTO) {
+        this.board = new Board();
+        this.board.setBoardNum(bidRequestDTO.getBoardNum());
+        this.member = new Member();
+        this.member.setMemberId(bidRequestDTO.getMemberId());
+        this.autobidPrice = bidRequestDTO.getAutobidPrice();
+        this.autobidDate = new Date();
+    }
 
 }

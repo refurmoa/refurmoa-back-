@@ -4,6 +4,7 @@ import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.Userlike;
 import com.highfive.refurmoa.post.Post;
 import com.highfive.refurmoa.post.dto.PostReadCountResquestDTO;
+import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 import com.highfive.refurmoa.post.dto.PostRequestDTO;
 import com.highfive.refurmoa.post.dto.PostResponseDTO;
 import com.highfive.refurmoa.post.repository.BidRepository;
@@ -33,6 +34,14 @@ public class PostServiceImpl implements PostService {
         this.boardRepository = boardRepository;
         this.bidRepository = bidRepository;
         this.userlikeRepository = userlikeRepository;
+    }
+  
+    @Override // 찜 등록/취소
+    public void userlikeupdate(UserlikeRequestDTO userlikeDTO) {
+        if (userlikeDTO.isLike() == true) {
+            Userlike userlike = userlikeRepository.findByBoardBoardNumAndMemberMemberId(userlikeDTO.getBoardNum(), userlikeDTO.getMemberId());
+            userlikeRepository.delete(userlike);
+        } else { userlikeRepository.save(new Userlike(userlikeDTO.getMemberId(), userlikeDTO.getBoardNum())); }
     }
 
     // 판매글 목록 가져오기

@@ -1,13 +1,16 @@
 package com.highfive.refurmoa.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class Userlike {
 
@@ -21,9 +24,16 @@ public class Userlike {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Member member;
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "board_num", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Board board;
+  
+	public Userlike(String memberId, int boardNum) {
+		this.member = new Member();
+		this.member.setMemberId(memberId);
+		this.board = new Board();
+		this.board.setBoardNum(boardNum);
+	}
 
 }
