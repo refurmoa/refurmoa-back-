@@ -2,9 +2,14 @@ package com.highfive.refurmoa.user.repository;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
 
 public interface MemberRepository extends JpaRepository<Member, String> {
 
@@ -21,5 +26,20 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	List<Member> findAllByMemberId(String memberId);	// 회원정보 불러오기
 	
 	Member findAllByMemberIdAndAcceptLocation(String memberId, boolean acceptLocation);	//	회원주소검색
+	
+//	// admin 회원 목록 조회
+//	@Query(value="select m.MEMBER_ID, NAME, PHONE, GRADE, MILE, count(c.COUPON_NUM) as cnt from member m left join coupon c on m.MEMBER_ID = c.MEMBER_ID group by m.MEMBER_ID", nativeQuery=true)
+//	public List<AdminUserListResponseDTO> listAdminMember();
+	
+	// admin 회원 목록 조회
+	@Query(value="select m.MEMBER_ID, NAME, PHONE, GRADE, MILE, count(c.COUPON_NUM) as cnt from member m left join coupon c on m.MEMBER_ID = c.MEMBER_ID group by m.MEMBER_ID", nativeQuery=true)
+	public Slice<AdminUserListResponseDTO> listAdminMember(Pageable pageable);
+	
+	// admin 회원 검색
+	@Query(value="select m.MEMBER_ID, NAME, PHONE, GRADE, MILE, count(c.COUPON_NUM) as cnt from member m left join coupon c on m.MEMBER_ID = c.MEMBER_ID where m.MEMBER_ID like %:memberId% or NAME like %:memberId% group by m.MEMBER_ID", nativeQuery=true)
+	public List<AdminUserListResponseDTO> findByMemberIdOrName(@Param("memberId") String memberId);
+	
+	
+	
 
 }

@@ -2,12 +2,15 @@ package com.highfive.refurmoa.user.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
 import com.highfive.refurmoa.user.service.MemberServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -72,10 +75,24 @@ public class MemberController {
  		return memberServiceImpl.userLocationInfo(vo.getMemberId(), vo.isAcceptLocation());
  	}
  	
+// 	// 관리자 페이지 회원관리 회원목록 불러오기
+// 	@RequestMapping("/admin/user")
+// 	public List<AdminUserListResponseDTO> listAdminMember(){
+// 		return (List<AdminUserListResponseDTO>)memberServiceImpl.listAdminMember();
+// 	}
+ 	
  	// 관리자 페이지 회원관리 회원목록 불러오기
- 	@RequestMapping("/admin/user")
- 	public List<Member> listAdminMember(){
- 		return (List<Member>)memberServiceImpl.listAdminMember();
+  	@RequestMapping("/admin/user")
+  	public Slice<AdminUserListResponseDTO> listAdminMember(Pageable pageable){
+  		return (Slice<AdminUserListResponseDTO>)memberServiceImpl.listAdminMember(pageable);
+  	}
+ 	
+ 	// admin 회원 검색
+ 	@RequestMapping("/admin/user/search")
+ 	public List<AdminUserListResponseDTO> searchAdminMember(@RequestBody Member vo){
+ 		return (List<AdminUserListResponseDTO>)memberServiceImpl.searchAdminMember(vo.getMemberId());
  	}
-
+ 	
+ 	
+ 
 }

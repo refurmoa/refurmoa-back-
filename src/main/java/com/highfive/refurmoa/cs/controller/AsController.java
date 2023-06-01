@@ -46,7 +46,7 @@ private AsServiceImpl asServiceImpl;
 //	as 매장 지역 검색
 	@RequestMapping("/cs/as/search/city")
 	public List<AsStore> searchAsStoreCity(@RequestBody AsStore vo) {
-		return (List<AsStore>)asServiceImpl.searchAsStoreCity(vo.getStoreAddr());
+		return (List<AsStore>)asServiceImpl.searchAsStoreCity(vo.getStoreAddr(), vo.getStoreDetail());
 	}
 	
 //	as 매장명 검색
@@ -58,4 +58,3 @@ private AsServiceImpl asServiceImpl;
 
 
 }
-

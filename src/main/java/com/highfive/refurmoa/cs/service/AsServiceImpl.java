@@ -41,8 +41,8 @@ private final AsRepository repository;
 	
 //	as 매장 지역 검색
 	@Override
-	public List<AsStore> searchAsStoreCity(String storeAddr) {
-		return (List<AsStore>)repository.findByStoreAddrContaining(storeAddr);
+	public List<AsStore> searchAsStoreCity(String storeAddr, String storeDetail) {
+		return (List<AsStore>)repository.findByStoreAddrAndStoreDetail(storeAddr, storeDetail);
 	}
 
 //	as 매장명 검색
