@@ -75,6 +75,7 @@ public class InquiryServiceImpl implements InquiryService {
     //문의 등록
     @Override
     public int writeInquiry(MultipartFile inqImg, InquiryWriteDTO write) throws  IOException {
+    	
     	Member mem=memberRepository.findByMemberId(write.getId());
     	if(inqImg==null) {
     		Inquiry tmp=new Inquiry(write,mem);
