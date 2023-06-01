@@ -26,6 +26,7 @@ public class PostController {
     @PostMapping("/like")
     public void userlikeupdate(@RequestBody UserlikeRequestDTO userlikeDTO) {
         postServiceImpl.userlikeupdate(userlikeDTO);
+    }
 
     // 판매글 목록 가져오기
     @PostMapping("")
