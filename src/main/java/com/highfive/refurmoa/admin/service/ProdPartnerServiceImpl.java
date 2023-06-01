@@ -43,6 +43,15 @@ public class ProdPartnerServiceImpl implements ProdPartnerService {
 		PartnerDTO tmp= new PartnerDTO(partnerRepository.findByComNum(com_num),cnt);
 		return tmp;
 	}
+	@Override
+	public Page<PartnerDTO> partnerSearch(String search, Pageable pageable){
+		Page<ProdPartner> tmp=partnerRepository.findComAdminState(search,pageable);
+		   Page<PartnerDTO> Page =tmp.map(partner->{
+			   int cnt=repository.countCom(partner.getComNum());
+			   return new PartnerDTO(partner,cnt);	
+		   });
+		   return Page;
+	}
    @Override
    public Page<PartnerDTO> Adminpartner(String search, Pageable pageable) {
 	   Page<ProdPartner> tmp=partnerRepository.findComAdmin(search,pageable);

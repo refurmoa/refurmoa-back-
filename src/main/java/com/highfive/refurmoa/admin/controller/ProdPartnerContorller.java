@@ -33,7 +33,7 @@ public class ProdPartnerContorller {
 	}
 	@GetMapping("/partner/search")
 	 public Page<PartnerDTO> partnerSearch(@RequestParam(value="search") String search, Pageable pageable) {
-       return ProdPartnerServiceImpl.Adminpartner(search,pageable);
+       return ProdPartnerServiceImpl.partnerSearch(search,pageable);
    }
 	@GetMapping("/admin/partner")
 	 public Page<PartnerDTO> Adminpartner(@RequestParam(value="search") String search, Pageable pageable) {

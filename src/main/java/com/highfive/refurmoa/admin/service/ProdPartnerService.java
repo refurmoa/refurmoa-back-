@@ -8,6 +8,7 @@ import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
 
 public interface ProdPartnerService {
 	public PartnerDTO changState(int com_num);
+	public Page<PartnerDTO> partnerSearch(String search, Pageable pageable);
 	public Page<PartnerDTO> Adminpartner(String search, Pageable pageable);
 	public int insertPartner(ProdPartner partner);
 	public int updatePartner(ProdPartner partner);
