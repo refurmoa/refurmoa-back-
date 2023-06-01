@@ -6,6 +6,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import com.highfive.refurmoa.cs.dto.request.InquiryReplyDTO;
+import com.highfive.refurmoa.cs.dto.request.InquiryWriteDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -73,5 +74,19 @@ public class Inquiry {
     	this.answerCon=dto.getAnswerCon();
     	this.answerDate=dto.getAnswerDate();
     }
-
+    public Inquiry(String img,String orgimg,InquiryWriteDTO write,Member mem) {
+    	
+    	this.memberId=mem;
+    	this.inqCon=write.getInqCon();
+    	this.inqTitle=write.getInqTitle();
+    	this.inqImg=img;
+    	this.inqOrgImg=orgimg;
+    	this.inqDate=write.getInqDate(); 
+    }
+    public Inquiry(InquiryWriteDTO write,Member mem) {
+    	this.memberId=mem;
+    	this.inqCon=write.getInqCon();
+    	this.inqTitle=write.getInqTitle();
+    	this.inqDate=write.getInqDate(); 
+    }
 }

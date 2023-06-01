@@ -1,11 +1,17 @@
 package com.highfive.refurmoa.cs.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
 import com.highfive.refurmoa.cs.dto.request.InquiryReplyDTO;
+import com.highfive.refurmoa.cs.dto.request.InquiryWriteDTO;
 import com.highfive.refurmoa.cs.dto.response.InquiryDetailDTO;
 import com.highfive.refurmoa.cs.dto.response.InquiryListDTO;
 import com.highfive.refurmoa.cs.repository.InquiryRepository;
@@ -15,6 +21,8 @@ import com.highfive.refurmoa.user.repository.MemberRepository;
 
 @Service
 public class InquiryServiceImpl implements InquiryService {
+	
+
 	private InquiryRepository repository;
 	private MemberRepository memberRepository;
 	
@@ -58,9 +66,27 @@ public class InquiryServiceImpl implements InquiryService {
     	return name;
     }
     //답변 등록
+    @Override
     public int writeReply(InquiryReplyDTO answer) {
     	Inquiry tmp =repository.findByNum(answer.getNum());
     	repository.save(new Inquiry(tmp,answer));
     	return 1;
     }
+    //문의 등록
+    @Override
+    public int writeInquiry(MultipartFile inqImg, InquiryWriteDTO write) throws  IOException {
+    	Member mem=memberRepository.findByMemberId(write.getId());
+    	if(inqImg==null) {
+    		Inquiry tmp=new Inquiry(write,mem);
+    		repository.save(tmp);
+    	}
+    	else {
+    		File main = new File(UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+        	inqImg.transferTo(main);
+        	Inquiry tmp=new Inquiry(main.toString(),write.getMainImgName(),write,mem);
+        	repository.save(tmp);
+    	}
+    	return 1;
+    }
+   
 }
