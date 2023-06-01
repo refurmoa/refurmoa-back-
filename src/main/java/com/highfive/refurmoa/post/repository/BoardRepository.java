@@ -3,10 +3,12 @@ package com.highfive.refurmoa.post.repository;
 import com.highfive.refurmoa.entity.Board;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
@@ -21,4 +23,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Modifying
     @Query(value = "UPDATE Board b SET b.curPrice = :curPrice WHERE b.boardNum = :boardNum")
     void updateCurPriceByBoardNum(int curPrice, int boardNum); // 현재가 변경
+
+    List<Board> findByProductProductCodeAndDeleteCheckFalseOrderByBoardNumDesc(@Param("productCode") int productCode);
+
 }

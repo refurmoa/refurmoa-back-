@@ -14,8 +14,16 @@ import com.highfive.refurmoa.entity.Product;
 
 import jakarta.transaction.Transactional;
 
-public interface ProductRepository  extends JpaRepository<Product, Integer>{
-	
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+	@Query("SELECT p FROM Product p " +
+			"WHERE p.prodName LIKE %:search% AND p.category LIKE %:category% AND p.prodState IN :status " +
+			"ORDER BY CASE WHEN p.prodState = 0 THEN true ELSE false END DESC")
+	Page<Product> getListProduct(@Param("search") String search, @Param("category") String category, @Param("status") List<Integer> status, Pageable pageable);
+
+
+
+
 	@Query(value="select * from prod_partner where com_num=:num",nativeQuery=true)
 	ProdPartner getPartner(@Param("num")int num );
 	
