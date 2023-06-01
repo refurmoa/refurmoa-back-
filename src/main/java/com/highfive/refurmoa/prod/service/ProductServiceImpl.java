@@ -10,7 +10,6 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.entity.Product;
 import com.highfive.refurmoa.prod.DTO.ProdFileDTO;
@@ -112,38 +111,38 @@ public class ProductServiceImpl implements ProductService {
 			ProdPartner partner=partnerRepository.findById(comNum).orElse(null);
 			prod.setComNum(partner);		
 	}
-//	@Override
-//	public int ProductUpdate(MultipartFile mainImg,ProductWriteDTO prodDto) throws IOException {
-//		String mainName = null;
-//		if(mainImg.getSize()!=0) {
-//			File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-//			mainImg.transferTo(main);
-//			mainName=main.toString();
-//		}else {
-//			mainName=repository.MainInfo(prodDto.getProduct_code());
-//		}
-//		ProdPartner tmp =new ProdPartner();
-//		Product productEntity = new Product(prodDto.getProduct_code(),prodDto.getCategory(),prodDto.getCategory_code(),prodDto.getDeffect_image1(),prodDto.getDeffect_image2(),
-//				prodDto.getDeffect_image3(),prodDto.getDeffect_text(),prodDto.isGuarantee(),mainName,prodDto.getOrg_price(),prodDto.getProd_com(),
-//				prodDto.getProd_grade(),prodDto.getProd_name(),prodDto.getProd_state(),prodDto.getReg_date(),tmp);	
-//		insertProd(prodDto.getCom_num(),productEntity);
-//        repository.save(productEntity);
-//		return productEntity.getProductCode();
-//	}
-//	@Override
-//	public int ProductWrite(MultipartFile mainImg,ProductWriteDTO prodDto) throws IOException {
-//		
-//		File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-//		mainImg.transferTo(main);
-//
-//		ProdPartner tmp =new ProdPartner();
-//		Product productEntity = new Product(prodDto.getProduct_code(),prodDto.getCategory(),prodDto.getCategory_code(),prodDto.getDeffect_image1(),prodDto.getDeffect_image2(),
-//				prodDto.getDeffect_image3(),prodDto.getDeffect_text(),prodDto.isGuarantee(),main.toString(),prodDto.getOrg_price(),prodDto.getProd_com(),
-//				prodDto.getProd_grade(),prodDto.getProd_name(),prodDto.getProd_state(),prodDto.getReg_date(),tmp);	
-//		insertProd(prodDto.getCom_num(),productEntity);
-//        repository.save(productEntity);
-//		return productEntity.getProductCode();
-//	}
+	@Override
+	public int ProductUpdate(MultipartFile mainImg,ProductWriteDTO prodDto) throws IOException {
+		String mainName = null;
+		if(mainImg.getSize()!=0) {
+			File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+			mainImg.transferTo(main);
+			mainName=main.toString();
+		}else {
+			mainName=repository.MainInfo(prodDto.getProduct_code());
+		}
+		ProdPartner tmp =new ProdPartner();
+		Product productEntity = new Product(prodDto.getProduct_code(),prodDto.getCategory(),prodDto.getCategory_code(),prodDto.getDeffect_image1(),prodDto.getDeffect_image2(),
+				prodDto.getDeffect_image3(),prodDto.getDeffect_text(),prodDto.isGuarantee(),mainName,prodDto.getOrg_price(),prodDto.getProd_com(),
+				prodDto.getProd_grade(),prodDto.getProd_name(),prodDto.getProd_state(),prodDto.getReg_date(),tmp);	
+		insertProd(prodDto.getCom_num(),productEntity);
+        repository.save(productEntity);
+		return productEntity.getProductCode();
+	}
+	@Override
+	public int ProductWrite(MultipartFile mainImg,ProductWriteDTO prodDto) throws IOException {
+		
+		File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+		mainImg.transferTo(main);
+
+		ProdPartner tmp =new ProdPartner();
+		Product productEntity = new Product(prodDto.getProduct_code(),prodDto.getCategory(),prodDto.getCategory_code(),prodDto.getDeffect_image1(),prodDto.getDeffect_image2(),
+				prodDto.getDeffect_image3(),prodDto.getDeffect_text(),prodDto.isGuarantee(),main.toString(),prodDto.getOrg_price(),prodDto.getProd_com(),
+				prodDto.getProd_grade(),prodDto.getProd_name(),prodDto.getProd_state(),prodDto.getReg_date(),tmp);	
+		insertProd(prodDto.getCom_num(),productEntity);
+        repository.save(productEntity);
+		return productEntity.getProductCode();
+	}
 	
 	@Override
 	public void insertFile(ProdFileDTO dto) {
