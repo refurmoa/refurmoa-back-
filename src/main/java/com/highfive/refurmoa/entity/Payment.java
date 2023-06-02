@@ -1,7 +1,9 @@
 package com.highfive.refurmoa.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -9,10 +11,13 @@ import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Payment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pay_num", nullable = false)
     private int payNum;
 
@@ -43,13 +48,10 @@ public class Payment {
     private String buyMethod;
 
     @Column(name = "coupon_num")
-    private int couponNum;
+    private Integer couponNum;
 
     @Column(name = "mile_use")
-    private int mileUse;
-
-    @Column(name = "as_date")
-    private Date asDate;
+    private Integer mileUse;
 
     @Column(name = "pay_date")
     private Date payDate;

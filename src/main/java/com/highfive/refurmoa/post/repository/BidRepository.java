@@ -13,4 +13,7 @@ public interface BidRepository extends JpaRepository<Bid, Integer> {
     Page<Bid> findByBoardBoardNumAndBidCancelFalseOrderByBidDateDesc(int boardNum, Pageable pageable); // 입찰 목록 조회
   
     Long countByBoardBoardNumAndBidCancelFalse(int board_num); // 게시글 입찰 수 조회
+
+//    Page<Bid> findByMemberId
+
 }

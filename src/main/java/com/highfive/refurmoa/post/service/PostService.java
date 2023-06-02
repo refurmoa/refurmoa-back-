@@ -1,10 +1,9 @@
 package com.highfive.refurmoa.post.service;
 
-import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
-import com.highfive.refurmoa.post.dto.PostReadCountResquestDTO;
-import com.highfive.refurmoa.post.dto.PostRequestDTO;
-import com.highfive.refurmoa.post.dto.PostResponseDTO;
+import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
+import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
+import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
 import org.springframework.data.domain.Page;
 
 public interface PostService {
