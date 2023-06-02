@@ -30,8 +30,8 @@ public class MainServiceImpl implements MainService {
 		array[1] = new ArrayList<>();
 		array[2] = new ArrayList<>();
 		Date date =new Date();
-		List<Board> best=repository.mainBest();
-		List<Board> start=repository.mainStart();
+		List<Board> best=repository.mainBest(date);
+		List<Board> start=repository.mainStart(date);
 		List<Board> end=repository.mainEnd(date);
 		for(int i=0;i<15;i++) {
 			if(i<best.size())array[0].add(new MainListDTO(best.get(i)));
