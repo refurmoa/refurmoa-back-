@@ -36,9 +36,9 @@ public class BannerController {
 
     // 배너 등록
     @PostMapping("/write")
-    public int writeBanner(@RequestParam(value="banner_img") MultipartFile banner_img,
+    public void writeBanner(@RequestParam(value="banner_img") MultipartFile banner_img,
                            WriteBannerRequestDTO writeBannerRequestDTO) throws Exception {
-        return bannerServiceImpl.writeBanner(writeBannerRequestDTO,banner_img);
+        bannerServiceImpl.writeBanner(writeBannerRequestDTO,banner_img);
     }
 
     // 배너 삭제
