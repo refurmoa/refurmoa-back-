@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.highfive.refurmoa.admin.repository.BannerRepository;
+import com.highfive.refurmoa.entity.Banner;
 import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.post.dto.reponse.MainListDTO;
 import com.highfive.refurmoa.post.repository.BoardRepository;
@@ -14,9 +16,10 @@ import com.highfive.refurmoa.post.repository.BoardRepository;
 public class MainServiceImpl implements MainService {
 	
 	private BoardRepository repository;
-
-	 public MainServiceImpl(BoardRepository repository ) {
+	private BannerRepository BannerRepository;
+	 public MainServiceImpl(BoardRepository repository,BannerRepository BannerRepository ) {
 	        this.repository = repository;
+	        this.BannerRepository=BannerRepository;
 	 }
 	
 	@Override
@@ -37,5 +40,12 @@ public class MainServiceImpl implements MainService {
 		}		
 		return array;
 	}
-
+	@Override
+	public List<Banner> bannerList(){
+		return BannerRepository.findRef();
+	}
+	@Override
+	public List<Banner> bannerAdList(){
+		return BannerRepository.findAd();
+	}
 }
