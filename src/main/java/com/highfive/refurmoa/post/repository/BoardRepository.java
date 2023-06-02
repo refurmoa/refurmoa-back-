@@ -104,5 +104,15 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     void updateCurPriceByBoardNum(int curPrice, int boardNum); // 현재가 변경
 
     List<Board> findByProductProductCodeAndDeleteCheckFalseOrderByBoardNumDesc(@Param("productCode") int productCode);
+    
+    
+    @Query("select b from Board b order by b.readCount DESC LIMIT 15")
+    List<Board> mainBest();
+    
+    @Query("select b from Board b order by b.boardNum DESC LIMIT 15")
+    List<Board> mainStart();
+    
+    @Query("select b from Board b where NOT b.sellType =2 and b.endDate>:date and b.startDate<:date order by b.endDate ASC LIMIT 15")
+    List<Board> mainEnd(@Param("date") Date date);
 
 }

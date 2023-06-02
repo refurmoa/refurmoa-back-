@@ -1,8 +1,11 @@
 package com.highfive.refurmoa.main.service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
+import com.highfive.refurmoa.post.dto.reponse.MainListDTO;
+
+
 public interface MainService {
-
+	
+	public  List<MainListDTO>[] mainList();
 }
