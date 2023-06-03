@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
 import com.highfive.refurmoa.user.DTO.reponse.MemberInfoDTO;
+import com.highfive.refurmoa.user.DTO.reponse.MembershipDTO;
 import com.highfive.refurmoa.user.service.MemberServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -101,7 +102,10 @@ public class MemberController {
  	public MemberInfoDTO memberInfo(@RequestParam("id") String id) {
  		return memberServiceImpl.memberInfo(id);
  	}
- 	
+ 	@GetMapping("/mypage/membership")
+ 	public MembershipDTO membership (@RequestParam("id") String id) {
+ 		return memberServiceImpl.membership (id);
+ 	}
  	
  
 }

@@ -1,22 +1,37 @@
 package com.highfive.refurmoa.user.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
+import com.highfive.refurmoa.entity.Coupon;
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.entity.Mile;
 import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
 import com.highfive.refurmoa.user.DTO.reponse.MemberInfoDTO;
+import com.highfive.refurmoa.user.DTO.reponse.MembershipDTO;
+import com.highfive.refurmoa.user.DTO.reponse.couponDTO;
+import com.highfive.refurmoa.user.DTO.reponse.historyDTO;
+import com.highfive.refurmoa.user.DTO.reponse.memberGradeDTO;
+import com.highfive.refurmoa.user.DTO.reponse.mileDTO;
+import com.highfive.refurmoa.user.repository.CouponRepository;
 import com.highfive.refurmoa.user.repository.MemberRepository;
+import com.highfive.refurmoa.user.repository.MileRepository;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
     private MemberRepository repository;
-    public MemberServiceImpl(MemberRepository repository) {
+    private CouponRepository couponrepository;
+    private MileRepository milerepository;
+    public MemberServiceImpl(MemberRepository repository,CouponRepository couponrepository, MileRepository milerepository) {
         this.repository = repository;
+        this.couponrepository=couponrepository;
+        this.milerepository=milerepository	;
+        		
     }
 
     @Override // 로그인
@@ -101,5 +116,23 @@ public class MemberServiceImpl implements MemberService {
  		int uselike=repository.uselike(mem.getMemberId());
  		return new MemberInfoDTO(mem,order,bid,uselike);
  				
+ 	}
+ 	@Override
+ 	 public MembershipDTO membership(String id) {
+ 		Member mem=repository.findByMemberId(id);
+ 		memberGradeDTO grade= new memberGradeDTO(mem.getGrade(),repository.payamount(id));
+ 		List<Mile> memmile=milerepository.mileList(mem.getMemberId());
+ 		List<historyDTO> his=new ArrayList<>();
+ 		for(Mile tmp:memmile) {
+ 			his.add(new historyDTO(tmp.getContent(),tmp.getPoint()));
+ 		}
+ 		mileDTO mile =new mileDTO(repository.mileAmount(mem.getMemberId()),his);
+ 		
+ 		List<Coupon> coupon=couponrepository.memCoupon(mem.getMemberId());
+ 		List<couponDTO> memcou=new ArrayList<>();
+ 		for(Coupon tmp:coupon) {
+ 			memcou.add(new couponDTO(tmp.getCouponName(),tmp.getSalePrice()));
+ 		}
+ 		return new MembershipDTO(grade,mile,memcou);
  	}
 }
