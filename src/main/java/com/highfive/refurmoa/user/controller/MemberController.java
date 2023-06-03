@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.post.dto.reponse.MyListDTO;
 import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
 import com.highfive.refurmoa.user.DTO.reponse.MemberInfoDTO;
 import com.highfive.refurmoa.user.DTO.reponse.MembershipDTO;
@@ -105,6 +106,15 @@ public class MemberController {
  	@GetMapping("/mypage/membership")
  	public MembershipDTO membership (@RequestParam("id") String id) {
  		return memberServiceImpl.membership (id);
+ 	}
+ 	
+ 	@GetMapping("/mypage/bookmark")
+ 	public List<MyListDTO> bookmark (@RequestParam("id") String id,@RequestParam("search") String search) {
+ 		return memberServiceImpl.bookmarkData(id,search);
+ 	}
+ 	@GetMapping("/mypage/bookmark/search")
+ 	public List<MyListDTO> bookmarkserach (@RequestParam("id") String id,@RequestParam("search") String search) {
+ 		return memberServiceImpl.bookmarkData(id,search);
  	}
  	
  

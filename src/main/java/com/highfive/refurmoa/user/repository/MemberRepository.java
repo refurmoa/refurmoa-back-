@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.Coupon;
 import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.entity.Mile;
@@ -58,9 +59,4 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	
 	@Query(value="select sum(c.point) as sum from member m left join mile c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId " , nativeQuery=true)
 	public int mileAmount(@Param("memberId") String memberId);
-	
-	@Query(value="select * from mile where member_id= :memberId", nativeQuery=true)
-	public List<Mile> mileList(@Param("memberId") String memberId);
-	@Query(value="select * from coupon  where member_id= :memberId",nativeQuery=true)
-	public List<Coupon> memCoupon(@Param("memberId") String memberId);
 }
