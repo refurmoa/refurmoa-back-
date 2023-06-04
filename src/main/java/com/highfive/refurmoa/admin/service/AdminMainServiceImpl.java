@@ -5,9 +5,8 @@ import com.highfive.refurmoa.admin.dto.response.DailySalesResponseDTO;
 import com.highfive.refurmoa.admin.dto.response.DaySalesDTO;
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.cs.repository.InquiryRepository;
+import com.highfive.refurmoa.pay.repository.DeliveryRepository;
 import com.highfive.refurmoa.post.repository.*;
-import com.highfive.refurmoa.prod.repository.ProductRepository;
-import com.highfive.refurmoa.user.repository.DeliveryRepository;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
