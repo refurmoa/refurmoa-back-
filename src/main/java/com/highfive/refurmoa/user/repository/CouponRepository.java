@@ -1,5 +1,6 @@
 package com.highfive.refurmoa.user.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import jakarta.transaction.Transactional;
@@ -16,7 +17,7 @@ public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
     @Transactional
     @Modifying
-    @Query("UPDATE Coupon c SET c.useCheck = true WHERE c.couponNum = :couponNum")
-    void useCoupon(Integer couponNum); // 쿠폰 사용
+    @Query("UPDATE Coupon c SET c.useCheck = true, c.useDate = :today WHERE c.couponNum = :couponNum")
+    void useCoupon(Integer couponNum, Date today); // 쿠폰 사용
 
 }

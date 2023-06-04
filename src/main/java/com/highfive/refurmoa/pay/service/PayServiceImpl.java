@@ -13,6 +13,8 @@ import com.highfive.refurmoa.user.repository.MileRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Date;
+
 @Service
 public class PayServiceImpl implements PayService {
 
@@ -55,7 +57,8 @@ public class PayServiceImpl implements PayService {
             mileRepository.save(mile);
         }
         if (payRequestDTO.getCoupon_num() != 0) { // 쿠폰 사용
-            couponRepository.useCoupon(payRequestDTO.getCoupon_num());
+            Date today = new Date();
+            couponRepository.useCoupon(payRequestDTO.getCoupon_num(), today);
         }
         Payment payment = new Payment(payRequestDTO);
         payRepository.save(payment);
