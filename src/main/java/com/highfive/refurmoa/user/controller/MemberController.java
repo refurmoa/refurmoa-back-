@@ -1,6 +1,7 @@
 package com.highfive.refurmoa.user.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -54,24 +55,8 @@ public class MemberController {
         return memberServiceImpl.countMemberId(vo.getMemberId());
     }
     
- // 회원정보 불러오기
- 	@RequestMapping("/user/info")
- 	public List<Member> listMember(@RequestBody Member vo){
- 		return (List<Member>)memberServiceImpl.listMember(vo.getMemberId());
- 	}
- 	
- 	// 회원탈퇴
- 	@RequestMapping("/user/delete")
- 	public void deleteMember(@RequestBody Member vo){
- 		memberServiceImpl.deleteMember(vo.getMemberId());
- 	}
- 	
- 	// 회원정보 수정
- 	@RequestMapping("/user/update")
- 	public void updateMember(@RequestBody Member member){
- 		memberServiceImpl.updateMember(member);
- 	}
- 	
+
+
  	//	회원주소검색
  	@RequestMapping("/cs/as/user/addr")
  	public String userLocationInfo(@RequestBody Member vo){
