@@ -154,7 +154,9 @@ public class MemberServiceImpl implements MemberService {
  			
  			int boardNum=tmp.getBoard().getBoardNum();
  			Board board=boardRepository.findByBoardNum(boardNum);
- 			if(board.getProduct().getProdName().contains(search))list.add(new MyListDTO(board));
+ 			if(board.getProduct().getProdName().contains(search)) {
+ 				if(!board.isDeleteCheck())list.add(new MyListDTO(board));
+ 			}
  		}
 		return list;	
  	}
