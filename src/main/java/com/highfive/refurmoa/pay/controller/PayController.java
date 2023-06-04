@@ -1,9 +1,11 @@
 package com.highfive.refurmoa.pay.controller;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
 import com.highfive.refurmoa.pay.dto.response.PayInfoResponseDTO;
 import com.highfive.refurmoa.pay.dto.response.UserInfoResponseDTO;
 import com.highfive.refurmoa.pay.service.PayServiceImpl;
+import com.highfive.refurmoa.prod.controller.ProductController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class PayController {
 
     private final PayServiceImpl payService;
+    private final ProductController productController;
 
     // 결제(상품)정보 조회
     @GetMapping("/info")
@@ -25,4 +28,12 @@ public class PayController {
     public UserInfoResponseDTO getUserInfo(@RequestBody Member member) {
         return payService.getUserInfo(member.getMemberId());
     }
+
+    // 결제
+    @PostMapping("")
+    public void insertPay(@RequestBody PayRequestDTO payRequestDTO) {
+        payService.insertPay(payRequestDTO);
+        productController.updateProdState(payRequestDTO.getProduct_code());
+    }
+
 }

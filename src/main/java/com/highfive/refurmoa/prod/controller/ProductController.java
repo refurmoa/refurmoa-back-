@@ -25,18 +25,18 @@ import java.util.UUID;
 @RequestMapping("/prod")
 public class ProductController {
 
-	private final ProductServiceImpl ProductServiceImpl;
+	private final ProductServiceImpl productServiceImpl;
 
 	// 상품 목록 조회
 	@GetMapping("")
 	public Page<ProdListResponseDTO> productList(@RequestParam String search, @RequestParam String category, @RequestParam String status, Pageable pageable) {
-		return ProductServiceImpl.productList(search, category, status, pageable);
+		return productServiceImpl.productList(search, category, status, pageable);
 	}
 
 	// 상품 삭제
 	@GetMapping("/delete")
 	public int productList(@RequestParam(value="product_code") int code) {
-		return ProductServiceImpl.productDelete(code);
+		return productServiceImpl.productDelete(code);
 	}
 
 	private int prodNum;
@@ -44,14 +44,14 @@ public class ProductController {
 	// 상품 등록
 	@PostMapping("/write")
     public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
-		prodNum = ProductServiceImpl.ProductWrite(mainImg, prodDto);
+		prodNum = productServiceImpl.ProductWrite(mainImg, prodDto);
 		return prodNum;
 	}
 
 	// 상품 수정
 	@PostMapping("/update")
 	public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException {
-  	return ProductServiceImpl.ProductUpdate(mainImg, prodDto);
+  	return productServiceImpl.ProductUpdate(mainImg, prodDto);
 	}
 
 	// 상품 이미지 저장
@@ -65,14 +65,20 @@ public class ProductController {
 			tmp[i] = defect.toString();
 		}
 		ProdFileDTO dto= new ProdFileDTO(prod_num,tmp[0],tmp[1],tmp[2]);
-		ProductServiceImpl.insertFile(dto);
+		productServiceImpl.insertFile(dto);
 		return 1;
 	}
 
 	// 상품 정보 조회
 	@GetMapping("/update/info")
 	public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
-        return ProductServiceImpl.productInfo(productCode);
+        return productServiceImpl.productInfo(productCode);
+	}
+
+	// 상품 현황 변경
+	@GetMapping("/change")
+	public void updateProdState(@RequestParam int productCode) {
+		productServiceImpl.updateProdState(productCode);
 	}
 
 }

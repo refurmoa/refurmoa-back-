@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PaymentListResponseDTO {
     private int board_num;
-    private int pay_num;
+    private String pay_num;
     private int sell_type;
     private String main_image;
     private String prod_com;
