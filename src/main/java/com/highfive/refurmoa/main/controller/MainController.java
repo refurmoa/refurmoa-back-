@@ -16,9 +16,7 @@ public class MainController {
 		private final MainServiceImpl MainServiceImpl;
 		
 		 @GetMapping("/main/item")
-		 public List<MainListDTO>[] mainList() {
-	       return MainServiceImpl.mainList();
-		 }
+		 public List<List<MainListDTO>> mainList() { return MainServiceImpl.mainList(); }
 		 @GetMapping("/main/banner")
 		 public List<Banner> bannerList() {
 	       return MainServiceImpl.bannerList();

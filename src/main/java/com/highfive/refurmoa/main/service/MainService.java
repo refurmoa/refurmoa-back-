@@ -8,7 +8,7 @@ import com.highfive.refurmoa.post.dto.reponse.MainListDTO;
 
 public interface MainService {
 	
-	public  List<MainListDTO>[] mainList();
+	public List<List<MainListDTO>> mainList();
 	public List<Banner> bannerList();
 	public List<Banner> bannerAdList();
 }
