@@ -73,8 +73,10 @@ public class Payment {
         this.deliveryPrice = payRequestDTO.getDelivery_price();
         this.payPrice = payRequestDTO.getPay_price();
         this.buyMethod = payRequestDTO.getBuy_method();
-        this.couponNum = payRequestDTO.getCoupon_num();
-        this.mileUse = payRequestDTO.getMile_use();
+        if (payRequestDTO.getCoupon_num() != 0)
+            this.couponNum = payRequestDTO.getCoupon_num();
+        if (payRequestDTO.getMile_use() != 0)
+            this.mileUse = payRequestDTO.getMile_use();
         this.payDate = new Date();
     }
 }
