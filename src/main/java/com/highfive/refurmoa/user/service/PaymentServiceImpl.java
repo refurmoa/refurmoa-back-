@@ -1,7 +1,6 @@
 package com.highfive.refurmoa.user.service;
 
 import com.highfive.refurmoa.entity.Delivery;
-import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.entity.Payment;
 import com.highfive.refurmoa.entity.Product;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
@@ -11,7 +10,7 @@ import com.highfive.refurmoa.user.DTO.request.PaymentListRequestDTO;
 import com.highfive.refurmoa.post.repository.PaymentRepository;
 import com.highfive.refurmoa.user.DTO.reponse.PaymentListResponseDTO;
 import com.highfive.refurmoa.user.DTO.request.PaymentListSearchRequestDTO;
-import com.highfive.refurmoa.user.repository.DeliveryRepository;
+import com.highfive.refurmoa.pay.repository.DeliveryRepository;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

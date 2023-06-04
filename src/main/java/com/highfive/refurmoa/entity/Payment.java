@@ -1,10 +1,12 @@
 package com.highfive.refurmoa.entity;
 
+import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import java.util.Date;
@@ -17,9 +19,8 @@ import java.util.Date;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pay_num", nullable = false)
-    private int payNum;
+    private String payNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -57,6 +58,25 @@ public class Payment {
     private Date payDate;
 
     @Column(name = "pay_cancel", nullable = false)
+    @ColumnDefault(value = "false")
     private boolean payCancel;
 
+    public Payment(PayRequestDTO payRequestDTO) {
+        this.payNum = payRequestDTO.getPay_num();
+        this.member = new Member();
+        this.member.setMemberId(payRequestDTO.getMember_id());
+        this.board = new Board();
+        this.board.setBoardNum(payRequestDTO.getBoard_num());
+        this.product = new Product();
+        this.product.setProductCode(payRequestDTO.getProduct_code());
+        this.prodPrice = payRequestDTO.getProd_price();
+        this.deliveryPrice = payRequestDTO.getDelivery_price();
+        this.payPrice = payRequestDTO.getPay_price();
+        this.buyMethod = payRequestDTO.getBuy_method();
+        if (payRequestDTO.getCoupon_num() != 0)
+            this.couponNum = payRequestDTO.getCoupon_num();
+        if (payRequestDTO.getMile_use() != 0)
+            this.mileUse = payRequestDTO.getMile_use();
+        this.payDate = new Date();
+    }
 }

@@ -21,55 +21,41 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 			"ORDER BY CASE WHEN p.prodState = 0 THEN true ELSE false END DESC")
 	Page<Product> getListProduct(@Param("search") String search, @Param("category") String category, @Param("status") List<Integer> status, Pageable pageable);
 
-
-
-
-	@Query(value="select * from prod_partner where com_num=:num",nativeQuery=true)
-	ProdPartner getPartner(@Param("num")int num );
-	
 	@Transactional
 	@Modifying
-	@Query(value="update product set defect_image1=:defect1,defect_image2=:defect2,defect_image3=:defect3  where product_code=:num",nativeQuery=true)
-	int insert(@Param("num")int num,@Param("defect1")String defect1,@Param("defect2")String defect2,@Param("defect3")String defect3 );
-	
-	
-	@Query(value="select * from product where product_code=:num",nativeQuery=true)
-	Product productInfo(@Param("num")int num );
-	
-	@Query(value="select main_image from product where product_code=:num",nativeQuery=true)
-	String MainInfo(@Param("num")int num );
-	
-	@Query(value="select com_num from product where product_code=:num",nativeQuery=true)
-	int comNumInfo(@Param("num")int num );
+	@Query(value="update product set defect_image1=:defect1,defect_image2=:defect2,defect_image3=:defect3  where product_code=:num", nativeQuery=true)
+	int insert(@Param("num") int num,@Param("defect1") String defect1, @Param("defect2") String defect2, @Param("defect3") String defect3 );
 
-	@Query(value="select com_name from prod_partner where com_num=:num",nativeQuery=true)
-	String comName(@Param("num")int num );
-	
-	@Query(value="select count(*) from product where com_num=:num",nativeQuery=true)
-	int countCom(@Param("num")int num );
-	
-	
-	@Query(value="select start_date,end_date from board where product_code=:num",nativeQuery=true)
-	Date[] getDate(@Param("num")int num );
-	
-	@Query(value="select * from product where category_code like CONCAT('%',:search,'%')",nativeQuery=true)
-	 List<Product> findProduct(@Param("search")String search);
-	
+	@Query(value="select main_image from product where product_code=:num", nativeQuery=true)
+	String MainInfo(@Param("num") int num );
+
+	@Query(value="select count(*) from product where com_num=:num", nativeQuery=true)
+	int countCom(@Param("num") int num);
+
+	@Query(value="select start_date,end_date from board where product_code=:num", nativeQuery=true)
+	Date[] getDate(@Param("num") int num);
+
 	@Transactional
 	void deleteById(int code);
-	
-	@Query(value="select * from product where prod_name like CONCAT('%',:name,'%') and category_code like CONCAT('%',:search,'%')",nativeQuery=true)
-	 List<Product> findProdList(@Param("name")String name,@Param("search")String search);
-	
-	
-	 @Query("select p from Product p where p.comNum =:num and p.prodName like %:name% order by p.prodState")
-     Page<Product> findPartnerProd(@Param("num")ProdPartner num,@Param("name")String name,Pageable pageable);
-	 
-	 @Query("select p from Product p where p.prodName like %:search% and p.prodState=0")
-	 Page<Product> findProduct(@Param("search")String search,Pageable pageable);
 
-	 // 구매 확정
+	@Query(value="select * from product where prod_name like CONCAT('%',:name,'%') and category_code like CONCAT('%',:search,'%')",nativeQuery=true)
+	List<Product> findProdList(@Param("name")String name,@Param("search")String search);
+
+	@Query("select p from Product p where p.prodPartner =:prodPartner and p.prodName like %:name% order by p.prodState")
+	Page<Product> findPartnerProd(@Param("prodPartner")ProdPartner prodPartner,@Param("name")String name,Pageable pageable);
+
+	@Query("select p from Product p where p.prodName like %:search% and p.prodState=0")
+	Page<Product> findProduct(@Param("search")String search,Pageable pageable);
+
+	// 구매 확정
 	Product findByProductCode(int productCode);
+
+	// 상품 현황 변경
+	@Transactional
+	@Modifying
+	@Query("UPDATE Product p SET p.prodState = prodState+1 WHERE p.productCode = :productCode")
+	void updateProdState(int productCode);
+
 }
 
 

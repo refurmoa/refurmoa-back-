@@ -3,6 +3,7 @@ package com.highfive.refurmoa.user.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -74,23 +75,7 @@ public class MemberServiceImpl implements MemberService {
         return repository.countByMemberId(memberId);
     }
     
- // 회원정보 불러오기
- 	@Override
- 	public List<Member> listMember(String memberId) {
- 		return (List<Member>)repository.findAllByMemberId(memberId);
- 	}
- 	
- 	// 회원탈퇴
- 	@Override
- 	public void deleteMember(String memberId) {
- 		repository.deleteById(memberId);
- 	}
- 	
- 	// 회원정보 수정
- 	@Override
- 	public Member updateMember(Member member) {
- 		return repository.save(member);
- 	}
+
  	
  	//	회원주소검색
  	@Override
