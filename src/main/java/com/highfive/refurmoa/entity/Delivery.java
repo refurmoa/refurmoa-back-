@@ -1,14 +1,18 @@
 package com.highfive.refurmoa.entity;
 
+import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import java.util.Date;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class Delivery {
 
@@ -18,7 +22,7 @@ public class Delivery {
     private int num;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "pay_num", nullable = false, referencedColumnName = "pay_num")
+    @JoinColumn(name = "pay_num", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Payment payment;
 
@@ -48,5 +52,17 @@ public class Delivery {
     @Column(name = "deli_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date deliDate;
+
+    public Delivery(PayRequestDTO payRequestDTO) {
+        this.payment = new Payment();
+        this.payment.setPayNum(payRequestDTO.getPay_num());
+        this.product = new Product();
+        this.product.setProductCode(payRequestDTO.getProduct_code());
+        this.receiptName = payRequestDTO.getReceipt_name();
+        this.receiptPhone = payRequestDTO.getReceipt_phone();
+        this.receiptAddr = payRequestDTO.getReceipt_addr();
+        this.receiptDetail = payRequestDTO.getReceipt_detail();
+        this.receiptReq = payRequestDTO.getReceipt_req();
+    }
 
 }

@@ -21,7 +21,7 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "com_num")
-    private ProdPartner comNum;
+    private ProdPartner prodPartner;
 
     @Column(name = "category_code", nullable = false, length = 10)
     private String categoryCode;

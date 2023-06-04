@@ -1,4 +1,4 @@
-package com.highfive.refurmoa.user.repository;
+package com.highfive.refurmoa.pay.repository;
 
 import com.highfive.refurmoa.entity.Delivery;
 import org.springframework.data.jpa.repository.JpaRepository;

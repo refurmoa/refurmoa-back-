@@ -37,18 +37,25 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	@Transactional
 	void deleteById(int code);
-	
-	@Query(value="select * from product where prod_name like CONCAT('%',:name,'%') and category_code like CONCAT('%',:search,'%')",nativeQuery=true)
-	 List<Product> findProdList(@Param("name")String name,@Param("search")String search);
-  
-	 @Query("select p from Product p where p.comNum =:num and p.prodName like %:name% order by p.prodState")
-     Page<Product> findPartnerProd(@Param("num")ProdPartner num,@Param("name")String name,Pageable pageable);
-	 
-	 @Query("select p from Product p where p.prodName like %:search% and p.prodState=0")
-	 Page<Product> findProduct(@Param("search")String search,Pageable pageable);
 
-	 // 구매 확정
+	@Query(value="select * from product where prod_name like CONCAT('%',:name,'%') and category_code like CONCAT('%',:search,'%')",nativeQuery=true)
+	List<Product> findProdList(@Param("name")String name,@Param("search")String search);
+
+	@Query("select p from Product p where p.prodPartner =:prodPartner and p.prodName like %:name% order by p.prodState")
+	Page<Product> findPartnerProd(@Param("prodPartner")ProdPartner prodPartner,@Param("name")String name,Pageable pageable);
+
+	@Query("select p from Product p where p.prodName like %:search% and p.prodState=0")
+	Page<Product> findProduct(@Param("search")String search,Pageable pageable);
+
+	// 구매 확정
 	Product findByProductCode(int productCode);
+
+	// 상품 현황 변경
+	@Transactional
+	@Modifying
+	@Query("UPDATE Product p SET p.prodState = prodState+1 WHERE p.productCode = :productCode")
+	void updateProdState(int productCode);
+
 }
 
 
