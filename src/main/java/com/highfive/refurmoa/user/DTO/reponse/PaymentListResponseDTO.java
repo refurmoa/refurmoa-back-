@@ -32,7 +32,6 @@ public class PaymentListResponseDTO {
         this.prod_name = payment.getBoard().getProduct().getProdName();
         this.prod_price = payment.getBoard().getCurPrice();
         this.pay_price = payment.getPayPrice();
-        System.out.println(delivery);
         if (delivery == null) {
             this.pay_state = 1;
         } else {
