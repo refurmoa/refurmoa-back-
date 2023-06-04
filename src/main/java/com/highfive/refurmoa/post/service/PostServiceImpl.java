@@ -1,22 +1,33 @@
 package com.highfive.refurmoa.post.service;
 
-import com.highfive.refurmoa.entity.Board;
-import com.highfive.refurmoa.entity.Userlike;
-import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
-import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
-import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
-import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
-import com.highfive.refurmoa.post.repository.BidRepository;
-import com.highfive.refurmoa.post.repository.BoardRepository;
-import com.highfive.refurmoa.post.repository.UserlikeRepository;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-
-import java.util.Date;
+import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
+import com.highfive.refurmoa.entity.Board;
+import com.highfive.refurmoa.entity.ProdPartner;
+import com.highfive.refurmoa.entity.Product;
+import com.highfive.refurmoa.entity.Userlike;
+import com.highfive.refurmoa.post.dto.reponse.PostInfoDTO;
+import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
+import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
+import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
+import com.highfive.refurmoa.post.dto.request.PostWriteDTO;
+import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
+import com.highfive.refurmoa.post.repository.BidRepository;
+import com.highfive.refurmoa.post.repository.BoardRepository;
+import com.highfive.refurmoa.post.repository.UserlikeRepository;
+import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
+import com.highfive.refurmoa.prod.repository.ProductRepository;
 
 
 @Service
@@ -25,11 +36,15 @@ public class PostServiceImpl implements PostService {
     private final BoardRepository boardRepository;
     private final BidRepository bidRepository;
     private final UserlikeRepository userlikeRepository;
+    private ProductRepository productrepository;
+	private ProdPartnerRepository partnerRepository;
 
-    public PostServiceImpl(BoardRepository boardRepository, BidRepository bidRepository, UserlikeRepository userlikeRepository) {
+    public PostServiceImpl(BoardRepository boardRepository, BidRepository bidRepository, UserlikeRepository userlikeRepository,ProductRepository productrepository, ProdPartnerRepository partnerRepository) {
         this.boardRepository = boardRepository;
         this.bidRepository = bidRepository;
         this.userlikeRepository = userlikeRepository;
+        this.productrepository =productrepository ;
+        this.partnerRepository = partnerRepository;
     }
   
     @Override // 찜 등록/취소
@@ -109,6 +124,51 @@ public class PostServiceImpl implements PostService {
     public void readCount(PostReadCountResquestDTO postReadCountResquestDTO) {
         boardRepository.findByBoardNumAndUpdatePlusReadCount(postReadCountResquestDTO.getBoard_num());
     }
-
-
+    @Override
+    public PostInfoDTO Postinfo(int board_num) {
+    	Board board=boardRepository.findByBoardNum(board_num);
+    	FindProductDTO tmp = new FindProductDTO(board.getProduct());
+    	return new PostInfoDTO(tmp,board);
+    }
+    
+    @Override
+    public int PostWrite(MultipartFile mainImg,MultipartFile detailFile,PostWriteDTO prodDto) throws IOException{
+    	
+ 
+		String mainName = null;
+		if(mainImg!=null) {
+			File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+			mainImg.transferTo(main);
+			mainName=main.toString();
+		}else {
+			mainName=productrepository.MainInfo(prodDto.getProduct_code());
+		}
+		String detailName = null;
+		if(detailFile!=null) {
+			File detail = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+			detailFile.transferTo(detail);
+			detailName=detail.toString();
+		}else {
+			detailName=boardRepository.findByBoardNum(prodDto.getBoard_num()).getDetailImage();
+		}
+		System.out.println(prodDto.getProduct_code());
+		ProdPartner tmp =new ProdPartner();
+		Product productEntity = new Product(prodDto.getProduct_code(),tmp,prodDto.getCategory_code(),prodDto.getCategory(),mainName,prodDto.getProd_com(),
+				prodDto.getProd_name(),prodDto.getProd_grade(),prodDto.getOrg_price(),prodDto.isGuarantee(),prodDto.getDeffect_text(),prodDto.getDeffect_image1(),
+				prodDto.getDeffect_image2(),prodDto.getDeffect_image3(),prodDto.getReg_date(),prodDto.getProd_state());	
+		insertProd(prodDto.getCom_num(),productEntity);
+		productrepository.save(productEntity);
+		
+		Board board= new Board(prodDto.getBoard_num(),productEntity,prodDto.getSell_type(),prodDto.getDir_price(),prodDto.getAuc_price(),prodDto.getUnit_price(),
+				prodDto.getOrg_price(),prodDto.getAs_date(),prodDto.getDel_price(),detailName,prodDto.getStart_date(),prodDto.getEnd_date(),
+				prodDto.getReadCount(),prodDto.getUpdate_date(),prodDto.isDeleteCheck());
+		boardRepository.save(board);
+		
+		return productEntity.getProductCode();
+    }
+    public void insertProd(int comNum,Product prod) {
+		ProdPartner partner=partnerRepository.findById(comNum).orElse(null);
+		prod.setComNum(partner);		
+}
+    
 }

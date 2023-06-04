@@ -43,14 +43,13 @@ public class ProductController {
 
 	// 상품 등록
 	@PostMapping("/write")
-    public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
+  public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 		prodNum = productServiceImpl.ProductWrite(mainImg, prodDto);
 		return prodNum;
 	}
-
-	// 상품 수정
-	@PostMapping("/update")
-	public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException {
+  // 상품 수정
+	@PostMapping("/prod/update")
+  public int ProductUpdate(@RequestParam(value="main_image", required = false) MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
   	return productServiceImpl.ProductUpdate(mainImg, prodDto);
 	}
 

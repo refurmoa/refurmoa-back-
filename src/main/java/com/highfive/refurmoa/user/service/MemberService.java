@@ -7,8 +7,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.post.dto.reponse.MyListDTO;
 import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
 import com.highfive.refurmoa.user.DTO.reponse.MemberInfoDTO;
+import com.highfive.refurmoa.user.DTO.reponse.MembershipDTO;
 
 public interface MemberService {
 
@@ -23,5 +25,7 @@ public interface MemberService {
     public Slice<AdminUserListResponseDTO> listAdminMember(Pageable pageable);	// 관리자 페이지 회원 목록 조회
     public List<AdminUserListResponseDTO> searchAdminMember(String memberId);	// admin 회원 검색
     public MemberInfoDTO memberInfo(String id);//마이페이지 정보 조회 
+    public MembershipDTO membership(String id);//마이페이지 멤버십 조회 
+    public List<MyListDTO> bookmarkData(String id,String search);
     
 }

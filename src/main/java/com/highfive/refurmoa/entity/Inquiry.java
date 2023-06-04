@@ -40,7 +40,7 @@ public class Inquiry {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Member memberId;
 
-    @Column(name = "inq_title", nullable = false, length = 20)
+    @Column(name = "inq_title", nullable = false, length = 50)
     private String inqTitle;
 
     @Column(name = "inq_con", nullable = false, length = 500)
