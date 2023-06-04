@@ -28,4 +28,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
             "AND p.product.prodName like %:search%"
     )
     Page<Payment> findByMemberIdAndSearch(String memberId, String search, Pageable pageable);
+
+    // 상품 코드로 결제 내역 조회
+    Payment findByProductProductCode(int productCode0);
 }

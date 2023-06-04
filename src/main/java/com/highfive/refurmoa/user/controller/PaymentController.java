@@ -1,5 +1,6 @@
 package com.highfive.refurmoa.user.controller;
 
+import com.highfive.refurmoa.user.DTO.request.ChangeToConfirmRequestDTO;
 import com.highfive.refurmoa.user.DTO.request.PaymentListPeriodRequestDTO;
 import com.highfive.refurmoa.user.DTO.request.PaymentListRequestDTO;
 import com.highfive.refurmoa.user.DTO.reponse.PaymentListResponseDTO;
@@ -7,9 +8,7 @@ import com.highfive.refurmoa.user.DTO.request.PaymentListSearchRequestDTO;
 import com.highfive.refurmoa.user.service.PaymentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,6 +32,12 @@ public class PaymentController {
     @PostMapping("/user/payment/search")
     public Page<PaymentListResponseDTO> getPaymentListSearch(@RequestBody PaymentListSearchRequestDTO paymentListSearchRequestDTO) {
         return paymentServiceImpl.getPaymentListSearch(paymentListSearchRequestDTO);
+    }
+
+    // 구매 확정
+    @PostMapping("/prod/change")
+    public void changeToConfirm(@RequestBody ChangeToConfirmRequestDTO changeToConfirmRequestDTO) {
+        paymentServiceImpl.changeToConfirm(changeToConfirmRequestDTO);
     }
 
 }

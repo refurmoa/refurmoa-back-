@@ -20,15 +20,18 @@ public class PaymentListResponseDTO {
     private int pay_price;
     private int pay_state;
     private boolean pay_cancel;
+    private int product_code;
 
     public PaymentListResponseDTO(Payment payment, Delivery delivery) {
         this.board_num = payment.getBoard().getBoardNum();
         this.pay_num = payment.getPayNum();
         this.sell_type = payment.getBoard().getSellType();
         this.main_image = payment.getBoard().getProduct().getMainImage();
+        this.product_code = payment.getProduct().getProductCode();
         this.prod_com = payment.getBoard().getProduct().getProdCom();
         this.prod_name = payment.getBoard().getProduct().getProdName();
         this.prod_price = payment.getBoard().getCurPrice();
+        this.pay_price = payment.getPayPrice();
         System.out.println(delivery);
         if (delivery == null) {
             this.pay_state = 1;

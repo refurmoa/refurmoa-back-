@@ -67,6 +67,9 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	 
 	 @Query("select p from Product p where p.prodName like %:search% and p.prodState=0")
 	 Page<Product> findProduct(@Param("search")String search,Pageable pageable);
+
+	 // 구매 확정
+	Product findByProductCode(int productCode);
 }
 
 

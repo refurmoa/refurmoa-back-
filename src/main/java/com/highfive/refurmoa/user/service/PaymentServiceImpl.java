@@ -1,13 +1,18 @@
 package com.highfive.refurmoa.user.service;
 
 import com.highfive.refurmoa.entity.Delivery;
+import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.entity.Payment;
+import com.highfive.refurmoa.entity.Product;
+import com.highfive.refurmoa.prod.repository.ProductRepository;
+import com.highfive.refurmoa.user.DTO.request.ChangeToConfirmRequestDTO;
 import com.highfive.refurmoa.user.DTO.request.PaymentListPeriodRequestDTO;
 import com.highfive.refurmoa.user.DTO.request.PaymentListRequestDTO;
 import com.highfive.refurmoa.post.repository.PaymentRepository;
 import com.highfive.refurmoa.user.DTO.reponse.PaymentListResponseDTO;
 import com.highfive.refurmoa.user.DTO.request.PaymentListSearchRequestDTO;
 import com.highfive.refurmoa.user.repository.DeliveryRepository;
+import com.highfive.refurmoa.user.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +29,8 @@ public class PaymentServiceImpl implements PaymentService{
 
     private final PaymentRepository paymentRepository;
     private final DeliveryRepository deliveryRepository;
+    private final ProductRepository productRepository;
+    private final MemberRepository memberRepository;
 
     // 결제 내역 조회
     @Override
@@ -68,5 +75,17 @@ public class PaymentServiceImpl implements PaymentService{
             Delivery delivery = deliveryRepository.findByProductProductCode(payment_item.getProduct().getProductCode());
             return new PaymentListResponseDTO(payment_item, delivery);
         });
+    }
+
+    // 구매 확정
+    public void changeToConfirm(ChangeToConfirmRequestDTO changeToConfirmRequestDTO) {
+        // 상품현황 변경
+        Product product = productRepository.findByProductCode(changeToConfirmRequestDTO.getProduct_code());
+        product.setProdState(5);
+        productRepository.save(product);
+
+        // 회원 마일리지 적립
+        Payment payment = paymentRepository.findByProductProductCode(product.getProductCode());
+        memberRepository.findByMemberIdAndUpdateMile(changeToConfirmRequestDTO.getMember_id(), payment.getPayPrice()/100);
     }
 }
