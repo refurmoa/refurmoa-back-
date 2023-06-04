@@ -99,20 +99,20 @@ public class MemberController {
  	}
  	
  	
- 	@GetMapping("/mypage/memberinfo")
+ 	@PostMapping("/mypage/memberinfo")
  	public MemberInfoDTO memberInfo(@RequestParam("id") String id) {
  		return memberServiceImpl.memberInfo(id);
  	}
- 	@GetMapping("/mypage/membership")
+ 	@PostMapping("/mypage/membership")
  	public MembershipDTO membership (@RequestParam("id") String id) {
  		return memberServiceImpl.membership (id);
  	}
  	
- 	@GetMapping("/mypage/bookmark")
+ 	@PostMapping("/mypage/bookmark")
  	public List<MyListDTO> bookmark (@RequestParam("id") String id,@RequestParam("search") String search) {
  		return memberServiceImpl.bookmarkData(id,search);
  	}
- 	@GetMapping("/mypage/bookmark/search")
+ 	@PostMapping("/mypage/bookmark/search")
  	public List<MyListDTO> bookmarkserach (@RequestParam("id") String id,@RequestParam("search") String search) {
  		return memberServiceImpl.bookmarkData(id,search);
  	}
