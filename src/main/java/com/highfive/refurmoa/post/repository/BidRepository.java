@@ -16,4 +16,14 @@ public interface BidRepository extends JpaRepository<Bid, Integer> {
   
     Long countByBoardBoardNumAndBidCancelFalse(int board_num); // 게시글 입찰 수 조회
 
+    // 어드민 메인페이지
+    // 입금대기(경매)
+    @Query("SELECT COUNT(b) FROM Bid b " +
+            "WHERE b.board.sellType != 2 " +
+            "AND NOT b.board.deleteCheck " +
+            "AND NOT b.board.startDate < CURRENT_TIMESTAMP " +
+            "AND b.board.curPrice = b.bidPrice " +
+            "AND NOT b.bidCancel"
+    )
+    Long getAdminCountWaitpay();
 }

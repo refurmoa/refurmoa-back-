@@ -33,4 +33,12 @@ public interface ProdPartnerRepository extends JpaRepository<ProdPartner, Intege
      @Modifying
      @Query(value="UPDATE prod_partner SET com_status = com_status + 1 WHERE com_num = :com_num",nativeQuery=true)
      void changState(@Param("com_num")int com_num);
+
+
+    // 어드민 메인페이지
+    // 제휴신청 개수
+    @Query("SELECT COUNT(p) FROM ProdPartner p " +
+            "WHERE p.comStatus = 0"
+    )
+    Long getAdminCountPartnership();
 }

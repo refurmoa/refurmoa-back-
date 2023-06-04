@@ -108,4 +108,27 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query("select b from Board b where NOT b.sellType =2 and b.endDate>:date and b.startDate<:date order by b.endDate ASC LIMIT 15")
     List<Board> mainEnd(@Param("date") Date date);
 
+    // 어드민 메인페이지
+    // 판매예정
+    @Query("SELECT COUNT(b) FROM Board b LEFT JOIN product p " +
+            "WHERE b.deleteCheck = false " +
+            "AND b.startDate > CURRENT_TIMESTAMP " +
+            "OR p.prodState = 0"
+    )
+    Long getAdminCountYet();
+    // 판매중(경매)
+    @Query("SELECT COUNT(b) FROM Board b " +
+            "WHERE b.deleteCheck = false AND b.sellType != 2 " +
+            "AND NOT b.startDate > CURRENT_TIMESTAMP AND NOT b.endDate < CURRENT_TIMESTAMP"
+    )
+    Long getAdminCountIngauction();
+    // 판매중(즉시구매)
+    @Query("SELECT COUNT(b) FROM Board b " +
+            "WHERE b.deleteCheck = false AND b.sellType != 1 " +
+            "AND NOT b.startDate > CURRENT_TIMESTAMP AND NOT b.endDate < CURRENT_TIMESTAMP"
+    )
+    Long getAdminCountIngdirect();
+
+
+
 }
