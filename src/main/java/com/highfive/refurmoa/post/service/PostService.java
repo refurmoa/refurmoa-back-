@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.highfive.refurmoa.post.dto.reponse.PostInfoDTO;
 import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
 import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
@@ -20,5 +21,7 @@ public interface PostService {
     void readCount(PostReadCountResquestDTO postReadCountResquestDTO);
     
     public int PostWrite(MultipartFile mainImg,MultipartFile detailFile,PostWriteDTO prodDto) throws IOException;
+    
+    public PostInfoDTO Postinfo(int board_num);
   
 }

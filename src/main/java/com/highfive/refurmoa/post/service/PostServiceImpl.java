@@ -17,6 +17,7 @@ import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.entity.Product;
 import com.highfive.refurmoa.entity.Userlike;
+import com.highfive.refurmoa.post.dto.reponse.PostInfoDTO;
 import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
 import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
@@ -25,6 +26,7 @@ import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 import com.highfive.refurmoa.post.repository.BidRepository;
 import com.highfive.refurmoa.post.repository.BoardRepository;
 import com.highfive.refurmoa.post.repository.UserlikeRepository;
+import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
 
 
@@ -122,7 +124,12 @@ public class PostServiceImpl implements PostService {
     public void readCount(PostReadCountResquestDTO postReadCountResquestDTO) {
         boardRepository.findByBoardNumAndUpdatePlusReadCount(postReadCountResquestDTO.getBoard_num());
     }
-    
+    @Override
+    public PostInfoDTO Postinfo(int board_num) {
+    	Board board=boardRepository.findByBoardNum(board_num);
+    	FindProductDTO tmp = new FindProductDTO(board.getProduct());
+    	return new PostInfoDTO(tmp,board);
+    }
     
     @Override
     public int PostWrite(MultipartFile mainImg,MultipartFile detailFile,PostWriteDTO prodDto) throws IOException{
@@ -136,9 +143,14 @@ public class PostServiceImpl implements PostService {
 		}else {
 			mainName=productrepository.MainInfo(prodDto.getProduct_code());
 		}
-		File detail = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-		detailFile.transferTo(detail);
-		
+		String detailName = null;
+		if(detailFile!=null) {
+			File detail = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
+			detailFile.transferTo(detail);
+			detailName=detail.toString();
+		}else {
+			detailName=boardRepository.findByBoardNum(prodDto.getBoard_num()).getDetailImage();
+		}
 		System.out.println(prodDto.getProduct_code());
 		ProdPartner tmp =new ProdPartner();
 		Product productEntity = new Product(prodDto.getProduct_code(),tmp,prodDto.getCategory_code(),prodDto.getCategory(),mainName,prodDto.getProd_com(),
@@ -148,7 +160,7 @@ public class PostServiceImpl implements PostService {
 		productrepository.save(productEntity);
 		
 		Board board= new Board(prodDto.getBoard_num(),productEntity,prodDto.getSell_type(),prodDto.getDir_price(),prodDto.getAuc_price(),prodDto.getUnit_price(),
-				prodDto.getOrg_price(),prodDto.getAs_date(),prodDto.getDel_price(),detail.toString(),prodDto.getStart_date(),prodDto.getEnd_date(),
+				prodDto.getOrg_price(),prodDto.getAs_date(),prodDto.getDel_price(),detailName,prodDto.getStart_date(),prodDto.getEnd_date(),
 				prodDto.getReadCount(),prodDto.getUpdate_date(),prodDto.isDeleteCheck());
 		boardRepository.save(board);
 		

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.highfive.refurmoa.post.dto.reponse.PostInfoDTO;
 import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
 import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
@@ -49,9 +51,19 @@ public class PostController {
     public void readCount(@RequestBody PostReadCountResquestDTO postReadCountResquestDTO) {
         postServiceImpl.readCount(postReadCountResquestDTO);
     }
+    
+    @GetMapping("/update/info")
+    public PostInfoDTO Postinfo(@RequestParam(value="num") int board_num){
+    	return postServiceImpl.Postinfo(board_num);
+    }
     private int prodNum;
     @PostMapping("/write")
-    public int PostWrite(@RequestParam(value="main_image",required = false) MultipartFile mainImg,@RequestParam(value="detailFile") MultipartFile detailFile,PostWriteDTO postDto) throws IllegalStateException, IOException  {
+    public int PostWrite(@RequestParam(value="main_image",required = false) MultipartFile mainImg,@RequestParam(value="detailFile",required = false) MultipartFile detailFile,PostWriteDTO postDto) throws IllegalStateException, IOException  {
+    	prodNum=postServiceImpl.PostWrite(mainImg,detailFile,postDto);
+    	return prodNum;
+    }
+    @PostMapping("/update")
+    public int PostUpdate(@RequestParam(value="main_image",required = false) MultipartFile mainImg,@RequestParam(value="detailFile",required = false) MultipartFile detailFile,PostWriteDTO postDto) throws IllegalStateException, IOException  {
     	prodNum=postServiceImpl.PostWrite(mainImg,detailFile,postDto);
     	return prodNum;
     }
