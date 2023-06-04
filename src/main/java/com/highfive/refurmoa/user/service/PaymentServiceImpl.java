@@ -80,8 +80,6 @@ public class PaymentServiceImpl implements PaymentService{
     public void changeToConfirm(ChangeToConfirmRequestDTO changeToConfirmRequestDTO) {
         // 상품현황 변경
         Product product = productRepository.findByProductCode(changeToConfirmRequestDTO.getProduct_code());
-        product.setProdState(5);
-        productRepository.save(product);
 
         // 회원 마일리지 적립
         Payment payment = paymentRepository.findByProductProductCode(product.getProductCode());

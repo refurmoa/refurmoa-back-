@@ -1,5 +1,6 @@
 package com.highfive.refurmoa.user.controller;
 
+import com.highfive.refurmoa.prod.controller.ProductController;
 import com.highfive.refurmoa.user.DTO.request.ChangeToConfirmRequestDTO;
 import com.highfive.refurmoa.user.DTO.request.PaymentListPeriodRequestDTO;
 import com.highfive.refurmoa.user.DTO.request.PaymentListRequestDTO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
 
     private final PaymentServiceImpl paymentServiceImpl;
+    private final ProductController productController;
 
     // 결제 내역 조회
     @PostMapping("/user/payment")
@@ -35,9 +37,10 @@ public class PaymentController {
     }
 
     // 구매 확정
-    @PostMapping("/prod/change")
+    @PostMapping("/user/payment/confirm")
     public void changeToConfirm(@RequestBody ChangeToConfirmRequestDTO changeToConfirmRequestDTO) {
         paymentServiceImpl.changeToConfirm(changeToConfirmRequestDTO);
+        productController.updateProdState(changeToConfirmRequestDTO.getProduct_code());
     }
 
 }
