@@ -22,7 +22,7 @@ public class FaqBoard {
     @Column(name = "faq_cate", nullable = false)
     private int faqCate;
 
-    @Column(name = "faq_title", nullable = false, length = 20)
+    @Column(name = "faq_title", nullable = false, length = 50)
     private String faqTitle;
 
     @Column(name = "faq_content", nullable = false, length = 500)

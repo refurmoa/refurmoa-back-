@@ -27,7 +27,7 @@ public class Alarm {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Board boardNum;
 
-    @Column(name = "alarm_text", nullable = false, length = 50)
+    @Column(name = "alarm_text", nullable = false, length = 500)
     private String alarmText;
 
     @Column(name = "alarm_date", nullable = false)

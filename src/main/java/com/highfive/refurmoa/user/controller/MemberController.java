@@ -1,16 +1,22 @@
 package com.highfive.refurmoa.user.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.post.dto.reponse.MyListDTO;
 import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
+import com.highfive.refurmoa.user.DTO.reponse.MemberInfoDTO;
+import com.highfive.refurmoa.user.DTO.reponse.MembershipDTO;
 import com.highfive.refurmoa.user.service.MemberServiceImpl;
 
 import lombok.RequiredArgsConstructor;
@@ -51,24 +57,8 @@ public class MemberController {
         return memberServiceImpl.countMemberId(vo.getMemberId());
     }
     
- // 회원정보 불러오기
- 	@RequestMapping("/user/info")
- 	public List<Member> listMember(@RequestBody Member vo){
- 		return (List<Member>)memberServiceImpl.listMember(vo.getMemberId());
- 	}
- 	
- 	// 회원탈퇴
- 	@RequestMapping("/user/delete")
- 	public void deleteMember(@RequestBody Member vo){
- 		memberServiceImpl.deleteMember(vo.getMemberId());
- 	}
- 	
- 	// 회원정보 수정
- 	@RequestMapping("/user/update")
- 	public void updateMember(@RequestBody Member member){
- 		memberServiceImpl.updateMember(member);
- 	}
- 	
+
+
  	//	회원주소검색
  	@RequestMapping("/cs/as/user/addr")
  	public String userLocationInfo(@RequestBody Member vo){
@@ -93,6 +83,24 @@ public class MemberController {
  		return (List<AdminUserListResponseDTO>)memberServiceImpl.searchAdminMember(vo.getMemberId());
  	}
  	
+ 	
+ 	@PostMapping("/mypage/memberinfo")
+ 	public MemberInfoDTO memberInfo(@RequestParam("id") String id) {
+ 		return memberServiceImpl.memberInfo(id);
+ 	}
+ 	@PostMapping("/mypage/membership")
+ 	public MembershipDTO membership (@RequestParam("id") String id) {
+ 		return memberServiceImpl.membership (id);
+ 	}
+ 	
+ 	@PostMapping("/mypage/bookmark")
+ 	public List<MyListDTO> bookmark (@RequestParam("id") String id,@RequestParam("search") String search) {
+ 		return memberServiceImpl.bookmarkData(id,search);
+ 	}
+ 	@PostMapping("/mypage/bookmark/search")
+ 	public List<MyListDTO> bookmarkserach (@RequestParam("id") String id,@RequestParam("search") String search) {
+ 		return memberServiceImpl.bookmarkData(id,search);
+ 	}
  	
  
 }

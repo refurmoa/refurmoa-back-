@@ -43,6 +43,9 @@ public class Banner {
     @Temporal(TemporalType.TIMESTAMP)
     private Date bannEnd;
 
+    @Column(name = "bann_location", nullable = false)
+    private String bannLocation;
+
     public Banner(String bannerImage, WriteBannerRequestDTO writeBannerRequestDTO) {
         this.bannImage = bannerImage;
         this.sellerName = writeBannerRequestDTO.getSeller_name();
@@ -51,5 +54,6 @@ public class Banner {
         this.bannRef = writeBannerRequestDTO.getBann_ref();
         this.bannStart = writeBannerRequestDTO.getBann_start();
         this.bannEnd = writeBannerRequestDTO.getBann_end();
+        this.bannLocation = writeBannerRequestDTO.getBann_location();
     }
 }

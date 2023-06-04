@@ -2,8 +2,12 @@ package com.highfive.refurmoa.cs.controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.highfive.refurmoa.cs.service.AsServiceImpl;
@@ -21,8 +25,8 @@ private AsServiceImpl asServiceImpl;
 	
 //	as 매장 조회
 	@RequestMapping("/cs/as")
-	public List<AsStore> listAsStore(){
-		return (List<AsStore>)asServiceImpl.listAsStore();
+	public Page<AsStore> listAsStore(Pageable pageable){
+		return asServiceImpl.listAsStore(pageable);
 	}
 	
 //	as 매장 등록
@@ -44,22 +48,15 @@ private AsServiceImpl asServiceImpl;
 	}
 	
 //	as 매장 지역 검색
-	@RequestMapping("/cs/as/search/city")
-	public List<AsStore> searchAsStoreCity(@RequestBody AsStore vo) {
-		System.out.println(vo.getStoreAddr());
-		System.out.println(vo.getStoreDetail());
-		return (List<AsStore>)asServiceImpl.searchAsStoreCity(vo.getStoreAddr(), vo.getStoreDetail());
+	@GetMapping("/cs/as/search/city")
+	public Page<AsStore> searchAsStoreCity(@RequestParam(value="storeAddr") String addr,@RequestParam(value="storeDetail") String detail,Pageable pageable) {
+		return asServiceImpl.searchAsStoreCity(addr,detail,pageable);
 	}
 	
 //	as 매장명 검색
-	@RequestMapping("/cs/as/search/text")
-	public List<AsStore> searchAsStoreText(@RequestBody AsStore vo) {
-		return (List<AsStore>)asServiceImpl.searchAsStoreText(vo.getStoreName());
+	@GetMapping("/cs/as/search/text")
+	public Page<AsStore> searchAsStoreText(@RequestParam(value="search") String search,Pageable pageable) {
+		return asServiceImpl.searchAsStoreText(search,pageable);
 	}
 	
-
-	
-
-
 }
-

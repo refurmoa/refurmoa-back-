@@ -1,16 +1,19 @@
-package com.highfive.refurmoa.prod.DTO;
+package com.highfive.refurmoa.post.dto.request;
 
 import java.util.Date;
+
+import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductWriteDTO {
-	
+public class PostWriteDTO {
 	private int product_code;
 	private String category;
 	private String category_code;
@@ -26,5 +29,17 @@ public class ProductWriteDTO {
     private int prod_state;
     private Date reg_date;
     private int com_num;
-
+    private int board_num;
+	private int sell_type;
+	private Date start_date;
+	private Date end_date;
+	private Date update_date;
+	private int del_price;
+	private int auc_price;
+	private int dir_price;
+	private int unit_price;
+	private int readCount;
+	private int as_date;
+	private boolean deleteCheck;
+	
 }

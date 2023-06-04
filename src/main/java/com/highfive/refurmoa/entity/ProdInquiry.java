@@ -40,7 +40,7 @@ public class ProdInquiry {
 	@Column(name = "secret", nullable = false)
 	private boolean secret;
 
-	@Column(name = "title", nullable = false, length=20)
+	@Column(name = "title", nullable = false, length=50)
 	private String title;
 
 	@Column(name = "content", nullable = false, length=500)

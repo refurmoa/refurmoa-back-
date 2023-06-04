@@ -29,7 +29,7 @@ public class BannerServiceImpl implements BannerService {
     // 배너 목록 조회
     @Override
     public Page<Banner> getListBanner(Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findAllByOrderByBannNumDesc(pageable);
     }
 
     // 배너 목록 검색
@@ -40,15 +40,12 @@ public class BannerServiceImpl implements BannerService {
 
     // 배너 등록
     @Override
-    public int writeBanner(WriteBannerRequestDTO writeBannerRequestDTO, MultipartFile banner_img) throws IOException {
+    public void writeBanner(WriteBannerRequestDTO writeBannerRequestDTO, MultipartFile banner_img) throws IOException {
         String banner_image = saveImage(banner_img); // 이미지파일 이름
+        System.out.println(writeBannerRequestDTO.getBann_location());
         Banner banner = new Banner(banner_image, writeBannerRequestDTO);
-        try {
-            repository.save(banner);
-            return 1;
-        } catch (Exception e) {
-            return 0;
-        }
+        repository.save(banner);
+
     }
     // 이미지 파일 이름 만들기
     private String saveImage(MultipartFile imageFile) throws IOException {
