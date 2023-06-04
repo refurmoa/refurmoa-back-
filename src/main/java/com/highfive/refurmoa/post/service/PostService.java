@@ -1,10 +1,15 @@
 package com.highfive.refurmoa.post.service;
 
-import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
+import java.io.IOException;
+
+import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
 import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
-import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
-import org.springframework.data.domain.Page;
+import com.highfive.refurmoa.post.dto.request.PostWriteDTO;
+import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 
 public interface PostService {
   
@@ -13,5 +18,7 @@ public interface PostService {
     Page<PostResponseDTO> getPostList(PostRequestDTO postRequestDTO);
     // 조회수 증가
     void readCount(PostReadCountResquestDTO postReadCountResquestDTO);
+    
+    public int PostWrite(MultipartFile mainImg,MultipartFile detailFile,PostWriteDTO prodDto) throws IOException;
   
 }

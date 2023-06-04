@@ -1,21 +1,32 @@
 package com.highfive.refurmoa.post.controller;
 
+import java.io.IOException;
+
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
 import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
-import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
+import com.highfive.refurmoa.post.dto.request.PostWriteDTO;
 import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 import com.highfive.refurmoa.post.service.PostServiceImpl;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import com.highfive.refurmoa.prod.service.ProductServiceImpl;
 
 @RestController
 @RequestMapping("/post")
 public class PostController {
 
     private final PostServiceImpl postServiceImpl;
-
+    
     public PostController(PostServiceImpl postServiceImpl) {
         this.postServiceImpl = postServiceImpl;
+   
     }
   
     // 찜 등록/취소
@@ -34,6 +45,11 @@ public class PostController {
     @PostMapping("/readcount")
     public void readCount(@RequestBody PostReadCountResquestDTO postReadCountResquestDTO) {
         postServiceImpl.readCount(postReadCountResquestDTO);
+    }
+    @PostMapping("/write")
+    public int PostWrite(@RequestParam(value="main_image",required = false) MultipartFile mainImg,@RequestParam(value="detailFile",required = false) MultipartFile detailFile,PostWriteDTO postDto) throws IllegalStateException, IOException  {
+
+        return postServiceImpl.PostWrite(mainImg,detailFile,postDto);
     }
 
 }

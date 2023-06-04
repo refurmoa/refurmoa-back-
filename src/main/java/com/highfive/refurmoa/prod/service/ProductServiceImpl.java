@@ -2,25 +2,29 @@ package com.highfive.refurmoa.prod.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 
-import com.highfive.refurmoa.entity.Board;
-import com.highfive.refurmoa.post.repository.BoardRepository;
-import com.highfive.refurmoa.prod.DTO.response.ProdListResponseDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.highfive.refurmoa.admin.dto.response.PartnerDTO;
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
+import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.ProdPartner;
 import com.highfive.refurmoa.entity.Product;
+import com.highfive.refurmoa.post.repository.BoardRepository;
 import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
 import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdListResponseDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 import com.highfive.refurmoa.prod.repository.ProductRepository;
 

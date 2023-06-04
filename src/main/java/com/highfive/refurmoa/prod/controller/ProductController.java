@@ -64,7 +64,7 @@ public class ProductController {
         return prodNum;
     }
 	@PostMapping("/prod/update")
-    public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
+    public int ProductUpdate(@RequestParam(value="main_image",required = false) MultipartFile mainImg,ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 
         return ProductServiceImpl.ProductUpdate(mainImg,prodDto);
     }
@@ -87,7 +87,7 @@ public class ProductController {
 	 public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
         return ProductServiceImpl.productInfo(productCode);
     }
-	@GetMapping("/post/prod_search")
+	@GetMapping("/post/prod-search")
 	 public Page<FindProductDTO> findProduct(@RequestParam(value="search") String search, Pageable pageable) {
 		return ProductServiceImpl.findProduct(search,pageable);
 	}
