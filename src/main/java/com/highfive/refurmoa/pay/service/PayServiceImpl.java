@@ -54,7 +54,7 @@ public class PayServiceImpl implements PayService {
             Mile mile = new Mile(null, member, "상품 결제", -payRequestDTO.getMile_use());
             mileRepository.save(mile);
         }
-        if (payRequestDTO.getCoupon_num() != null) { // 쿠폰 사용
+        if (payRequestDTO.getCoupon_num() != 0) { // 쿠폰 사용
             couponRepository.useCoupon(payRequestDTO.getCoupon_num());
         }
         Payment payment = new Payment(payRequestDTO);
