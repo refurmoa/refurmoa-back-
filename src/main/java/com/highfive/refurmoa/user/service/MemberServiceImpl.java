@@ -3,7 +3,6 @@ package com.highfive.refurmoa.user.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
@@ -14,6 +13,7 @@ import com.highfive.refurmoa.entity.Coupon;
 import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.entity.Mile;
 import com.highfive.refurmoa.entity.Userlike;
+import com.highfive.refurmoa.pay.repository.PaymentRepository;
 import com.highfive.refurmoa.post.dto.reponse.MyListDTO;
 import com.highfive.refurmoa.post.repository.BoardRepository;
 import com.highfive.refurmoa.post.repository.UserlikeRepository;
@@ -36,12 +36,15 @@ public class MemberServiceImpl implements MemberService {
     private MileRepository milerepository;
     private BoardRepository boardRepository;
     private UserlikeRepository userlikeRepository;
-    public MemberServiceImpl(MemberRepository repository,CouponRepository couponrepository, MileRepository milerepository,BoardRepository boardRepository,UserlikeRepository userlikeRepository) {
+    private PaymentRepository paymentRepository;
+    public MemberServiceImpl(MemberRepository repository,CouponRepository couponrepository,PaymentRepository paymentRepository,
+    		MileRepository milerepository,BoardRepository boardRepository,UserlikeRepository userlikeRepository) {
         this.repository = repository;
         this.couponrepository=couponrepository;
         this.milerepository=milerepository	;
         this.boardRepository = boardRepository;
         this.userlikeRepository=userlikeRepository;
+        this.paymentRepository= paymentRepository;
     }
 
     @Override // 로그인
@@ -102,15 +105,18 @@ public class MemberServiceImpl implements MemberService {
  	public List<AdminUserListResponseDTO> searchAdminMember(String memberId){
  		return (List<AdminUserListResponseDTO>)repository.findByMemberIdOrName(memberId);
  	}
+ 	
+ 	//마이페이지 첫번째 줄
  	@Override
  	public MemberInfoDTO memberInfo(String id) {
  		Member mem=repository.findByMemberId(id);
- 		int order=repository.payment(mem.getMemberId());
- 		int bid=repository.bidCount(mem.getMemberId());
- 		int uselike=repository.uselike(mem.getMemberId());
+ 		int order=paymentRepository.payment(mem.getMemberId());//결제 배송
+ 		int bid=repository.bidCount(mem.getMemberId());//입찰 내역
+ 		int uselike=repository.uselike(mem.getMemberId());//찜한 상품
  		return new MemberInfoDTO(mem,order,bid,uselike);
  				
  	}
+ 	//마이페이지 두번째 줄
  	@Override
  	 public MembershipDTO membership(String id) {
  		Member mem=repository.findByMemberId(id);

@@ -35,15 +35,15 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	// admin 회원 검색
 	@Query(value="select m.MEMBER_ID, NAME, PHONE, GRADE, MILE, count(c.COUPON_NUM) as cnt from member m left join coupon c on m.MEMBER_ID = c.MEMBER_ID where m.MEMBER_ID like %:memberId% or NAME like %:memberId% group by m.MEMBER_ID", nativeQuery=true)
 	public List<AdminUserListResponseDTO> findByMemberIdOrName(@Param("memberId") String memberId);
-
+	
+	//입찰내역
 	@Query(value="select count(DISTINCT c.board_num ) as cnt from member m left join bid c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId ", nativeQuery=true)
 	public int bidCount(@Param("memberId") String memberId);
 	
+	//찜목록
 	@Query(value="select count(*) as cnt from member m left join userlike c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId " , nativeQuery=true)
 	public int uselike(@Param("memberId") String memberId);
-	
-	@Query(value="select count(*) as cnt from member m left join payment c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId " , nativeQuery=true)
-	public int payment(@Param("memberId") String memberId);
+
 	
 	@Query(value="select sum(c.prod_price) from member m left join payment c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId  " , nativeQuery=true)
 	public int payamount(@Param("memberId") String memberId);

@@ -1,10 +1,12 @@
-package com.highfive.refurmoa.post.repository;
+package com.highfive.refurmoa.pay.repository;
 
 import com.highfive.refurmoa.entity.Payment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.Date;
 
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
@@ -59,4 +61,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
             "AND NOT p.payCancel"
     )
     Long sumCount(Date startDate, Date endDate);
+    
+    @Query(value="select count(*) as cnt from payment where member_id=:memberId and pay_cancel=0" , nativeQuery=true)
+	public int payment(@Param("memberId") String memberId);
 }
