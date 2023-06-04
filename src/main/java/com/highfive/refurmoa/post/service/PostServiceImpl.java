@@ -168,7 +168,7 @@ public class PostServiceImpl implements PostService {
     }
     public void insertProd(int comNum,Product prod) {
 		ProdPartner partner=partnerRepository.findById(comNum).orElse(null);
-		prod.setComNum(partner);		
+		prod.setProdPartner(partner);
 }
     
 }

@@ -14,38 +14,37 @@ import com.highfive.refurmoa.post.repository.BoardRepository;
 
 @Service
 public class MainServiceImpl implements MainService {
-	
-	private BoardRepository repository;
-	private BannerRepository BannerRepository;
-	 public MainServiceImpl(BoardRepository repository,BannerRepository BannerRepository ) {
-	        this.repository = repository;
-	        this.BannerRepository=BannerRepository;
-	 }
-	
+
+	private final BoardRepository repository;
+	private final BannerRepository bannerRepository;
+
+	public MainServiceImpl(BoardRepository repository, BannerRepository bannerRepository) {
+		this.repository = repository;
+		this.bannerRepository = bannerRepository;
+	}
+
 	@Override
-	public  List<MainListDTO>[] mainList(){
-			
-		List<MainListDTO>[] array = new ArrayList[3];
-		array[0] = new ArrayList<>();
-		array[1] = new ArrayList<>();
-		array[2] = new ArrayList<>();
-		Date date =new Date();
-		List<Board> best=repository.mainBest(date);
-		List<Board> start=repository.mainStart(date);
-		List<Board> end=repository.mainEnd(date);
-		for(int i=0;i<15;i++) {
-			if(i<best.size())array[0].add(new MainListDTO(best.get(i)));
-			if(i<start.size())array[1].add(new MainListDTO(start.get(i)));
-			if(i<end.size())array[2].add(new MainListDTO(end.get(i)));
-		}		
+	public List<List<MainListDTO>> mainList() {
+		List<List<MainListDTO>> array = new ArrayList<>();
+		array.add(new ArrayList<>());
+		array.add(new ArrayList<>());
+		array.add(new ArrayList<>());
+		Date date = new Date();
+		List<Board> best = repository.mainBest(date);
+		List<Board> start = repository.mainStart(date);
+		List<Board> end = repository.mainEnd(date);
+		for (int i = 0; i < 15; i++) {
+			if (i < best.size())
+				array.get(0).add(new MainListDTO(best.get(i)));
+			if (i < start.size())
+				array.get(1).add(new MainListDTO(start.get(i)));
+			if (i < end.size())
+				array.get(2).add(new MainListDTO(end.get(i)));
+		}
 		return array;
 	}
 	@Override
-	public List<Banner> bannerList(){
-		return BannerRepository.findRef();
-	}
+	public List<Banner> bannerList(){ return bannerRepository.findRef(); }
 	@Override
-	public List<Banner> bannerAdList(){
-		return BannerRepository.findAd();
-	}
+	public List<Banner> bannerAdList(){ return bannerRepository.findAd(); }
 }
