@@ -32,6 +32,7 @@ public class ProdResponseDTO {
     private Date regDate;
 	private String com_name;
 	private int com_num;
+
 	public ProdResponseDTO(Product dto) {
 		this.productCode = dto.getProductCode() ;
 		this.category = dto.getCategory() ;
@@ -48,7 +49,7 @@ public class ProdResponseDTO {
 		this.prodName = dto.getProdName() ;
 		this.prodState = dto.getProdState() ;
 		this.regDate = dto.getRegDate() ;
-		this.com_name = dto.getComNum().getComName() ;
-		this.com_num = dto.getComNum().getComNum();
+		this.com_name = dto.getProdPartner().getComName() ;
+		this.com_num = dto.getProdPartner().getComNum();
 	}
 }
