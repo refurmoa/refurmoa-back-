@@ -2,9 +2,11 @@ package com.highfive.refurmoa.user.repository;
 
 import java.util.List;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -53,10 +55,15 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	@Query(value="select count(*) as cnt from member m left join payment c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId " , nativeQuery=true)
 	public int payment(@Param("memberId") String memberId);
 	
-	
 	@Query(value="select sum(c.prod_price) from member m left join payment c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId  " , nativeQuery=true)
 	public int payamount(@Param("memberId") String memberId);
 	
 	@Query(value="select sum(c.point) as sum from member m left join mile c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId " , nativeQuery=true)
 	public int mileAmount(@Param("memberId") String memberId);
+
+	@Transactional
+	@Modifying
+	@Query("UPDATE Member m SET m.mile = m.mile + :plusMile WHERE m.memberId = :memberId")
+	public void findByMemberIdAndUpdateMile(String memberId, int plusMile);
+
 }
