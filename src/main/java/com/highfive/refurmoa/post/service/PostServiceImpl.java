@@ -129,7 +129,7 @@ public class PostServiceImpl implements PostService {
     	
  
 		String mainName = null;
-		if(mainImg.getSize()!=0) {
+		if(mainImg!=null) {
 			File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
 			mainImg.transferTo(main);
 			mainName=main.toString();
@@ -139,7 +139,7 @@ public class PostServiceImpl implements PostService {
 		File detail = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
 		detailFile.transferTo(detail);
 		
-		
+		System.out.println(prodDto.getProduct_code());
 		ProdPartner tmp =new ProdPartner();
 		Product productEntity = new Product(prodDto.getProduct_code(),tmp,prodDto.getCategory_code(),prodDto.getCategory(),mainName,prodDto.getProd_com(),
 				prodDto.getProd_name(),prodDto.getProd_grade(),prodDto.getOrg_price(),prodDto.isGuarantee(),prodDto.getDeffect_text(),prodDto.getDeffect_image1(),
@@ -148,8 +148,8 @@ public class PostServiceImpl implements PostService {
 		productrepository.save(productEntity);
 		
 		Board board= new Board(prodDto.getBoard_num(),productEntity,prodDto.getSell_type(),prodDto.getDir_price(),prodDto.getAuc_price(),prodDto.getUnit_price(),
-				prodDto.getOrg_price(),prodDto.getAs_date(),prodDto.getDel_price(),detailFile.toString(),prodDto.getStart_date(),prodDto.getEnd_date(),
-				prodDto.getReadCount(),null,prodDto.isDeleteCheck());
+				prodDto.getOrg_price(),prodDto.getAs_date(),prodDto.getDel_price(),detail.toString(),prodDto.getStart_date(),prodDto.getEnd_date(),
+				prodDto.getReadCount(),prodDto.getUpdate_date(),prodDto.isDeleteCheck());
 		boardRepository.save(board);
 		
 		return productEntity.getProductCode();

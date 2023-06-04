@@ -7,8 +7,10 @@ import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostWriteDTO {
@@ -31,6 +33,7 @@ public class PostWriteDTO {
 	private int sell_type;
 	private Date start_date;
 	private Date end_date;
+	private Date update_date;
 	private int del_price;
 	private int auc_price;
 	private int dir_price;
