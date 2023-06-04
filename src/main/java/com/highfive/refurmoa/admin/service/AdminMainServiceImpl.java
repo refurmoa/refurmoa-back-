@@ -6,6 +6,7 @@ import com.highfive.refurmoa.admin.dto.response.DaySalesDTO;
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
 import com.highfive.refurmoa.cs.repository.InquiryRepository;
 import com.highfive.refurmoa.pay.repository.DeliveryRepository;
+import com.highfive.refurmoa.pay.repository.PaymentRepository;
 import com.highfive.refurmoa.post.repository.*;
 import org.springframework.stereotype.Service;
 
