@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
+import com.highfive.refurmoa.user.DTO.reponse.MemberInfoDTO;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 
 @Service
@@ -77,5 +78,13 @@ public class MemberServiceImpl implements MemberService {
  	public List<AdminUserListResponseDTO> searchAdminMember(String memberId){
  		return (List<AdminUserListResponseDTO>)repository.findByMemberIdOrName(memberId);
  	}
-
+ 	@Override
+ 	public MemberInfoDTO memberInfo(String id) {
+ 		Member mem=repository.findByMemberId(id);
+ 		int order=repository.payment(mem.getMemberId());
+ 		int bid=repository.bidCount(mem.getMemberId());
+ 		int uselike=repository.uselike(mem.getMemberId());
+ 		return new MemberInfoDTO(mem,order,bid,uselike);
+ 				
+ 	}
 }

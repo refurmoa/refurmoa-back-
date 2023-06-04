@@ -5,7 +5,10 @@ import com.highfive.refurmoa.entity.Product;
 import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
+import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdListResponseDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

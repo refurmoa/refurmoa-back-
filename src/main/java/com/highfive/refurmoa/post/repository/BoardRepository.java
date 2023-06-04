@@ -1,24 +1,17 @@
 package com.highfive.refurmoa.post.repository;
 
 import com.highfive.refurmoa.entity.Board;
-import com.highfive.refurmoa.post.dto.PostReadCountResquestDTO;
 
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
-import jakarta.transaction.Transactional;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Integer> {
@@ -104,6 +97,16 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     void updateCurPriceByBoardNum(int curPrice, int boardNum); // 현재가 변경
 
     List<Board> findByProductProductCodeAndDeleteCheckFalseOrderByBoardNumDesc(@Param("productCode") int productCode);
+    
+    
+    @Query("select b from Board b where b.endDate>:date order by b.readCount DESC LIMIT 15")
+    List<Board> mainBest(@Param("date") Date date);
+    
+    @Query("select b from Board b  where b.endDate>:date order by b.boardNum DESC LIMIT 15")
+    List<Board> mainStart(@Param("date") Date date);
+    
+    @Query("select b from Board b where NOT b.sellType =2 and b.endDate>:date and b.startDate<:date order by b.endDate ASC LIMIT 15")
+    List<Board> mainEnd(@Param("date") Date date);
 
     Board findByBoardNumAndDeleteCheckFalse(int boardNum); // 결제(상품) 정보 조회
 }

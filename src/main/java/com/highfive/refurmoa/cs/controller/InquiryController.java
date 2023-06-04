@@ -53,7 +53,7 @@ public class InquiryController {
 	 
 	//답변 작성
 	@PostMapping("/cs/inquiry/write")
-	public int writeInquiry(@RequestParam(value="inq_img",required = false ) MultipartFile inqImg, InquiryWriteDTO write) throws IOException {
+	public int writeInquiry(@RequestParam(value="inq_img",required = false) MultipartFile inqImg, InquiryWriteDTO write) throws IOException {
 		return inquiryServiceImpl.writeInquiry(inqImg,write);
 	}
 }

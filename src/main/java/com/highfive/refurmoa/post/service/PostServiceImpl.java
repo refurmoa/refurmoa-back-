@@ -2,10 +2,10 @@ package com.highfive.refurmoa.post.service;
 
 import com.highfive.refurmoa.entity.Board;
 import com.highfive.refurmoa.entity.Userlike;
-import com.highfive.refurmoa.post.dto.PostReadCountResquestDTO;
+import com.highfive.refurmoa.post.dto.request.PostReadCountResquestDTO;
 import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
-import com.highfive.refurmoa.post.dto.PostRequestDTO;
-import com.highfive.refurmoa.post.dto.PostResponseDTO;
+import com.highfive.refurmoa.post.dto.request.PostRequestDTO;
+import com.highfive.refurmoa.post.dto.reponse.PostResponseDTO;
 import com.highfive.refurmoa.post.repository.BidRepository;
 import com.highfive.refurmoa.post.repository.BoardRepository;
 import com.highfive.refurmoa.post.repository.UserlikeRepository;
@@ -16,10 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 @Service

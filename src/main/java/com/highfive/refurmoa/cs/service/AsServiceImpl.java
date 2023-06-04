@@ -2,6 +2,8 @@ package com.highfive.refurmoa.cs.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.highfive.refurmoa.cs.repository.AsRepository;
@@ -17,8 +19,8 @@ private final AsRepository repository;
 
 //	as 매장 조회
 	@Override
-	public List<AsStore> listAsStore() {
-		return (List<AsStore>)repository.findAll();
+	public Page<AsStore> listAsStore(Pageable pageable) {
+		return repository.findAll(pageable);
 	}
 
 //	as 매장 등록
@@ -41,14 +43,14 @@ private final AsRepository repository;
 	
 //	as 매장 지역 검색
 	@Override
-	public List<AsStore> searchAsStoreCity(String storeAddr, String storeDetail) {
-		return (List<AsStore>)repository.findByStoreAddrAndStoreDetail(storeAddr, storeDetail);
+	public Page<AsStore> searchAsStoreCity(String storeAddr, String storeDetail,Pageable pageable) {
+		return repository.findByStoreAddrAndStoreDetail(storeAddr, storeDetail,pageable);
 	}
 
 //	as 매장명 검색
 	@Override
-	public List<AsStore> searchAsStoreText(String storeName) {
-		return (List<AsStore>)repository.findByStoreNameContaining(storeName);
+	public Page<AsStore> searchAsStoreText(String search,Pageable pageable) {
+		return repository.findByStoreNameContaining(search,pageable);
 	}
 	
 

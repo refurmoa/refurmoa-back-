@@ -1,11 +1,14 @@
 package com.highfive.refurmoa.prod.controller;
 
+import com.highfive.refurmoa.prod.service.ProductServiceImpl;
 
 import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
 import com.highfive.refurmoa.prod.DTO.response.ProdListResponseDTO;
-import com.highfive.refurmoa.prod.service.ProductServiceImpl;
+import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdListDTO;
+import com.highfive.refurmoa.prod.DTO.response.ProdSearchDTO;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -43,13 +46,13 @@ public class ProductController {
     public int ProductWrite(@RequestParam(value="main_image") MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
 		prodNum = ProductServiceImpl.ProductWrite(mainImg, prodDto);
 		return prodNum;
-    }
+	}
 
 	// 상품 수정
 	@PostMapping("/update")
-    public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException {
-        return ProductServiceImpl.ProductUpdate(mainImg, prodDto);
-    }
+	public int ProductUpdate(@RequestParam(value="main_image") MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException {
+  	return ProductServiceImpl.ProductUpdate(mainImg, prodDto);
+	}
 
 	// 상품 이미지 저장
 	@PostMapping("/file")
@@ -64,12 +67,12 @@ public class ProductController {
 		ProdFileDTO dto= new ProdFileDTO(prod_num,tmp[0],tmp[1],tmp[2]);
 		ProductServiceImpl.insertFile(dto);
 		return 1;
-    }
+	}
 
 	// 상품 정보 조회
 	@GetMapping("/update/info")
-	 public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
+	public ProdResponseDTO productInfo(@RequestParam(value="product_code") int productCode) {
         return ProductServiceImpl.productInfo(productCode);
-    }
+	}
 
 }

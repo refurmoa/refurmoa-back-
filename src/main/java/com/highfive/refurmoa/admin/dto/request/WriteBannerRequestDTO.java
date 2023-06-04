@@ -13,4 +13,5 @@ public class WriteBannerRequestDTO {
     private String bann_ref;
     private Date bann_start;
     private Date bann_end;
+    private String bann_location;
 }

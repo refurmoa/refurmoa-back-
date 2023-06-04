@@ -11,6 +11,6 @@ import java.io.IOException;
 public interface BannerService {
     public Page<Banner> getListBanner(Pageable pageable); // 배너 목록 조회
     public Page<Banner> searchBanner(String search, Pageable pageable); // 배너 목록 검색
-    public int writeBanner(WriteBannerRequestDTO writeBannerRequestDTO, MultipartFile banner_img) throws IOException; // 배너 등록
+    public void writeBanner(WriteBannerRequestDTO writeBannerRequestDTO, MultipartFile banner_img) throws IOException; // 배너 등록
     public int deleteBanner(int bannerNum); // 배너 삭제
 }

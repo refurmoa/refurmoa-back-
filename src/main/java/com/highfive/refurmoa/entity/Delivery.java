@@ -20,12 +20,12 @@ public class Delivery {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinColumn(name = "pay_num", nullable = false, referencedColumnName = "pay_num")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Payment payNum;
+    private Payment payment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_code", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private Product productCode;
+    private Product product;
 
     @Column(name = "deli_num", length = 20)
     private String deliNum;
