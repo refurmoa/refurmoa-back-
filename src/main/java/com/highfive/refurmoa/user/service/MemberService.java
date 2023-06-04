@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.user.DTO.reponse.AdminUserListResponseDTO;
