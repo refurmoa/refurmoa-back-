@@ -55,7 +55,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	@Query(value="select count(*) as cnt from member m left join payment c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId " , nativeQuery=true)
 	public int payment(@Param("memberId") String memberId);
 	
-	
 	@Query(value="select sum(c.prod_price) from member m left join payment c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId  " , nativeQuery=true)
 	public int payamount(@Param("memberId") String memberId);
 	
