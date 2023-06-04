@@ -48,7 +48,7 @@ public class ProductController {
 		return prodNum;
 	}
   // 상품 수정
-	@PostMapping("/prod/update")
+	@PostMapping("/update")
   public int ProductUpdate(@RequestParam(value="main_image", required = false) MultipartFile mainImg, ProductWriteDTO prodDto) throws IllegalStateException, IOException  {
   	return productServiceImpl.ProductUpdate(mainImg, prodDto);
 	}
@@ -79,5 +79,5 @@ public class ProductController {
 	public void updateProdState(@RequestParam int productCode) {
 		productServiceImpl.updateProdState(productCode);
 	}
-
+	
 }

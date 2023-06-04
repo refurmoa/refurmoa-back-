@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,7 @@ import com.highfive.refurmoa.post.dto.request.PostWriteDTO;
 import com.highfive.refurmoa.post.dto.request.UserlikeRequestDTO;
 import com.highfive.refurmoa.post.service.PostServiceImpl;
 import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
+import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
 import com.highfive.refurmoa.prod.service.ProductServiceImpl;
 
 @RestController
@@ -81,5 +83,8 @@ public class PostController {
 		productServiceImpl.insertFile(dto);
 		return 1;
     }
-
+    @GetMapping("/prod-search")
+	 public Page<FindProductDTO> findProduct(@RequestParam(value="search") String search, Pageable pageable) {
+		return productServiceImpl.findProduct(search,pageable);
+	}
 }

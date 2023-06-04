@@ -121,7 +121,7 @@ public class MemberServiceImpl implements MemberService {
  	 public MembershipDTO membership(String id) {
  		Member mem=repository.findByMemberId(id);
  		memberGradeDTO grade= new memberGradeDTO(mem.getGrade(),repository.payamount(id));
- 		List<Mile> memmile=milerepository.mileList(mem.getMemberId());
+ 		List<Mile> memmile=milerepository.mileList(mem.getMemberId());//마일리지 리스트
  		List<historyDTO> his=new ArrayList<>();
  		for(Mile tmp:memmile) {
  			his.add(new historyDTO(tmp.getContent(),tmp.getPoint()));
@@ -135,6 +135,7 @@ public class MemberServiceImpl implements MemberService {
  		}
  		return new MembershipDTO(grade,mile,memcou);
  	}
+ 	//마이페이지 찜 상품 목록
  	@Override
  	public List<MyListDTO> bookmarkData(String id,String search){
  		
