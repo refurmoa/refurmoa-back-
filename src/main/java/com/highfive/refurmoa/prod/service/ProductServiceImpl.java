@@ -97,8 +97,8 @@ public class ProductServiceImpl implements ProductService {
 			 int sell_status=0;
 			 Date[] date=repository.getDate(prodlist.get(i).getProductCode());
 			 if(prodlist.get(i).getProdState()==1) {
-				sell_status=1;
-				
+				 if(now.compareTo(date[0])==1)sell_status=1;
+					else sell_status=2;
 			 }
 			 else if(prodlist.get(i).getProdState()==2)sell_status=3;
 			 else if(prodlist.get(i).getProdState()==5)sell_status=4;
@@ -125,7 +125,8 @@ public class ProductServiceImpl implements ProductService {
 			 int sell_status=0;
 			 Date[] date=repository.getDate(prodlist.get(i).getProductCode());
 			 if(prodlist.get(i).getProdState()==1) {
-				sell_status=1;	
+				 if(now.compareTo(date[0])==1)sell_status=1;
+				else sell_status=2;
 			 }
 			 else if(prodlist.get(i).getProdState()==2)sell_status=3;
 			 else if(prodlist.get(i).getProdState()==5)sell_status=4;			 
