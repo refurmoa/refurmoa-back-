@@ -14,21 +14,21 @@ public class Payment {
 
     @Id
     @Column(name = "pay_num", nullable = false)
-    private int payNum;
+    private String payNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member memberId;
+    private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_num", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Board boardNum;
+    private Board board;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_code", nullable = false)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
-    private Product productCode;
+    private Product product;
 
     @Column(name = "prod_price", nullable = false)
     private int prodPrice;

@@ -105,4 +105,5 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     List<Board> findByProductProductCodeAndDeleteCheckFalseOrderByBoardNumDesc(@Param("productCode") int productCode);
 
+    Board findByBoardNumAndDeleteCheckFalse(int boardNum); // 결제(상품) 정보 조회
 }
