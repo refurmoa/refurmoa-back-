@@ -155,7 +155,7 @@ public class PostServiceImpl implements PostService {
 		ProdPartner tmp =new ProdPartner();
 		Product productEntity = new Product(prodDto.getProduct_code(),tmp,prodDto.getCategory_code(),prodDto.getCategory(),mainName,prodDto.getProd_com(),
 				prodDto.getProd_name(),prodDto.getProd_grade(),prodDto.getOrg_price(),prodDto.isGuarantee(),prodDto.getDeffect_text(),prodDto.getDeffect_image1(),
-				prodDto.getDeffect_image2(),prodDto.getDeffect_image3(),prodDto.getReg_date(),1);	
+				prodDto.getDeffect_image2(),prodDto.getDeffect_image3(),new Date(),1);
 		insertProd(prodDto.getCom_num(),productEntity);
 		productrepository.save(productEntity);
 		

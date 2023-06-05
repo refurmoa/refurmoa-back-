@@ -26,19 +26,15 @@ public class PostWriteDTO {
     private String prod_grade;
     private String prod_name;
     private int prod_state;
-    private Date reg_date;
     private int com_num;
     private int board_num;
 	private int sell_type;
 	private Optional<Date> start_date;
 	private Optional<Date> end_date;
-	private Optional<Date> update_date;
 	private int del_price;
 	private int auc_price;
 	private int dir_price;
 	private int unit_price;
-	private int readCount;
 	private int as_date;
-	private boolean deleteCheck;
 	
 }
