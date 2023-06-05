@@ -15,25 +15,25 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	private final NoticeRepository repository;
 	
-	// 공지사항 등록
+	// 공지사항 등록하기
 	@Override
 	public NoticeBoard insertNotice(NoticeBoard noticeBoard) {
 		return repository.save(noticeBoard);
 	}
 	
-	// 공지사항 목록 조회
+	// 공지사항 목록 조회하기
 	@Override
 	public Page<NoticeBoard> listNoticeBoard(Pageable pageable){
 		return repository.findAll(pageable);
 	}
 	
-	// 공지사항 수정
+	// 공지사항 수정하기
     @Override
     public NoticeBoard updateNotice(NoticeBoard noticeBoard) {
         return repository.save(noticeBoard);
     }
     
-	// 공지사항 삭제
+	// 공지사항 삭제하기
     @Override
     public void deleteNotice(int notiNum) {
         repository.deleteById(notiNum);
