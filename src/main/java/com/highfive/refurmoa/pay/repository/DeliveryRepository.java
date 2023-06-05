@@ -1,10 +1,12 @@
 package com.highfive.refurmoa.pay.repository;
 
-import com.highfive.refurmoa.entity.Delivery;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import java.util.List;
+import com.highfive.refurmoa.entity.Delivery;
 
 public interface DeliveryRepository extends JpaRepository <Delivery, Integer> {
     Delivery findByProductProductCode(int productCode);
@@ -29,4 +31,12 @@ public interface DeliveryRepository extends JpaRepository <Delivery, Integer> {
             "AND p.payCancel = FALSE"
     )
     Long getPrepareCount();
+    
+    @Query("SELECT d FROM Delivery d LEFT JOIN payment p  " +
+            "WHERE d.receiptName like %:search% " +
+            "or d.receiptPhone like %:search% "+
+            "or p.payNum like %:search% "+
+            " Order by  deliNum ASC"
+    )
+    Page<Delivery> findOrder(@Param("search")String search,Pageable pageable);
 }
