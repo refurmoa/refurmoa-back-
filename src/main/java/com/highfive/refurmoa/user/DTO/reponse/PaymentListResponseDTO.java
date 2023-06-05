@@ -32,15 +32,17 @@ public class PaymentListResponseDTO {
         this.prod_name = payment.getBoard().getProduct().getProdName();
         this.prod_price = payment.getBoard().getCurPrice();
         this.pay_price = payment.getPayPrice();
-        if (delivery.getDeliNum() == null) {
-            this.pay_state = 1;
-        } else {
-            if (payment.getBoard().getProduct().getProdState() == 3) {
-                this.pay_state = 2;
-            } else if (payment.getBoard().getProduct().getProdState() == 4) {
-                this.pay_state = 3;
-            } else if (payment.getBoard().getProduct().getProdState() == 5) {
-                this.pay_state = 4;
+        if (delivery != null) {
+            if (delivery.getDeliNum() == null) {
+                this.pay_state = 1;
+            } else {
+                if (payment.getBoard().getProduct().getProdState() == 3) {
+                    this.pay_state = 2;
+                } else if (payment.getBoard().getProduct().getProdState() == 4) {
+                    this.pay_state = 3;
+                } else if (payment.getBoard().getProduct().getProdState() == 5) {
+                    this.pay_state = 4;
+                }
             }
         }
         this.pay_cancel = payment.isPayCancel();

@@ -61,6 +61,19 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
             "AND NOT p.payCancel"
     )
     Long sumCount(Date startDate, Date endDate);
+
+    // 카테고리별 판매건수
+    @Query("SELECT COUNT(p) FROM Payment p LEFT JOIN product product " +
+            "WHERE product.category LIKE :category"
+    )
+    Long sumCategorySalesCount(String category);
+
+    // 월별 매출 조회
+    @Query("SELECT SUM(p.payPrice) / 10000 FROM Payment p " +
+            "WHERE p.payDate BETWEEN :startDate AND :endDate " +
+            "AND NOT p.payCancel"
+    )
+    Long sumMonthlySales(Date startDate, Date endDate);
     
     @Query(value="select count(*) as cnt from payment where member_id=:memberId and pay_cancel=0" , nativeQuery=true)
 	public int payment(@Param("memberId") String memberId);
