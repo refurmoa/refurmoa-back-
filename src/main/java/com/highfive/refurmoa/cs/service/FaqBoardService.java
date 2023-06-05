@@ -13,5 +13,5 @@ public interface FaqBoardService {
     public int deleteFaqBoard(@RequestParam int faq_num);// Faq 삭제
     public int writeFaqBoard(FaqBoardWriteDTO faqBoardWriteDTO); // Faq 작성
     public int updateFaqBoard(FaqBoardUpdateDTO faqBoardUpdateDTO); // Faq 수정
-
+    public void readcount(int faq_num); // Faq 조회수 증가
 }

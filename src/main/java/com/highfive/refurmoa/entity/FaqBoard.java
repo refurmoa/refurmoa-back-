@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Date;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Getter
 @Setter
 @Entity
@@ -31,7 +33,11 @@ public class FaqBoard {
     @Column(name = "faq_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date faqDate;
-
+    
+    @Column(name = "read_count", nullable = false)
+    @ColumnDefault(value = "0")
+    private int readCount;
+    
     public FaqBoard(FaqBoardWriteDTO faqBoardWriteDTO) {
         this.faqCate = faqBoardWriteDTO.getFaq_cate();
         this.faqTitle = faqBoardWriteDTO.getFaq_title();
