@@ -1,7 +1,9 @@
 package com.highfive.refurmoa.pay.controller;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.pay.dto.request.PayDetailRequestDTO;
 import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
+import com.highfive.refurmoa.pay.dto.response.PayDetailResponseDTO;
 import com.highfive.refurmoa.pay.dto.response.PayInfoResponseDTO;
 import com.highfive.refurmoa.pay.dto.response.UserInfoResponseDTO;
 import com.highfive.refurmoa.pay.service.PayServiceImpl;
@@ -36,4 +38,9 @@ public class PayController {
         productController.updateProdState(payRequestDTO.getProduct_code());
     }
 
+    // 주문 상세 정보 조회
+    @PostMapping("/detail")
+    public PayDetailResponseDTO getPayDetail(@RequestBody PayDetailRequestDTO payDetailRequestDTO) {
+        return payService.getPayDetail(payDetailRequestDTO);
+    }
 }
