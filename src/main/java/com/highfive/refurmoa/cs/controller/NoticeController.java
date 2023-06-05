@@ -47,25 +47,25 @@ public class NoticeController {
 		return list;
 	}
 	
-	// 공지사항 등록
+	// 공지사항 등록하기
 	@RequestMapping("/cs/notice/write")
 	public NoticeBoard insertNotice(@RequestBody NoticeBoard noticeBoard) {
 		return noticeServiceImpl.insertNotice(noticeBoard);
 	}
 	
-	// 공지사항 목록 조회
+	// 공지사항 목록 조회하기
 	@RequestMapping("/cs/notice")
 	public Page<NoticeBoard> listNoticeBoard(Pageable pageable){
 		return noticeServiceImpl.listNoticeBoard(pageable);
 	}
 	
-	// 공지사항 수정
+	// 공지사항 수정하기
 	@RequestMapping("/cs/notice/update")
 	public void updateNotice(@RequestBody NoticeBoard noticeBoard) {
 		noticeServiceImpl.updateNotice(noticeBoard);
 	}
 	
-	// 공지사항 삭제
+	// 공지사항 삭제하기
     @RequestMapping("/cs/notice/delete")
     public void deleteNotice(@RequestBody NoticeBoard vo){
     	System.out.println(vo.getNotiNum());
