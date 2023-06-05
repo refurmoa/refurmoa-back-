@@ -7,9 +7,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
@@ -27,6 +29,17 @@ import com.highfive.refurmoa.prod.repository.ProductRepository;
 @Service
 public class ProductServiceImpl implements ProductService {
 	
+	
+	 @Value("${spring.servlet.multipart.location}")
+	  String imageDir;
+	 
+	 private String saveImage(MultipartFile imageFile) throws IOException {
+	        String imgName = UUID.randomUUID() + "." +StringUtils.getFilename(imageFile.getOriginalFilename());
+	        File file = new File(imageDir + "prod\\" + imgName);
+	        imageFile.transferTo(file);
+	        return imgName;
+	   }
+
 	 private ProductRepository productRepository;
 	 private BoardRepository boardRepository;
 	 private ProdPartnerRepository partnerRepository;
@@ -78,9 +91,7 @@ public class ProductServiceImpl implements ProductService {
 	public int ProductUpdate(MultipartFile mainImg, ProductWriteDTO prodDto) throws IOException {
 		String mainName = null;
 		if (mainImg.getSize()!=0) {
-			File main = new File("prod\\"+ UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-			mainImg.transferTo(main);
-			mainName = main.toString();
+			mainName = saveImage(mainImg);
 		} else {
 			mainName = productRepository.MainInfo(prodDto.getProduct_code());
 		}
@@ -96,11 +107,10 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override // 상품 등록
 	public int ProductWrite(MultipartFile mainImg,ProductWriteDTO prodDto) throws IOException {
-		File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-		mainImg.transferTo(main);
-
+		
+		String mainName= saveImage(mainImg);
 		ProdPartner tmp = new ProdPartner();
-		Product productEntity = new Product(prodDto.getProduct_code(), tmp, prodDto.getCategory_code(), prodDto.getCategory(), main.toString(), prodDto.getProd_com(),
+		Product productEntity = new Product(prodDto.getProduct_code(), tmp, prodDto.getCategory_code(), prodDto.getCategory(), mainName, prodDto.getProd_com(),
 				prodDto.getProd_name(), prodDto.getProd_grade(), prodDto.getOrg_price(), prodDto.isGuarantee(), prodDto.getDeffect_text(), prodDto.getDeffect_image1(),
 				prodDto.getDeffect_image2(), prodDto.getDeffect_image3(), prodDto.getReg_date(), prodDto.getProd_state());
 		insertProd(prodDto.getCom_num(),productEntity);
