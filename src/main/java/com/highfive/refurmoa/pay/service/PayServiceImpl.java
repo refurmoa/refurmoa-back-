@@ -1,33 +1,35 @@
 package com.highfive.refurmoa.pay.service;
 
 import com.highfive.refurmoa.entity.*;
+import com.highfive.refurmoa.pay.dto.request.PayDetailRequestDTO;
 import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
+import com.highfive.refurmoa.pay.dto.response.PayDetailResponseDTO;
 import com.highfive.refurmoa.pay.dto.response.PayInfoResponseDTO;
 import com.highfive.refurmoa.pay.dto.response.UserInfoResponseDTO;
 import com.highfive.refurmoa.pay.repository.DeliveryRepository;
-import com.highfive.refurmoa.pay.repository.PayRepository;
+import com.highfive.refurmoa.pay.repository.PaymentRepository;
 import com.highfive.refurmoa.post.repository.BoardRepository;
 import com.highfive.refurmoa.user.repository.CouponRepository;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 import com.highfive.refurmoa.user.repository.MileRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class PayServiceImpl implements PayService {
 
-    private final PayRepository payRepository;
+    private final PaymentRepository paymentRepository;
     private final DeliveryRepository deliveryRepository;
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final CouponRepository couponRepository;
     private final MileRepository mileRepository;
 
-    public PayServiceImpl(PayRepository payRepository, DeliveryRepository deliveryRepository, BoardRepository boardRepository,
+    public PayServiceImpl(PaymentRepository paymentRepository, DeliveryRepository deliveryRepository, BoardRepository boardRepository,
                           MemberRepository memberRepository, CouponRepository couponRepository, MileRepository mileRepository) {
-        this.payRepository = payRepository;
+        this.paymentRepository = paymentRepository;
         this.deliveryRepository = deliveryRepository;
         this.boardRepository = boardRepository;
         this.memberRepository = memberRepository;
@@ -48,7 +50,7 @@ public class PayServiceImpl implements PayService {
     }
 
     @Override // 결제
-    public void insertPay(@RequestBody PayRequestDTO payRequestDTO) {
+    public void insertPay(PayRequestDTO payRequestDTO) {
         if (payRequestDTO.getMile_use() != 0) { // 마일리지 사용
             Member member = memberRepository.findByMemberId(payRequestDTO.getMember_id());
             int memberMile = member.getMile();
@@ -61,9 +63,20 @@ public class PayServiceImpl implements PayService {
             couponRepository.useCoupon(payRequestDTO.getCoupon_num(), today);
         }
         Payment payment = new Payment(payRequestDTO);
-        payRepository.save(payment);
+        paymentRepository.save(payment);
         Delivery delivery = new Delivery(payRequestDTO);
         deliveryRepository.save(delivery);
     }
 
+    // 주문 상세 정보 조회
+    public PayDetailResponseDTO getPayDetail(PayDetailRequestDTO payDetailRequestDTO) {
+        Payment payment = paymentRepository.findByBoardBoardNum(payDetailRequestDTO.getBoard_num());
+        Delivery delivery = deliveryRepository.findByProductProductCode(payment.getProduct().getProductCode());
+        Optional<Coupon> coupon = Optional.of(new Coupon());
+        if (payment.getCouponNum() != null) {
+            coupon = couponRepository.findById(payment.getCouponNum());
+        }
+
+        return new PayDetailResponseDTO(payment, delivery, coupon);
+    }
 }
