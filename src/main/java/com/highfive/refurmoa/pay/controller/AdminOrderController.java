@@ -19,9 +19,6 @@ public class AdminOrderController {
 	 //주문 조회
     @GetMapping("/admin/order")
 	 public Page<DeliResponseDTO> adminOrder(@RequestParam(value="search") String search,Pageable pageable) {
-    	System.out.println(search);
-    	System.out.println(search);
-    	System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);System.out.println(search);
-		return deliServiceImpl.adminOrder(search,pageable);
+    	return deliServiceImpl.adminOrder(search,pageable);
 	}
 }
