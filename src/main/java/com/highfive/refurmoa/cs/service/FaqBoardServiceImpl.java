@@ -68,7 +68,13 @@ public class FaqBoardServiceImpl implements FaqBoardService {
             return 0;
         }
     }
-
+    //Faq 조회수 증가
+    @Override
+    public void readcount(int faq_num) {
+    	repository.findByFaqNumAndUpdatePlusReadCount(faq_num);
+    	
+    	
+    }
 
 }
 

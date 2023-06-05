@@ -50,4 +50,9 @@ public class FaqBoardController {
     public int updateFaqBoard(@RequestBody FaqBoardUpdateDTO faqBoardUpdateDTO) {
         return faqBoardServiceImpl.updateFaqBoard(faqBoardUpdateDTO);
     }
+    // Faq 조회수 증가
+    @GetMapping("/readcount")
+    public void readcount(@RequestParam(value="faq_num") int faq_num) {
+       faqBoardServiceImpl.readcount(faq_num);
+    }
 }

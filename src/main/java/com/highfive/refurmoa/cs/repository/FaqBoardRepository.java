@@ -6,6 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface FaqBoardRepository extends JpaRepository<FaqBoard, Integer> {
 
@@ -23,4 +26,9 @@ public interface FaqBoardRepository extends JpaRepository<FaqBoard, Integer> {
 
     // Faq 수정을 위한 faq_num에 해당하는 글 검색
     FaqBoard findByFaqNum(int faq_num);
+    //조회수
+    @Transactional
+    @Modifying
+    @Query("UPDATE FaqBoard b SET b.readCount = b.readCount + 1 WHERE b.faqNum = :faqNum")
+    void findByFaqNumAndUpdatePlusReadCount(@Param("faqNum") int faqNum);
 }
