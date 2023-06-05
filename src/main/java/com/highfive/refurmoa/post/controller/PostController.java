@@ -69,7 +69,7 @@ public class PostController {
     	prodNum=postServiceImpl.PostWrite(mainImg,detailFile,postDto);
     	return prodNum;
     }
-    @PostMapping("/post/file")
+    @PostMapping("/file")
 	public int upload(@RequestBody MultipartFile[] uploadfiles) throws IOException {
        
 		int prod_num = prodNum;
@@ -83,8 +83,15 @@ public class PostController {
 		productServiceImpl.insertFile(dto);
 		return 1;
     }
+    //판매글에서 상품 찾기
     @GetMapping("/prod-search")
 	 public Page<FindProductDTO> findProduct(@RequestParam(value="search") String search, Pageable pageable) {
 		return productServiceImpl.findProduct(search,pageable);
+	}
+    //상품 목록에서 판매글 작성으로
+    @GetMapping("/write/prod")
+	 public FindProductDTO PostProdWrite(@RequestParam(value="prod") int prod) {
+    	System.out.println(prod);
+		return postServiceImpl.PostProdWrite(prod);
 	}
 }

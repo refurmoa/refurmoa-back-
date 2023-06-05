@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.highfive.refurmoa.admin.repository.ProdPartnerRepository;
@@ -33,6 +35,11 @@ import com.highfive.refurmoa.prod.repository.ProductRepository;
 @Service
 public class PostServiceImpl implements PostService {
 
+	@Value("${spring.servlet.multipart.location}")
+	  String imageDir;
+	 
+	
+	 
     private final BoardRepository boardRepository;
     private final BidRepository bidRepository;
     private final UserlikeRepository userlikeRepository;
@@ -130,24 +137,31 @@ public class PostServiceImpl implements PostService {
     	FindProductDTO tmp = new FindProductDTO(board.getProduct());
     	return new PostInfoDTO(tmp,board);
     }
-    
+    private String saveProduct(MultipartFile imageFile) throws IOException {
+        String imgName = UUID.randomUUID() + "." +StringUtils.getFilename(imageFile.getOriginalFilename());
+        File file = new File(imageDir + "prod\\" + imgName);
+        imageFile.transferTo(file);
+        return imgName;
+	 }
+	 private String savePost(MultipartFile imageFile) throws IOException {
+	        String imgName = UUID.randomUUID() + "." +StringUtils.getFilename(imageFile.getOriginalFilename());
+	        File file = new File(imageDir + "post\\" + imgName);
+	        imageFile.transferTo(file);
+	        return imgName;
+	 }
     @Override
     public int PostWrite(MultipartFile mainImg,MultipartFile detailFile,PostWriteDTO prodDto) throws IOException{
     	
  
 		String mainName = null;
 		if(mainImg!=null) {
-			File main = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-			mainImg.transferTo(main);
-			mainName=main.toString();
+			mainName=saveProduct(mainImg);
 		}else {
 			mainName=productrepository.MainInfo(prodDto.getProduct_code());
 		}
 		String detailName = null;
 		if(detailFile!=null) {
-			File detail = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-			detailFile.transferTo(detail);
-			detailName=detail.toString();
+			detailName=savePost(detailFile);
 		}else {
 			detailName=boardRepository.findByBoardNum(prodDto.getBoard_num()).getDetailImage();
 		}
@@ -166,9 +180,16 @@ public class PostServiceImpl implements PostService {
 		
 		return productEntity.getProductCode();
     }
+    
+    //상품 목록에서 판매글 작성으로
+    @Override
+    public FindProductDTO PostProdWrite(int prod) {
+    	Product tmp=productrepository.findByProductCode(prod);
+    	return new FindProductDTO(tmp); 	
+    }
     public void insertProd(int comNum,Product prod) {
 		ProdPartner partner=partnerRepository.findById(comNum).orElse(null);
 		prod.setProdPartner(partner);
-}
+    }
     
 }
