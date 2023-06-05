@@ -1,13 +1,27 @@
 package com.highfive.refurmoa.entity;
 
-import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import java.util.Date;
+
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import java.util.Date;
+
+import com.highfive.refurmoa.post.dto.request.PostWriteDTO;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -59,6 +73,7 @@ public class Board {
     private Date endDate;
 
     @Column(name = "read_count", nullable = false)
+    @ColumnDefault(value = "0")
     private int readCount;
 
     @Column(name = "update_date")
@@ -66,6 +81,29 @@ public class Board {
     private Date updateDate;
 
     @Column(name = "delete_check", nullable = false)
+    @ColumnDefault(value = "false")
     private boolean deleteCheck;
+    
+    public Board(Product prod,PostWriteDTO dto,String detail) {
+    	this.asDate = dto.getAs_date() ;
+    	this.product =prod;
+    	this.deliveryPrice = dto.getDel_price() ;
+    	this.sellType = dto.getSell_type() ;
+    	this.detailImage=detail;
+    	if( dto.getSell_type()==2) {
+        	this.directPrice = dto.getDir_price() ;
+        	this.curPrice= dto.getDir_price() ;	
+    	}
+    	else {
+    		
+    		this.startDate=dto.getStart_date().orElse(null);
+        	this.endDate=dto.getEnd_date().orElse(null);
+        	this.unitPrice = dto.getUnit_price() ;
+        	this.directPrice = dto.getDir_price() ;
+        	this.auctionPrice = dto.getAuc_price() ;
+        	this.curPrice= dto.getAuc_price() ;	
+    	}
+	
+    }
 
 }

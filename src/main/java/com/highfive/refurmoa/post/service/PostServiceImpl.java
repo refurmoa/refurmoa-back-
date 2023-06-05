@@ -151,7 +151,7 @@ public class PostServiceImpl implements PostService {
 		}else {
 			detailName=boardRepository.findByBoardNum(prodDto.getBoard_num()).getDetailImage();
 		}
-		System.out.println(prodDto.getProduct_code());
+		
 		ProdPartner tmp =new ProdPartner();
 		Product productEntity = new Product(prodDto.getProduct_code(),tmp,prodDto.getCategory_code(),prodDto.getCategory(),mainName,prodDto.getProd_com(),
 				prodDto.getProd_name(),prodDto.getProd_grade(),prodDto.getOrg_price(),prodDto.isGuarantee(),prodDto.getDeffect_text(),prodDto.getDeffect_image1(),
@@ -159,9 +159,9 @@ public class PostServiceImpl implements PostService {
 		insertProd(prodDto.getCom_num(),productEntity);
 		productrepository.save(productEntity);
 		
-		Board board= new Board(prodDto.getBoard_num(),productEntity,prodDto.getSell_type(),prodDto.getDir_price(),prodDto.getAuc_price(),prodDto.getUnit_price(),
-				prodDto.getOrg_price(),prodDto.getAs_date(),prodDto.getDel_price(),detailName,prodDto.getStart_date(),prodDto.getEnd_date(),
-				prodDto.getReadCount(),prodDto.getUpdate_date(),prodDto.isDeleteCheck());
+		
+		
+		Board board= new Board(productEntity,prodDto,detailName);
 		boardRepository.save(board);
 		
 		return productEntity.getProductCode();
