@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -38,7 +37,7 @@ public class NoticeController {
 		List<NoticeResponseDTO> list = new ArrayList<>();
 		for (MultipartFile file : uploadfiles) {
 			if(!file.isEmpty()) {
-				File storedFilename = new File(UUID.randomUUID().toString() + "_" + file.getOriginalFilename());
+				File storedFilename = new File(file.getOriginalFilename());
 				NoticeResponseDTO entity = new NoticeResponseDTO(file.getOriginalFilename(), 
 						   										 storedFilename.toString());
 				list.add(entity);
@@ -60,6 +59,17 @@ public class NoticeController {
 		return noticeServiceImpl.listNoticeBoard(pageable);
 	}
 	
+	// 공지사항 수정
+	@RequestMapping("/cs/notice/update")
+	public void updateNotice(@RequestBody NoticeBoard noticeBoard) {
+		noticeServiceImpl.updateNotice(noticeBoard);
+	}
 	
+	// 공지사항 삭제
+    @RequestMapping("/cs/notice/delete")
+    public void deleteNotice(@RequestBody NoticeBoard vo){
+    	System.out.println(vo.getNotiNum());
+    	noticeServiceImpl.deleteNotice(vo.getNotiNum());
+    }
 
 }

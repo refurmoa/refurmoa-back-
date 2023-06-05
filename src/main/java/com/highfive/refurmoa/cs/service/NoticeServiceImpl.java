@@ -27,4 +27,16 @@ public class NoticeServiceImpl implements NoticeService {
 		return repository.findAll(pageable);
 	}
 	
+	// 공지사항 수정
+    @Override
+    public NoticeBoard updateNotice(NoticeBoard noticeBoard) {
+        return repository.save(noticeBoard);
+    }
+    
+	// 공지사항 삭제
+    @Override
+    public void deleteNotice(int notiNum) {
+        repository.deleteById(notiNum);
+    }
+	
 }
