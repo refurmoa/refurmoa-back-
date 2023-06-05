@@ -16,7 +16,6 @@ public interface PayService {
 
     PayInfoResponseDTO getPayInfo(int boardNum, int sellType); // 결제(상품)정보 조회
     UserInfoResponseDTO getUserInfo(String memberId); // 회원 정보 조회
-    void insertPay(@RequestBody PayRequestDTO payRequestDTO); // 결제
     public Page<couponListDTO> couponList(String id, Pageable pageable);//쿠폰 조회
     void insertPay(PayRequestDTO payRequestDTO); // 결제
     PayDetailResponseDTO getPayDetail(PayDetailRequestDTO payDetailRequestDTO); // 주문 상세 정보 조회
