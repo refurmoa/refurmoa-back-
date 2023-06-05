@@ -2,6 +2,7 @@ package com.highfive.refurmoa.entity;
 
 import java.util.Date;
 
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -22,6 +23,7 @@ import lombok.Setter;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @Setter
 public class Coupon {
 
@@ -57,4 +59,7 @@ public class Coupon {
     @Temporal(TemporalType.TIMESTAMP)
     private Date useDate;
 
+    public Coupon(int sale_price) {
+        this.salePrice = sale_price;
+    }
 }

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.pay.dto.request.PayDetailRequestDTO;
 import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
+import com.highfive.refurmoa.pay.dto.response.PayDetailResponseDTO;
 import com.highfive.refurmoa.pay.dto.response.PayInfoResponseDTO;
 import com.highfive.refurmoa.pay.dto.response.UserInfoResponseDTO;
 import com.highfive.refurmoa.pay.dto.response.couponListDTO;
@@ -51,4 +53,9 @@ public class PayController {
         return payService.couponList(id, pageable);
     }
 
+    // 주문 상세 정보 조회
+    @PostMapping("/detail")
+    public PayDetailResponseDTO getPayDetail(@RequestBody PayDetailRequestDTO payDetailRequestDTO) {
+        return payService.getPayDetail(payDetailRequestDTO);
+    }
 }

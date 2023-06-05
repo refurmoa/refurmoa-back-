@@ -77,4 +77,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     
     @Query(value="select count(*) as cnt from payment where member_id=:memberId and pay_cancel=0" , nativeQuery=true)
 	public int payment(@Param("memberId") String memberId);
+
+    // board_num으로 결제정보 찾기
+    Payment findByBoardBoardNum(int boardNum);
 }
