@@ -112,7 +112,7 @@ public class MemberServiceImpl implements MemberService {
  		Member mem=repository.findByMemberId(id);
  		int order=paymentRepository.payment(mem.getMemberId());//결제 배송
  		int bid=repository.bidCount(mem.getMemberId());//입찰 내역
- 		int uselike=repository.uselike(mem.getMemberId());//찜한 상품
+ 		int uselike=userlikeRepository.uselike(mem.getMemberId());//찜한 상품
  		return new MemberInfoDTO(mem,order,bid,uselike);
  				
  	}
@@ -120,13 +120,17 @@ public class MemberServiceImpl implements MemberService {
  	@Override
  	 public MembershipDTO membership(String id) {
  		Member mem=repository.findByMemberId(id);
- 		memberGradeDTO grade= new memberGradeDTO(mem.getGrade(),repository.payamount(id));
+ 		Integer num=0;
+ 		if(paymentRepository.payamount(id)!=null)num=paymentRepository.payamount(id);
+ 		memberGradeDTO grade= new memberGradeDTO(mem.getGrade(),num);
  		List<Mile> memmile=milerepository.mileList(mem.getMemberId());//마일리지 리스트
  		List<historyDTO> his=new ArrayList<>();
  		for(Mile tmp:memmile) {
  			his.add(new historyDTO(tmp.getContent(),tmp.getPoint()));
  		}
- 		mileDTO mile =new mileDTO(repository.mileAmount(mem.getMemberId()),his);
+ 		Integer milege=0;
+ 		if(milerepository.mileAmount(mem.getMemberId())!=null)milege=milerepository.mileAmount(mem.getMemberId());
+ 		mileDTO mile =new mileDTO(milege,his);
  		
  		List<Coupon> coupon=couponrepository.memCoupon(mem.getMemberId(),new Date());
  		List<couponDTO> memcou=new ArrayList<>();

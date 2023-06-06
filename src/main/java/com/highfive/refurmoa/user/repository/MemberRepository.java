@@ -40,16 +40,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	@Query(value="select count(DISTINCT c.board_num ) as cnt from member m left join bid c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId ", nativeQuery=true)
 	public int bidCount(@Param("memberId") String memberId);
 	
-	//찜목록
-	@Query(value="select count(*) as cnt from member m left join userlike c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId " , nativeQuery=true)
-	public int uselike(@Param("memberId") String memberId);
-
-	
-	@Query(value="select sum(c.prod_price) from member m left join payment c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId  " , nativeQuery=true)
-	public int payamount(@Param("memberId") String memberId);
-	
-	@Query(value="select sum(c.point) as sum from member m left join mile c on m.MEMBER_ID = c.MEMBER_ID where m.member_id=:memberId " , nativeQuery=true)
-	public int mileAmount(@Param("memberId") String memberId);
 
 	@Transactional
 	@Modifying

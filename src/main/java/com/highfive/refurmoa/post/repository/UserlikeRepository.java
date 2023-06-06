@@ -15,5 +15,7 @@ public interface UserlikeRepository extends JpaRepository<Userlike, Integer> {
     Userlike findByBoardBoardNumAndMemberMemberId(int board_num, String member_id);
   
     List<Userlike> findByMemberMemberId(String memberId);
-  
+  //찜목록
+  	@Query(value="select count(*) as cnt from  userlike where member_id=:memberId " , nativeQuery=true)
+  	public Integer uselike(@Param("memberId") String memberId);
 }
