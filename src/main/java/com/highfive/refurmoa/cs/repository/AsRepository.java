@@ -18,6 +18,6 @@ public interface AsRepository extends JpaRepository<AsStore, Integer> {
 	
 	Page<AsStore> findByStoreNameContaining(String storeName,Pageable pageable);	// as 매장명 검색
 	
-	Page<AsStore> findAll(Pageable pageable);
+	Page<AsStore> findAllByOrderByStoreName(Pageable pageable);
 
 }

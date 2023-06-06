@@ -20,7 +20,7 @@ private final AsRepository repository;
 //	as 매장 조회
 	@Override
 	public Page<AsStore> listAsStore(Pageable pageable) {
-		return repository.findAll(pageable);
+		return repository.findAllByOrderByStoreName(pageable);
 	}
 
 //	as 매장 등록
