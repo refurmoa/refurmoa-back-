@@ -63,7 +63,7 @@ public class PayController {
     // 결제 취소
     @PostMapping("/cancel")
     public void canclePay(@RequestBody PayCancleDTO vo) {
-    	System.out.println(vo.getMemberId());
-       payService.canclePay(vo.getMemberId(), vo.getProductCode());
+    	System.out.println(vo.getPayNum());
+       payService.canclePay(vo.getPayNum(), vo.getProductCode());
     }
 }

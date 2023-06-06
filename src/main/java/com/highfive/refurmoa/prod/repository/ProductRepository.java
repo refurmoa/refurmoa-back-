@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+	// 상품 목록 조회
 	@Query("SELECT p FROM Product p " +
 			"WHERE p.prodName LIKE %:search% AND p.category LIKE %:category% AND p.prodState IN :status " +
 			"ORDER BY CASE WHEN p.prodState = 0 THEN true ELSE false END DESC")
