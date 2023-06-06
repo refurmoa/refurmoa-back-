@@ -8,6 +8,4 @@ import lombok.Setter;
 public class PayCancleDTO {
 	private int productCode;
 	private String payNum;
-	
-
 }
