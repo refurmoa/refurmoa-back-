@@ -128,9 +128,7 @@ public class MemberServiceImpl implements MemberService {
  		for(Mile tmp:memmile) {
  			his.add(new historyDTO(tmp.getContent(),tmp.getPoint()));
  		}
- 		Integer milege=0;
- 		if(milerepository.mileAmount(mem.getMemberId())!=null)milege=milerepository.mileAmount(mem.getMemberId());
- 		mileDTO mile =new mileDTO(milege,his);
+ 		mileDTO mile =new mileDTO(mem.getMile(),his);
  		
  		List<Coupon> coupon=couponrepository.memCoupon(mem.getMemberId(),new Date());
  		List<couponDTO> memcou=new ArrayList<>();
