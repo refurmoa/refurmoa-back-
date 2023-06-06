@@ -95,7 +95,7 @@ public class PayServiceImpl implements PayService {
     }
 
 	@Override
-	public void canclePay(int payNum, int productCode) {
+	public void canclePay(String payNum, int productCode) {
 		paymentRepository.canclePay(payNum, productCode);
 	}
     

@@ -7,7 +7,5 @@ import lombok.Setter;
 @Setter
 public class PayCancleDTO {
 	private int productCode;
-	private int payNum;
-	
-
+	private String payNum;
 }
