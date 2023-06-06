@@ -63,8 +63,8 @@ public class DeliServiceImpl implements DeliService {
     	
     }	
     @Override
-    public int updatDeliNum(int num,String deli_num) {
-    	deliveryRepository.updatDeliNum(num,deli_num);
+    public int updatDeliNum(int payNum,String deli_num) {
+    	deliveryRepository.updatDeliNum(payNum,deli_num);
     	return 1;
     }
     

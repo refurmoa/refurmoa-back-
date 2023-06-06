@@ -43,6 +43,6 @@ public interface DeliveryRepository extends JpaRepository <Delivery, Integer> {
     
     @Transactional
     @Modifying
-    @Query("UPDATE Delivery d SET d.deliNum =:deli  WHERE d.num = :num")
-    void updatDeliNum(@Param("num") int num,@Param("deli") String deli); // 판매 글 삭제
+    @Query("UPDATE Delivery d SET d.deliNum =:deli  WHERE d.num = :payNum")
+    void updatDeliNum(@Param("payNum") int payNum, @Param("deli") String deli); // 판매 글 삭제
 }

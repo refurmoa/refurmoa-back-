@@ -5,9 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PayCancleDTO {
-	private int productCode;
+public class DeliNumDTO {
 	private int payNum;
-	
+	private String deli_num;
 
 }

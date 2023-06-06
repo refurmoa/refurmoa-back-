@@ -17,6 +17,6 @@ public interface PayService {
     public Page<couponListDTO> couponList(String id, Pageable pageable);//쿠폰 조회
     void insertPay(PayRequestDTO payRequestDTO); // 결제
     PayDetailResponseDTO getPayDetail(PayDetailRequestDTO payDetailRequestDTO); // 주문 상세 정보 조회
-    public void canclePay(String id, int productCode);
+    public void canclePay(int payNum, int productCode);
     
 }
