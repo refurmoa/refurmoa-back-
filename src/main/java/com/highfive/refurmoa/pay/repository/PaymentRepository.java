@@ -89,4 +89,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     @Transactional
 	@Query(value="update payment as m, product as d set m.pay_cancel = 1, d.prod_state = 2 where m.product_code = :productCode and m.member_id = :id and d.product_code = :productCode", nativeQuery=true)
 	void canclePay(@Param("id") String id, @Param("productCode") int productCode);
+    
+    @Query(value="select sum(prod_price) from payment where member_id=:memberId" , nativeQuery=true)
+	public Integer payamount(@Param("memberId") String memberId);
 }
