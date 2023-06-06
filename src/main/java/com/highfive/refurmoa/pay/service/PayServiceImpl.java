@@ -1,6 +1,18 @@
 package com.highfive.refurmoa.pay.service;
 
-import com.highfive.refurmoa.entity.*;
+import java.util.Date;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.highfive.refurmoa.entity.Board;
+import com.highfive.refurmoa.entity.Coupon;
+import com.highfive.refurmoa.entity.Delivery;
+import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.entity.Mile;
+import com.highfive.refurmoa.entity.Payment;
 import com.highfive.refurmoa.pay.dto.request.PayDetailRequestDTO;
 import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
 import com.highfive.refurmoa.pay.dto.response.PayDetailResponseDTO;
@@ -13,13 +25,6 @@ import com.highfive.refurmoa.post.repository.BoardRepository;
 import com.highfive.refurmoa.user.repository.CouponRepository;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 import com.highfive.refurmoa.user.repository.MileRepository;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
-import java.util.Optional;
 
 @Service
 public class PayServiceImpl implements PayService {
@@ -88,4 +93,11 @@ public class PayServiceImpl implements PayService {
         }
         return new PayDetailResponseDTO(payment, delivery, coupon);
     }
+
+	@Override
+	public void canclePay(String id, int productCode) {
+		paymentRepository.canclePay(id, productCode);
+	}
+    
+ 
 }

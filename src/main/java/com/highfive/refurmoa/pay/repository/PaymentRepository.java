@@ -1,13 +1,17 @@
 package com.highfive.refurmoa.pay.repository;
 
-import com.highfive.refurmoa.entity.Payment;
+import java.util.Date;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Date;
+import com.highfive.refurmoa.entity.Payment;
+
+import jakarta.transaction.Transactional;
 
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
@@ -80,4 +84,9 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
     // board_num으로 결제정보 찾기
     Payment findByBoardBoardNum(int boardNum);
+    
+    @Modifying 
+    @Transactional
+	@Query(value="update payment as m, product as d set m.pay_cancel = 1, d.prod_state = 2 where m.product_code = :productCode and m.member_id = :id and d.product_code = :productCode", nativeQuery=true)
+	void canclePay(@Param("id") String id, @Param("productCode") int productCode);
 }
