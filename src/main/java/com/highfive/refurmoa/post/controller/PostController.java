@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +37,14 @@ public class PostController {
         this.postServiceImpl = postServiceImpl;
         this.productServiceImpl=productServiceImpl;
     }
-  
+    @Value("${spring.servlet.multipart.location}")
+    String imageDir;
+    private String saveImage(MultipartFile imageFile) throws IOException {
+        String imgName = UUID.randomUUID() + "." +StringUtils.getFilename(imageFile.getOriginalFilename());
+        File file = new File(imageDir + "prod\\" + imgName);
+        imageFile.transferTo(file);
+        return imgName;
+    }
     // 찜 등록/취소
     @PostMapping("/like")
     public void userlikeupdate(@RequestBody UserlikeRequestDTO userlikeDTO) {
@@ -70,14 +79,12 @@ public class PostController {
     	return prodNum;
     }
     @PostMapping("/file")
-	public int upload(@RequestBody MultipartFile[] uploadfiles) throws IOException {
+	public int upload(@RequestBody(required = false) MultipartFile[] uploadfiles) throws IOException {
        
 		int prod_num = prodNum;
 		String[] tmp=new String[]{null,null,null};
 		for (int i=0;i<uploadfiles.length;i++) {
-			File defect = new File("prod\\"+UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
-			uploadfiles[i].transferTo(defect);
-			tmp[i]=defect.toString();
+			tmp[i]=saveImage(uploadfiles[i]);
 		}
 		ProdFileDTO dto= new ProdFileDTO(prod_num,tmp[0],tmp[1],tmp[2]);
 		productServiceImpl.insertFile(dto);
