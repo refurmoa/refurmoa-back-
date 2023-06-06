@@ -70,7 +70,7 @@ public class ProductController {
 	public int upload(@RequestBody(required = false) MultipartFile[] uploadfiles) throws IOException {
 		String[] tmp = new String[]{null,null,null};
 		for (int i = 0; i < uploadfiles.length; i++) {
-			tmp[i] = saveImage(uploadfiles[i])
+			tmp[i] = saveImage(uploadfiles[i]);
 		}
 		ProdFileDTO dto= new ProdFileDTO(prodNum,tmp[0],tmp[1],tmp[2]);
 		productServiceImpl.insertFile(dto);
