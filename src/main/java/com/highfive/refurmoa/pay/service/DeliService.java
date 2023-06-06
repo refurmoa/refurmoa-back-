@@ -8,4 +8,5 @@ import com.highfive.refurmoa.pay.dto.response.DeliResponseDTO;
 
 public interface DeliService {
 	public Page<DeliResponseDTO> adminOrder(String search,Pageable pagealbe);
+	public int updatDeliNum(int num,String deli_num);
 }

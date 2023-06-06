@@ -17,6 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class DeliResponseDTO {
 	private String pay_num;
+	private int num;
 	private int product_code ;
 	private int board_num;
 	private String receipt_name;

@@ -6,13 +6,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.highfive.refurmoa.entity.Coupon;
 import com.highfive.refurmoa.entity.Delivery;
-import com.highfive.refurmoa.entity.Member;
 import com.highfive.refurmoa.pay.dto.response.DeliResponseDTO;
-import com.highfive.refurmoa.pay.dto.response.couponListDTO;
 import com.highfive.refurmoa.pay.repository.DeliveryRepository;
-import com.highfive.refurmoa.pay.repository.PayRepository;
+import com.highfive.refurmoa.pay.repository.PaymentRepository;
 import com.highfive.refurmoa.post.repository.BoardRepository;
 import com.highfive.refurmoa.user.repository.CouponRepository;
 import com.highfive.refurmoa.user.repository.MemberRepository;
@@ -20,14 +17,14 @@ import com.highfive.refurmoa.user.repository.MileRepository;
 
 @Service
 public class DeliServiceImpl implements DeliService {
-	private final PayRepository payRepository;
+	private final PaymentRepository payRepository;
     private final DeliveryRepository deliveryRepository;
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
     private final CouponRepository couponRepository;
     private final MileRepository mileRepository;
 
-    public DeliServiceImpl(PayRepository payRepository, DeliveryRepository deliveryRepository, BoardRepository boardRepository,
+    public DeliServiceImpl(PaymentRepository payRepository, DeliveryRepository deliveryRepository, BoardRepository boardRepository,
                           MemberRepository memberRepository, CouponRepository couponRepository, MileRepository mileRepository) {
         this.payRepository = payRepository;
         this.deliveryRepository = deliveryRepository;
@@ -45,6 +42,7 @@ public class DeliServiceImpl implements DeliService {
 			
 			String pay_num=tmp.getPayment().getPayNum();
 			int product_code=tmp.getProduct().getProductCode();
+			int num=tmp.getNum();
 			int board_num=tmp.getPayment().getBoard().getBoardNum();
 			String receipt_name=tmp.getReceiptName();
 			String receipt_phone=tmp.getReceiptPhone();
@@ -59,11 +57,15 @@ public class DeliServiceImpl implements DeliService {
 			
 			Date pay_date=tmp.getPayment().getPayDate();
 			
-			return new DeliResponseDTO(pay_num,product_code,board_num,receipt_name,receipt_phone,deli_num,state,pay_date);
+			return new DeliResponseDTO(pay_num,num,product_code,board_num,receipt_name,receipt_phone,deli_num,state,pay_date);
 		});
 		return Page;
     	
     }	
-   
+    @Override
+    public int updatDeliNum(int num,String deli_num) {
+    	deliveryRepository.updatDeliNum(num,deli_num);
+    	return 1;
+    }
     
 }
