@@ -57,7 +57,7 @@ public class ProductController {
 	@PostMapping("/file")
 	public int upload(@RequestBody MultipartFile[] uploadfiles, int prodNum) throws IOException {
 		int prod_num = prodNum;
-		String[] tmp = new String[]{"","",""};
+		String[] tmp = new String[]{null,null,null};
 		for (int i = 0; i < uploadfiles.length; i++) {
 			File defect = new File("prod\\"+ UUID.randomUUID().toString().replaceAll("-", "")+".jpg");
 			uploadfiles[i].transferTo(defect);
