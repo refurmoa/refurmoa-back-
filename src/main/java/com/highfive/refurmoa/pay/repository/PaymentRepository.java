@@ -24,14 +24,14 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
             "AND :startDate < p.payDate " +
             "AND p.payDate < :endDate"
     )
-    Page<Payment> findByMemberIdAndPeriod(String memberId, Date startDate, Date endDate, Pageable pageable);
+    Page<Payment> findByMemberIdAndPeriod(@Param("memberId") String memberId,@Param("startDate") Date startDate,@Param("endDate") Date endDate, Pageable pageable);
 
     // 결제 내역 검색
     @Query("SELECT p FROM Payment p " +
             "WHERE p.member.memberId = :memberId " +
             "AND p.product.prodName like %:search%"
     )
-    Page<Payment> findByMemberIdAndSearch(String memberId, String search, Pageable pageable);
+    Page<Payment> findByMemberIdAndSearch(@Param("memberId") String memberId,@Param("search") String search, Pageable pageable);
 
     // 상품 코드로 결제 내역 조회
     Payment findByProductProductCode(int productCode);
@@ -87,6 +87,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Integer> {
     
     @Modifying 
     @Transactional
-	@Query(value="update payment as m, product as d set m.pay_cancel = 1, d.prod_state = 2 where m.product_code = :productCode and m.member_id = :id and d.product_code = :productCode", nativeQuery=true)
-	void canclePay(@Param("id") String id, @Param("productCode") int productCode);
+	@Query(value="update payment as m, product as d set m.pay_cancel = 1, d.prod_state = 2 where m.product_code = :productCode and m.pay_num = :payNum and d.product_code = :productCode", nativeQuery=true)
+	void canclePay(@Param("payNum") int payNum, @Param("productCode") int productCode);
 }
