@@ -37,16 +37,16 @@ public class PostController {
         this.postServiceImpl = postServiceImpl;
         this.productServiceImpl=productServiceImpl;
     }
+  
     @Value("${spring.servlet.multipart.location}")
-	  String imageDir;
-	 
-	 private String saveImage(MultipartFile imageFile) throws IOException {
-	        String imgName = UUID.randomUUID() + "." +StringUtils.getFilename(imageFile.getOriginalFilename());
-	        File file = new File(imageDir + "prod\\" + imgName);
-	        imageFile.transferTo(file);
-	        return imgName;
-	   }
-
+    String imageDir;
+    private String saveImage(MultipartFile imageFile) throws IOException {
+        String imgName = UUID.randomUUID() + "." +StringUtils.getFilename(imageFile.getOriginalFilename());
+        File file = new File(imageDir + "prod\\" + imgName);
+        imageFile.transferTo(file);
+        return imgName;
+    }
+  
     // 찜 등록/취소
     @PostMapping("/like")
     public void userlikeupdate(@RequestBody UserlikeRequestDTO userlikeDTO) {
@@ -70,18 +70,21 @@ public class PostController {
     	return postServiceImpl.Postinfo(board_num);
     }
     private int prodNum;
+  
     @PostMapping("/write")
     public int PostWrite(@RequestParam(value="main_image",required = false) MultipartFile mainImg,@RequestParam(value="detailFile",required = false) MultipartFile detailFile,PostWriteDTO postDto) throws IllegalStateException, IOException  {
     	prodNum=postServiceImpl.PostWrite(mainImg,detailFile,postDto);
     	return prodNum;
     }
+  
     @PostMapping("/update")
     public int PostUpdate(@RequestParam(value="main_image",required = false) MultipartFile mainImg,@RequestParam(value="detailFile",required = false) MultipartFile detailFile,PostWriteDTO postDto) throws IllegalStateException, IOException  {
     	prodNum=postServiceImpl.PostWrite(mainImg,detailFile,postDto);
     	return prodNum;
     }
+  
     @PostMapping("/file")
-	public int upload(@RequestBody(required = false)MultipartFile[] uploadfiles) throws IOException {
+	public int upload(@RequestBody(required = false) MultipartFile[] uploadfiles) throws IOException {
        
 		int prod_num = prodNum;
 		String[] tmp=new String[]{null,null,null};
@@ -91,12 +94,14 @@ public class PostController {
 		ProdFileDTO dto= new ProdFileDTO(prod_num,tmp[0],tmp[1],tmp[2]);
 		productServiceImpl.insertFile(dto);
 		return 1;
-    }
+  }
+  
     //판매글에서 상품 찾기
     @GetMapping("/prod-search")
 	 public Page<FindProductDTO> findProduct(@RequestParam(value="search") String search, Pageable pageable) {
 		return productServiceImpl.findProduct(search,pageable);
 	}
+    
     //상품 목록에서 판매글 작성으로
     @GetMapping("/write/prod")
 	 public FindProductDTO PostProdWrite(@RequestParam(value="prod") int prod) {

@@ -1,7 +1,7 @@
 package com.highfive.refurmoa.prod.controller;
 
 import com.highfive.refurmoa.prod.service.ProductServiceImpl;
-
+import com.highfive.refurmoa.post.service.PostServiceImpl;
 import com.highfive.refurmoa.prod.DTO.request.ProdFileDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProdResponseDTO;
 import com.highfive.refurmoa.prod.DTO.request.ProductWriteDTO;
@@ -24,20 +24,24 @@ import java.io.IOException;
 import java.util.UUID;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/prod")
 public class ProductController {
 
 	private final ProductServiceImpl productServiceImpl;
+  
+	public ProductController(ProductServiceImpl productServiceImpl) {
+	        this.productServiceImpl=productServiceImpl;
+	    }
+  
 	 @Value("${spring.servlet.multipart.location}")
-	  String imageDir;
-	 
-	 private String saveImage(MultipartFile imageFile) throws IOException {
+	    String imageDir;
+	    private String saveImage(MultipartFile imageFile) throws IOException {
 	        String imgName = UUID.randomUUID() + "." +StringUtils.getFilename(imageFile.getOriginalFilename());
 	        File file = new File(imageDir + "prod\\" + imgName);
 	        imageFile.transferTo(file);
 	        return imgName;
 	   }
+  
 	// 상품 목록 조회
 	@GetMapping("")
 	public Page<ProdListResponseDTO> productList(@RequestParam String search, @RequestParam String category, @RequestParam String status, Pageable pageable) {
@@ -66,13 +70,12 @@ public class ProductController {
 
 	// 상품 이미지 저장
 	@PostMapping("/file")
-	public int upload(@RequestBody MultipartFile[] uploadfiles, int prodNum) throws IOException {
-		int prod_num = prodNum;
+	public int upload(@RequestBody(required = false) MultipartFile[] uploadfiles) throws IOException {
 		String[] tmp = new String[]{null,null,null};
 		for (int i = 0; i < uploadfiles.length; i++) {
 			tmp[i] = saveImage(uploadfiles[i]);
 		}
-		ProdFileDTO dto= new ProdFileDTO(prod_num,tmp[0],tmp[1],tmp[2]);
+		ProdFileDTO dto= new ProdFileDTO(prodNum,tmp[0],tmp[1],tmp[2]);
 		productServiceImpl.insertFile(dto);
 		return 1;
 	}
