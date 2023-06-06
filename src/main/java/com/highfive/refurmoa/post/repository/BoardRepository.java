@@ -19,7 +19,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     // 판매상태(all)
     @Query("SELECT b FROM Board b LEFT JOIN product p " +
             "WHERE b.deleteCheck = false AND b.sellType != :sellType " +
-            "AND NOT b.startDate = :date_now " + // 오류방지
+//            "AND NOT b.startDate = :date_now " + // 오류방지
             "AND p.prodName LIKE %:search% AND p.category LIKE %:category% " +
             "ORDER BY CASE WHEN (b.endDate > :date_now) OR (b.endDate is null) THEN 0 ELSE 1 END")
     Page<Board> findSellStatusAllAndNewOrView(@Param("sellType") int sellType, @Param("search") String search,
