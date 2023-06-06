@@ -35,12 +35,10 @@ public interface DeliveryRepository extends JpaRepository <Delivery, Integer> {
     )
     Long getPrepareCount();
     
-    @Query("SELECT d FROM Delivery d LEFT JOIN payment p  " +
-            "WHERE d.receiptName like %:search% " +
-            "or d.receiptPhone like %:search% "+
-            "or p.payNum like %:search% "+
-            " Order by  d.deliNum ASC, p.payNum DESC" 
-    )
+    @Query("SELECT d FROM Delivery d INNER JOIN d.payment p " +
+            "WHERE (d.receiptName LIKE %:search% OR d.receiptPhone LIKE %:search% OR p.payNum LIKE %:search% OR d.deliNum LIKE %:search%) " +
+            "AND p.payCancel = 0 " +
+            "ORDER BY CASE WHEN d.deliNum IS NULL THEN 0 ELSE 1 END, CASE WHEN d.deliNum IS NOT NULL THEN p.payDate END DESC")
     Page<Delivery> findOrder(@Param("search")String search,Pageable pageable);
     
     @Transactional
