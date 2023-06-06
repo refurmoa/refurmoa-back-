@@ -19,7 +19,7 @@ import java.util.Date;
 public class Payment {
 
     @Id
-    @Column(name = "pay_num", nullable = false)
+    @Column(name = "pay_num", nullable = false, length = 20)
     private String payNum;
 
     @ManyToOne(fetch = FetchType.LAZY)
