@@ -1,6 +1,18 @@
 package com.highfive.refurmoa.pay.service;
 
-import com.highfive.refurmoa.entity.*;
+import java.util.Date;
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.highfive.refurmoa.entity.Board;
+import com.highfive.refurmoa.entity.Coupon;
+import com.highfive.refurmoa.entity.Delivery;
+import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.entity.Mile;
+import com.highfive.refurmoa.entity.Payment;
 import com.highfive.refurmoa.pay.dto.request.PayDetailRequestDTO;
 import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
 import com.highfive.refurmoa.pay.dto.response.PayDetailResponseDTO;
@@ -10,23 +22,9 @@ import com.highfive.refurmoa.pay.dto.response.couponListDTO;
 import com.highfive.refurmoa.pay.repository.DeliveryRepository;
 import com.highfive.refurmoa.pay.repository.PaymentRepository;
 import com.highfive.refurmoa.post.repository.BoardRepository;
-import com.highfive.refurmoa.prod.DTO.response.FindProductDTO;
-import com.highfive.refurmoa.user.DTO.reponse.couponDTO;
 import com.highfive.refurmoa.user.repository.CouponRepository;
 import com.highfive.refurmoa.user.repository.MemberRepository;
 import com.highfive.refurmoa.user.repository.MileRepository;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PayServiceImpl implements PayService {
@@ -82,10 +80,7 @@ public class PayServiceImpl implements PayService {
     public Page<couponListDTO> couponList(String id,Pageable pageable){
     	Member mem=memberRepository.findByMemberId(id);
     	Page<Coupon> tmp=couponRepository.findCouponList(mem,new Date(),pageable);
-		Page<couponListDTO> Page =tmp.map(partner->{
-			return new couponListDTO(partner);
-		});
-		return Page;
+		return tmp.map(couponListDTO::new);
     }
 
     // 주문 상세 정보 조회
@@ -96,7 +91,13 @@ public class PayServiceImpl implements PayService {
         if (payment.getCouponNum() != null) {
             coupon = couponRepository.findById(payment.getCouponNum());
         }
-
         return new PayDetailResponseDTO(payment, delivery, coupon);
     }
+
+	@Override
+	public void canclePay(String id, int productCode) {
+		paymentRepository.canclePay(id, productCode);
+	}
+    
+ 
 }

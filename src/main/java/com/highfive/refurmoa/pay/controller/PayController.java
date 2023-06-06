@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.pay.dto.request.PayCancleDTO;
 import com.highfive.refurmoa.pay.dto.request.PayDetailRequestDTO;
 import com.highfive.refurmoa.pay.dto.request.PayRequestDTO;
 import com.highfive.refurmoa.pay.dto.response.PayDetailResponseDTO;
@@ -57,5 +58,12 @@ public class PayController {
     @PostMapping("/detail")
     public PayDetailResponseDTO getPayDetail(@RequestBody PayDetailRequestDTO payDetailRequestDTO) {
         return payService.getPayDetail(payDetailRequestDTO);
+    }
+    
+    // 결제 취소
+    @PostMapping("/cancel")
+    public void canclePay(@RequestBody PayCancleDTO vo) {
+    	System.out.println(vo.getMemberId());
+       payService.canclePay(vo.getMemberId(), vo.getProductCode());
     }
 }

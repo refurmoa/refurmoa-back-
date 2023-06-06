@@ -28,9 +28,11 @@ import java.util.UUID;
 public class ProductController {
 
 	private final ProductServiceImpl productServiceImpl;
+  
 	public ProductController(ProductServiceImpl productServiceImpl) {
 	        this.productServiceImpl=productServiceImpl;
 	    }
+  
 	 @Value("${spring.servlet.multipart.location}")
 	    String imageDir;
 	    private String saveImage(MultipartFile imageFile) throws IOException {
@@ -38,7 +40,8 @@ public class ProductController {
 	        File file = new File(imageDir + "prod\\" + imgName);
 	        imageFile.transferTo(file);
 	        return imgName;
-	    }
+	   }
+  
 	// 상품 목록 조회
 	@GetMapping("")
 	public Page<ProdListResponseDTO> productList(@RequestParam String search, @RequestParam String category, @RequestParam String status, Pageable pageable) {

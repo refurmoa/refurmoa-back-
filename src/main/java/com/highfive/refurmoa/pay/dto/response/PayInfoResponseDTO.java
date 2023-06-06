@@ -13,6 +13,7 @@ public class PayInfoResponseDTO {
     private String category_code;
     private int product_code;
     private String prod_com;
+    private String prod_grade;
     private String prod_name;
     private String main_image;
     private int delivery_price;
@@ -22,6 +23,7 @@ public class PayInfoResponseDTO {
         this.category_code = board.getProduct().getCategoryCode();
         this.product_code = board.getProduct().getProductCode();
         this.prod_com = board.getProduct().getProdCom();
+        this.prod_grade = board.getProduct().getProdGrade();
         this.prod_name = board.getProduct().getProdName();
         this.main_image = board.getProduct().getMainImage();
         this.delivery_price = board.getDeliveryPrice();
