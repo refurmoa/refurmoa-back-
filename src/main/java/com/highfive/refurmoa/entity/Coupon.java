@@ -2,11 +2,10 @@ package com.highfive.refurmoa.entity;
 
 import java.util.Date;
 
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.highfive.refurmoa.user.DTO.request.CouponRegiDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +18,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -35,7 +35,6 @@ public class Coupon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private Member memberId;
 
     @Column(name = "coupon_name", nullable = false, length = 20)
@@ -61,5 +60,12 @@ public class Coupon {
 
     public Coupon(int sale_price) {
         this.salePrice = sale_price;
+    }
+    public Coupon (Member mem,CouponRegiDTO dto) {
+    	this.memberId=mem;
+    	this.couponName=dto.getCouponName();
+    	this.issueDate=dto.getIssueDate();
+    	this.salePrice=dto.getSalePrice();
+    	this.validDate=dto.getValidDate();
     }
 }

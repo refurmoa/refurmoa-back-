@@ -6,16 +6,25 @@ import org.springframework.stereotype.Service;
 
 import com.highfive.refurmoa.entity.Coupon;
 import com.highfive.refurmoa.entity.Member;
+import com.highfive.refurmoa.pay.repository.PaymentRepository;
+import com.highfive.refurmoa.post.repository.BoardRepository;
+import com.highfive.refurmoa.post.repository.UserlikeRepository;
+import com.highfive.refurmoa.user.DTO.request.CouponRegiDTO;
 import com.highfive.refurmoa.user.repository.CouponRepository;
+import com.highfive.refurmoa.user.repository.MemberRepository;
+import com.highfive.refurmoa.user.repository.MileRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class CouponServiceImpl implements CouponService {
 	
 	private final CouponRepository repository;
-
+	private MemberRepository memrepository;
+	 public CouponServiceImpl(MemberRepository memrepository,CouponRepository repository) {
+	        this.repository = repository;
+	        this.memrepository=memrepository;
+	    }
 	//	쿠폰 조회
 	@Override
 	public List<Coupon> listCoupon(Member memberId) {
@@ -24,8 +33,11 @@ public class CouponServiceImpl implements CouponService {
 
 	//	쿠폰 등록
 	@Override
-	public Coupon insertCoupon(Coupon coupon) {
-		return repository.save(coupon);
+	public int insertCoupon(CouponRegiDTO coupon) {
+		Member mem=memrepository.findByMemberId(coupon.getMemberId());
+		Coupon tmp=new Coupon(mem,coupon);
+		repository.save(tmp);
+		return 1;
 	}
 
 }
