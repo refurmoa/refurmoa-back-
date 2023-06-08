@@ -44,7 +44,10 @@ public class MainServiceImpl implements MainService {
 		return array;
 	}
 	@Override
-	public List<Banner> bannerList(){ return bannerRepository.findRef(); }
+	public List<Banner> bannerList(){ 
+		Date today =new Date();
+		return bannerRepository.findRef(today); 
+		}
 	@Override
 	public List<Banner> bannerAdList(){ return bannerRepository.findAd(); }
 }
