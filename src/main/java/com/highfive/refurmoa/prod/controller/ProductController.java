@@ -71,7 +71,7 @@ public class ProductController {
 	// 상품 이미지 저장
 	@PostMapping("/file")
 	public int upload(@RequestBody(required = false) MultipartFile[] uploadfiles) throws IOException {
-		String[] tmp = new String[]{null,null,null};
+		String[] tmp = new String[3];
 		for (int i = 0; i < uploadfiles.length; i++) {
 			tmp[i] = saveImage(uploadfiles[i]);
 		}

@@ -25,7 +25,6 @@ public class BannerController {
         Page<GetBannerResponseDTO> getBannerResponseDTOS = banner.map(GetBannerResponseDTO::new);
         return getBannerResponseDTOS;
     }
-
     // 배너 목록 검색
     @GetMapping("/search")
     public Page<GetBannerResponseDTO> searchBanner(@RequestParam String search, Pageable pageable) {

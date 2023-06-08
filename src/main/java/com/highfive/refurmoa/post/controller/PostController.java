@@ -87,7 +87,7 @@ public class PostController {
 	public int upload(@RequestBody(required = false) MultipartFile[] uploadfiles) throws IOException {
        
 		int prod_num = prodNum;
-		String[] tmp=new String[]{null,null,null};
+		String[] tmp=new String[3];
 		for (int i=0;i<uploadfiles.length;i++) {
 			tmp[i]=saveImage(uploadfiles[i]);
 		}

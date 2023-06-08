@@ -79,10 +79,8 @@ public class ProdPartnerServiceImpl implements ProdPartnerService {
 	   Page<Product> tmp=repository.findPartnerProd(pp,search,pageable);
 	   Page<ProdListDTO> Page =tmp.map(partner->{
 		   int sell_status=0;
-		   Date[] date=repository.getDate(partner.getProductCode());
 		   if(partner.getProdState()==1) {
-			   if(now.compareTo(date[0])==1)sell_status=1;
-			   else sell_status=2;
+			  sell_status=1;
 			}
 			else if(partner.getProdState()==2)sell_status=3;
 			else if(partner.getProdState()==5)sell_status=4;
